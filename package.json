@@ -11,6 +11,8 @@
   "dependencies": {
     "@clerk/clerk-react": "^5.0.0",
     "@clerk/nextjs": "^5.0.1",
+    "@radix-ui/react-dialog": "^1.0.5",
+    "@radix-ui/react-tooltip": "^1.0.7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "convex": "^1.11.2",
