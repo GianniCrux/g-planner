@@ -32,7 +32,7 @@ export const Item = ({
     }
 
     return (
-    <div className="asppect-square relative" >
+    <div className="aspect-square relative" >
         <Image 
             fill
             src={imageUrl}
