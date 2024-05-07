@@ -5,6 +5,7 @@ import Image from "next/image";
 
 import { Poppins } from "next/font/google";
 import { cn } from "@/lib/utils";
+import { Sidebar } from "./sidebar";
 
 
 const font = Poppins({
@@ -15,7 +16,7 @@ const font = Poppins({
 
 export const OrgSidebar = () => {
     return (
-        <div className="hidden lg:flex flex-col space-y-6 w-[206px] pl-5 pt-5">
+        <div className="flex-col w-[206px] pl-5 pt-5">
             <Link href="/">
                 <div className="flex items-center gap-x-2">
                     <Image 
@@ -32,6 +33,10 @@ export const OrgSidebar = () => {
                     </span>
                 </div>
             </Link>
+            <div className="w-[280px]">
+            <Sidebar />
+            </div>
         </div>
+
     );
 };

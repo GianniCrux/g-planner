@@ -33,7 +33,7 @@ export const Item = ({
     }
 
     return (
-    <div className="aspect-square relative" >
+    <div className="aspect-square relative h-15 w-15" >
         <Hint
             label={name}
             side="right"
