@@ -33,9 +33,8 @@ export const OrgSidebar = () => {
                     </span>
                 </div>
             </Link>
-            <div className="w-[280px]">
             <Sidebar />
-            </div>
+
         </div>
 
     );
