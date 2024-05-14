@@ -1,8 +1,11 @@
 import { CardCreator } from "@/components/card";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+
 
 const DashboardPage = () => {
+
   return (
   <div className="h-full flex flex-col items-center justify-center">
     <Image
