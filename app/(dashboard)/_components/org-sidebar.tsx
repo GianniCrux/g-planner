@@ -3,12 +3,26 @@
 import Link from "next/link";
 import Image from "next/image";
 
+import { DropdownMenuArrow } from "@radix-ui/react-dropdown-menu";
+
+import { 
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+ } from "@/components/ui/dropdown-menu"
+import { Rows3 } from "lucide-react";
+
+
 import { Poppins } from "next/font/google";
 import { cn } from "@/lib/utils";
-import { Sidebar } from "./sidebar";
 import { OrganizationSwitcher } from "@clerk/clerk-react";
 import { Button } from "@/components/ui/button";
 import { LayoutDashboard } from "lucide-react";
+import { List } from "./sidebar/list";
+import { NewButton } from "./sidebar/new_button";
 
 const font = Poppins({
     subsets: ["latin"],
@@ -18,7 +32,7 @@ const font = Poppins({
 
 export const OrgSidebar = () => {
     return (
-        <div className="flex-col w-[206px] pl-5 pt-5">
+        <div className="flex-col w-[206px] pl-4 pt-2">
             <Link href="/">
                 <div className="flex items-center gap-x-2">
                     <Image 
@@ -67,9 +81,36 @@ export const OrgSidebar = () => {
                         Team notes
                     </Link>
                 </Button>
+                <Button
+                    variant="ghost"
+                    asChild
+                    size="lg"
+                    className="font-normal justify-start px-2 w-full"
+                >
+                    <Link href="/">
+                        <LayoutDashboard  className="h-4 w-4 mr-2" />
+                        Favorite notes
+                    </Link>
+                </Button>
+                <div>
+            <DropdownMenu> 
+                <DropdownMenuTrigger>
+                    <Link href="/" className="flex items-center">
+                <Rows3 className="h-4 w-4 mr-2" /> 
+                    Organizations List
+                    </Link>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                <DropdownMenuArrow></DropdownMenuArrow>
+                <DropdownMenuLabel> Select the organization </DropdownMenuLabel>  
+                <DropdownMenuSeparator>
+                </DropdownMenuSeparator>
+                    <List /> 
+                    <NewButton />
+                </DropdownMenuContent>
+            </DropdownMenu>
+                </div>
             </div>
-            <Sidebar />
-
         </div>
 
     );
