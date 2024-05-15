@@ -59,8 +59,8 @@ export const CardCreator = () => {
                     </SelectContent>
                   </Select>
                   <div className="flex flex-col space-y-1.5">
-                  <Label>User</Label>
-                  <Input id="user" placeholder="Assigned to"/>
+                  <Label>Assigned to</Label>
+                  <Input id="Assigned" placeholder="Select"/>
                 </div>
                 </div>
               </div>

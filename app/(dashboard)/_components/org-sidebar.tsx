@@ -13,7 +13,8 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
  } from "@/components/ui/dropdown-menu"
-import { Rows3 } from "lucide-react";
+import { Rows3, Star } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 
 
 import { Poppins } from "next/font/google";
@@ -31,6 +32,9 @@ const font = Poppins({
 
 
 export const OrgSidebar = () => {
+    const searchParams = useSearchParams(); 
+    const personal = searchParams.get("personal");
+
     return (
         <div className="flex-col w-[206px] pl-4 pt-2">
             <Link href="/">
@@ -71,25 +75,28 @@ export const OrgSidebar = () => {
             />
             <div className="space-y-1 w-full">
                 <Button
-                    variant="ghost"
+                    variant={personal ? "ghost" : "secondary"}
                     asChild
                     size="lg"
                     className="font-normal justify-start px-2 w-full"
                 >
                     <Link href="/">
                         <LayoutDashboard  className="h-4 w-4 mr-2" />
-                        Team notes
+                        Team tasks
                     </Link>
                 </Button>
                 <Button
-                    variant="ghost"
+                    variant={personal ? "secondary" : "ghost"}
                     asChild
                     size="lg"
                     className="font-normal justify-start px-2 w-full"
                 >
-                    <Link href="/">
-                        <LayoutDashboard  className="h-4 w-4 mr-2" />
-                        Favorite notes
+                    <Link href={{
+                        pathname: "/",
+                        query: { personal: true }
+                    }}>
+                        <Star  className="h-4 w-4 mr-2" />
+                        Personal tasks
                     </Link>
                 </Button>
                 <div>
@@ -97,16 +104,16 @@ export const OrgSidebar = () => {
                 <DropdownMenuTrigger>
                     <Link href="/" className="flex items-center">
                 <Rows3 className="h-4 w-4 mr-2" /> 
-                    Organizations List
+                  Organizations List 
                     </Link>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                 <DropdownMenuArrow></DropdownMenuArrow>
                 <DropdownMenuLabel> Select the organization </DropdownMenuLabel>  
-                <DropdownMenuSeparator>
-                </DropdownMenuSeparator>
+                <DropdownMenuSeparator />
                     <List /> 
                     <NewButton />
+
                 </DropdownMenuContent>
             </DropdownMenu>
                 </div>

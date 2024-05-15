@@ -15,7 +15,7 @@ const DashboardPage = () => {
       alt="Empty"
     />
     <h2 className="text-2xl font-semibold mt-6">
-      Create your first trask!
+      Create your first task!
     </h2>
     <p className="text-mutedforeground text-sm mt-2">
       Start by creating a task for your company.
