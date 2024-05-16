@@ -17,11 +17,10 @@ export const InviteButton = () => {
                     Invite members
                 </Button>
             </DialogTrigger>
-            <DialogContent  className="bg-transparent border-none max-w-[480px]">
-                <div className="max-w-md mx-auto ">
-                <OrganizationProfile 
-                routing="hash"/>
-                </div>
+            <DialogContent  className="bg-transparent border-none rounded-lg shadow-lg p-6 max-w-md mx-auto">
+            <div className="max-h-[550px] overflow-auto">
+          <OrganizationProfile routing="hash" />
+        </div>
             </DialogContent>
         </Dialog>
     );
