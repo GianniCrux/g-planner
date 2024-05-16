@@ -102,10 +102,16 @@ export const OrgSidebar = () => {
                 <div>
             <DropdownMenu> 
                 <DropdownMenuTrigger>
+                    <Button 
+                    variant="ghost"
+                    size="lg"
+                    className="font-normal justify-start px-2 w-full"
+                    >
                     <Link href="/" className="flex items-center">
                 <Rows3 className="h-4 w-4 mr-2" /> 
                   Organizations List 
                     </Link>
+                  </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                 <DropdownMenuArrow></DropdownMenuArrow>
