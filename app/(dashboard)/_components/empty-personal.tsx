@@ -4,7 +4,7 @@ export const EmptyPersonal = () => {
     return (
         <div className="h-full flex flex-col items-center justify-center">
             <Image 
-                src="/org.svg"
+                src="/empty-personal.svg"
                 height={140}
                 width={140}
                 alt="Empty"
