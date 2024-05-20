@@ -18,7 +18,7 @@ export const EmptyTask = () => {
       </p>
       <div className="mt-6">
         <Button size="lg">
-          Create task.
+          Create task
         </Button>
         </div>
         </div>
