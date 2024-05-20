@@ -1,7 +1,27 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
+import { api } from "@/convex/_generated/api";
+import { useApiMutation } from "@/hooks/use-api-mutation";
+
+
+import { useOrganization } from "@clerk/nextjs";
 import Image from "next/image";
 
 export const EmptyTask = () => {
+  const { organization } = useOrganization();
+  const { mutate, pending } = useApiMutation(api.task.create); //creating the mutation to create the task
+
+  const onClick = () => {
+    if (!organization) return; //breaking the function if there's no organization
+
+    mutate({
+      orgId: organization.id,
+      title: "Untitled",
+      description: "",     
+    })
+  }
+
     return (
         <div className="h-full flex flex-col items-center justify-center">
             <Image
@@ -17,7 +37,7 @@ export const EmptyTask = () => {
         Start by creating a task for your company.
       </p>
       <div className="mt-6">
-        <Button size="lg">
+        <Button disabled={pending} onClick={onClick} size="lg">
           Create task
         </Button>
         </div>
