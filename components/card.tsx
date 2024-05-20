@@ -28,7 +28,7 @@ export const CardCreator = () => {
         <Card className="w-[350px]">
           <CardHeader>
             <CardTitle>New order</CardTitle>
-            <CardDescription>Write here your new project, it will be added to your schedule</CardDescription>
+            <CardDescription>Write here your new task, it will be added to your schedule</CardDescription>
           </CardHeader>
           <CardContent>
             <form>
@@ -43,7 +43,7 @@ export const CardCreator = () => {
                 </div>
                 <div className="flex flex-col space-y-1.5">
                   <Label>Category</Label>
-                  <Input id="name" placeholder="Category" />
+                  <Input id="type" placeholder="Category" />
                 </div>
                 <div className="flex flex-col space-y-1.5">
                   <Label>Types</Label>
