@@ -25,7 +25,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Suspense fallback={<Loading />}>
         <ConvexClientProvider>
-        <Toaster />
+        <Toaster richColors/>
         {children}
         </ConvexClientProvider>
         </Suspense>
