@@ -68,7 +68,7 @@ export const CardCreator = () => {
           </CardContent>
           <CardFooter className="flex justify-between">
             <Button variant="outline">Cancel</Button>
-            <Button>Deploy</Button>
+            <Button>Create task</Button>
           </CardFooter>
         </Card>
         </div>

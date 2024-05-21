@@ -22,7 +22,7 @@ const DashboardPage = ({
   const { organization } = useOrganization();
 
   return (
-  <div className="h-[calc(100%-80px)] flex flex-col items-center justify-center p-6">
+  <div className="h-[calc(100%-80px)] flex flex-col p-6">
     {!organization ? (
     <EmptyOrg />
     ) : (
