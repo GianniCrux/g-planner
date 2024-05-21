@@ -7,6 +7,7 @@ import { useApiMutation } from "@/hooks/use-api-mutation";
 
 import { useOrganization } from "@clerk/nextjs";
 import Image from "next/image";
+import { toast } from "sonner";
 
 export const EmptyTask = () => {
   const { organization } = useOrganization();
@@ -20,6 +21,11 @@ export const EmptyTask = () => {
       title: "Untitled",
       description: "",     
     })
+      .then((id) => {
+        toast.success("Task created");
+        // TODO: redirect to task/{id}
+      })
+      .catch(() => toast.error("Failed to create the task"))
   }
 
     return (
