@@ -14,7 +14,7 @@ export const NewButton = () => {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <div className="aspect-square">
+                <div className="aspect-square bg-amber-300">
                     <Hint 
                     label="Create organization"
                     side="right"

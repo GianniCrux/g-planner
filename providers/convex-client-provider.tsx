@@ -8,6 +8,7 @@ import {
     ConvexReactClient,
 } from "convex/react";
 import { Loading } from "@/components/auth/loading";
+import {shadesOfPurple} from "@clerk/themes";
 
 interface ConvexClientProviderProps {
     children: React.ReactNode; //this provider will protect all of our children (so our app) with authentication  
@@ -21,7 +22,11 @@ export const ConvexClientProvider = ({
     children,
 }: ConvexClientProviderProps) => {
     return (
-    <ClerkProvider>
+    <ClerkProvider
+        appearance={{
+            baseTheme: shadesOfPurple
+        }}
+    >
         <ConvexProviderWithClerk useAuth={useAuth} client={convex}>
             <Authenticated>
             {children}

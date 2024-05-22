@@ -12,7 +12,7 @@ export const InviteButton = () => {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="outline" className="rounded-full bg-amber-500">
+                <Button variant="secondary" className="rounded-full bg-amber-500">
                     <Plus className="h-4 w-4 mr-2" />
                     Invite members
                 </Button>

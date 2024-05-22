@@ -53,7 +53,7 @@ export const OrgSidebar = () => {
                     </span>
                 </div>
             </Link>
-            <OrganizationSwitcher 
+            <OrganizationSwitcher
                 hidePersonal
                 appearance={{
                     elements: {
@@ -66,21 +66,28 @@ export const OrgSidebar = () => {
                         organizationSwitcherTrigger: {
                             padding: "6px",
                             width: "100%",
-                            borderRadius: "1px solid #E5E7EB",
+                            borderRadius: "1px solid #FFD54F",
                             justifyContent: "space-between",
-                            backgroundColor: "white",
+                            backgroundColor: "#FFD54F",
+                            color: "black",
+                        },
+                        organizationSwitcherDropdown: {
+                            backgroundColor: "black",
+                        },
+                        organizationSwitcherItem: {
+                            backgroundColor: "black"
                         }
                     }
                 }}
             />
-            <div className="space-y-1 w-full">
+            <div className="space-y-1 w-full bg-amber-300">
                 <Button
                     variant={personal ? "ghost" : "secondary"}
                     asChild
                     size="lg"
                     className="font-normal justify-start px-2 w-full"
                 >
-                    <Link href="/">
+                    <Link href="/" className="bg-amber-300">
                         <LayoutDashboard  className="h-4 w-4 mr-2" />
                         Team tasks
                     </Link>
@@ -113,7 +120,7 @@ export const OrgSidebar = () => {
                     </Link>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent>
+                <DropdownMenuContent className="bg-amber-300">
                 <DropdownMenuArrow></DropdownMenuArrow>
                 <DropdownMenuLabel> Select the organization </DropdownMenuLabel>  
                 <DropdownMenuSeparator />
