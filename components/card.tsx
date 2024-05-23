@@ -21,6 +21,9 @@ import { Textarea } from "./ui/textarea";
 import { use, useState } from "react";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import { useApiMutation } from "@/hooks/use-api-mutation";
+import { useOrganization } from "@clerk/clerk-react";
+import { toast } from "sonner";
 
 
 interface Task {
@@ -32,7 +35,10 @@ interface Task {
 }
 
 export const CardCreator = () => {
+
+  const { organization } = useOrganization();
     
+  const { mutate } = useApiMutation(api.task.create);
 
   const [formData, setFormData] = useState<Task>({
     name: "",
@@ -42,7 +48,7 @@ export const CardCreator = () => {
     selectType: "", // Initialize with an empty string
   });
 
-  const [createdTasks, setCreatedTasks] = useState<Task[]>([]);
+
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -54,23 +60,30 @@ export const CardCreator = () => {
     }));
   };
 
+
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setCreatedTasks([...createdTasks, formData]);
-    setFormData({
-      name: "",
-      description: "",
-      type: "",
-      assignedTo: "",
-      selectType: "",
-    });
+    console.log(formData);
+    if (!organization) {
+      return
+    }
+    console.log("organizationId", organization.id)
+    mutate ({
+      orgId: organization.id,
+      title: formData.name,
+      description: formData.description,
+    }).then((id) => {
+      toast.success("Tasks created");
+    })
+    .catch(() => toast.error("Failed to create Task"));
   };
 
     return (
         <div className="flex justify-center items-center h-full">
         <Card className="w-[350px]">
           <CardHeader>
-            <CardTitle>New order</CardTitle>
+            <CardTitle>Create Tasks</CardTitle>
             <CardDescription>Write here your new task, it will be added to your schedule</CardDescription>
           </CardHeader>
           <CardContent>
@@ -136,21 +149,7 @@ export const CardCreator = () => {
             </form>
           </CardContent>
         </Card>
-        <div>
-        {createdTasks.map((task, index) => (
-          <Card key={index} className="mb-4">
-            <CardHeader>
-              <CardTitle>{task.name}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p>Description: {task.description}</p>
-              <p>Category: {task.type}</p>
-              <p>Assigned to: {task.assignedTo}</p>
-              <p>Type: {task.selectType}</p> {/* Display the selected type */}
-            </CardContent>
-          </Card>
-        ))}
-        </div>
+        
         </div>
         
       )

@@ -4,8 +4,6 @@
 interface TaskCardProps {
     id: string;
     title: string;
-    authorName: string;
-    authorId: string;
     createdAt: number;
     orgId: string;
     assignedTo?: boolean;
@@ -15,8 +13,6 @@ interface TaskCardProps {
 export const TaskCard = ({
     id,
     title,
-    authorId,
-    authorName,
     createdAt,
     orgId,
     assignedTo,
@@ -29,7 +25,7 @@ export const TaskCard = ({
         <div className="bg-yellow-200 p-4 rounded-lg shadow-md relative border border-yellow-300 min-w-[200px]"> {/* Sticky note styling */}
       <div className="font-bold text-lg mb-2">{title}</div> {/* Client Name */}
       <div className="text-sm text-gray-600">
-        Created by {authorName} on {formattedDate}
+        Created by on {formattedDate}
       </div>
       <div className="absolute top-2 right-2">
         {assignedTo ? (

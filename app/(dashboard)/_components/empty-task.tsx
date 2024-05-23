@@ -14,7 +14,8 @@ export const EmptyTask = () => {
   const { mutate, pending } = useApiMutation(api.task.create); //creating the mutation to create the task
 
   const onClick = () => {
-    if (!organization) return; //breaking the function if there's no organization
+    console.log("Onclick")
+   /*  if (!organization) return; //breaking the function if there's no organization
 
     mutate({
       orgId: organization.id,
@@ -25,7 +26,7 @@ export const EmptyTask = () => {
         toast.success("Task created");
         // TODO: redirect to task/{id}
       })
-      .catch(() => toast.error("Failed to create the task"))
+      .catch(() => toast.error("Failed to create the task")) */
   }
 
     return (

@@ -66,9 +66,7 @@ export const TaskList = ({
                         key={task._id}
                         id={task._id}
                         title={task.title}
-                        authorId={task.authorId}
-                        authorName={task.authorName}
-                        type={task.type}
+
                         assignedTo={true}
                         createdAt={task._creationTime}
                         orgId={task.orgId}

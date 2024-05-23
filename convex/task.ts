@@ -4,7 +4,7 @@ import { v } from "convex/values";
 
 import { mutation } from "./_generated/server";
 
-
+/* 
 export const create = mutation({
     args: { //passing the arguments which we expect a task must has before being created
         orgId: v.string(),
@@ -36,4 +36,31 @@ export const create = mutation({
 
         return task;
     }  
-})
+}) */
+
+export const create = mutation({
+    
+    args: {
+        orgId: v.string(),
+        title: v.string(),
+        description: v.string(),
+    },
+    handler: async (ctx, args) => {
+        const identity = await ctx.auth.getUserIdentity();
+
+        if (!identity) {
+            throw new Error("Unauthorized");
+        }
+
+        console.log(args.title, "ciaone")
+
+        const tasks = await ctx.db.insert("tasks", { 
+            orgId: args.orgId,
+            title: args.title,
+            description: args.description,
+         })
+            
+
+        return tasks;
+    },
+});
