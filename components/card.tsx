@@ -73,6 +73,7 @@ export const CardCreator = () => {
       orgId: organization.id,
       title: formData.name,
       description: formData.description,
+      assignedTo: formData.assignedTo,
     }).then((id) => {
       toast.success("Tasks created");
     })

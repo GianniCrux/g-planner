@@ -4,19 +4,23 @@
 interface TaskCardProps {
     id: string;
     title: string;
+    description: string;
     createdAt: number;
     orgId: string;
-    assignedTo?: boolean;
+    assignedTo?: string;
     type?: string;
+    authorName: string;
 }
 
 export const TaskCard = ({
     id,
     title,
+    description,
     createdAt,
     orgId,
     assignedTo,
     type,
+    authorName,
 }: TaskCardProps) => {
     const formattedDate = new Date(createdAt).toLocaleDateString();
 
@@ -25,16 +29,14 @@ export const TaskCard = ({
         <div className="bg-yellow-200 p-4 rounded-lg shadow-md relative border border-yellow-300 min-w-[200px]"> {/* Sticky note styling */}
       <div className="font-bold text-lg mb-2">{title}</div> {/* Client Name */}
       <div className="text-sm text-gray-600">
-        Created by on {formattedDate}
+        Created by {authorName} on {formattedDate}
+        <div className="text-md text-black"> {description} </div>
       </div>
       <div className="absolute top-2 right-2">
-        {assignedTo ? (
-          <span className="bg-blue-500 text-white text-xs px-2 py-1 rounded">Personal</span>
-        ) : (
-          <span className="bg-green-500 text-white text-xs px-2 py-1 rounded">Team</span>
-        )}
+        <span className="bg-amber-800 text-white text-xs px-2 py-1 rounded">Per: {assignedTo}</span>
       </div>
       <div className="mt-2 text-sm">Type: {type}</div> {/* Order Type */}
+
     </div>
   );
 };
