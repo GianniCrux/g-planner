@@ -3,17 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import { DropdownMenuArrow } from "@radix-ui/react-dropdown-menu";
 
-import { 
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
- } from "@/components/ui/dropdown-menu"
-import { Rows3, Star } from "lucide-react";
+import { Star } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 
 
@@ -22,8 +13,7 @@ import { cn } from "@/lib/utils";
 import { OrganizationSwitcher } from "@clerk/clerk-react";
 import { Button } from "@/components/ui/button";
 import { LayoutDashboard } from "lucide-react";
-import { List } from "./sidebar/list";
-import { NewButton } from "./sidebar/new_button";
+
 
 const font = Poppins({
     subsets: ["latin"],
@@ -106,30 +96,6 @@ export const OrgSidebar = () => {
                         Personal tasks
                     </Link>
                 </Button>
-                <div>
-            <DropdownMenu> 
-                <DropdownMenuTrigger>
-                    <Button 
-                    variant="ghost"
-                    size="lg"
-                    className="font-normal justify-start px-2 w-full"
-                    >
-                    <Link href="/" className="flex items-center">
-                <Rows3 className="h-4 w-4 mr-2" /> 
-                  Organizations List 
-                    </Link>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="bg-amber-300">
-                <DropdownMenuArrow></DropdownMenuArrow>
-                <DropdownMenuLabel> Select the organization </DropdownMenuLabel>  
-                <DropdownMenuSeparator />
-                    <List /> 
-                    <NewButton />
-
-                </DropdownMenuContent>
-            </DropdownMenu>
-                </div>
             </div>
         </div>
 
