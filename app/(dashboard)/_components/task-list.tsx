@@ -76,7 +76,7 @@ export const TaskList = ({
                 <div className="flex justify-end mb-4">
                     <Button 
                     onClick={toggleDialog}
-                    className="h-full w-full"
+                    className="h-full w-full bg-yellow-200 text-black hover:bg-amber-500"
                     >
                         <Plus className="mr-2 h-4 w-4" />
                         Add Task
