@@ -74,7 +74,10 @@ export const TaskList = ({
             </h2>
             <div className="grid gird-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 mt-8 pb-10">
                 <div className="flex justify-end mb-4">
-                    <Button onClick={toggleDialog}>
+                    <Button 
+                    onClick={toggleDialog}
+                    className="h-full w-full"
+                    >
                         <Plus className="mr-2 h-4 w-4" />
                         Add Task
                     </Button>
