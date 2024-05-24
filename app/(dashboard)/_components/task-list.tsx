@@ -12,6 +12,12 @@ import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Plus } from "lucide-react";
 import { TaskCard } from "./task-card";
+import { useState } from "react";
+
+import { 
+    Dialog, 
+    DialogContent,
+} from "@/components/ui/dialog";
 
 interface TaskListProps {
     orgId: string;
@@ -21,11 +27,18 @@ interface TaskListProps {
     };
 };
 
+
 export const TaskList = ({
     orgId,
     query,
 }: TaskListProps) => {
     const data = useQuery(api.tasks.get, { orgId });
+
+    const [showDialog, setShowDialog] = useState(false);
+
+    const toggleDialog = () => {
+        setShowDialog((prevState) => !prevState);
+    };
 
     if (data === undefined) { //data can never be undefined regardless there's an error or it's empty
         return (
@@ -60,6 +73,19 @@ export const TaskList = ({
                 {query.personal ? "Personal tasks" : "Team tasks"}
             </h2>
             <div className="grid gird-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 mt-8 pb-10">
+                <div className="flex justify-end mb-4">
+                    <Button onClick={toggleDialog}>
+                        <Plus className="mr-2 h-4 w-4" />
+                        Add Task
+                    </Button>
+                    { showDialog && (
+                        <Dialog open={showDialog}> {/* TODO: onClose function on Dialog */} 
+                            <DialogContent>
+                                <CardCreator onClose={toggleDialog}/>
+                            </DialogContent>
+                        </Dialog>
+                    ) }
+                </div>
                 {data?.map((task) => (
                     <TaskCard 
                         key={task._id}
@@ -72,7 +98,7 @@ export const TaskList = ({
                         authorName={task.authorName}
                     />
                 ))}
-                <CardCreator />
+
             </div>
             </div>
 

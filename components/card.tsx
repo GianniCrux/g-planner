@@ -34,7 +34,11 @@ interface Task {
   selectType: string; // Added for the select dropdown
 }
 
-export const CardCreator = () => {
+interface CardCreatorProps {
+  onClose: () => void;
+}
+
+export const CardCreator = ({ onClose }: CardCreatorProps) => {
 
   const { organization } = useOrganization();
     
@@ -64,11 +68,9 @@ export const CardCreator = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(formData);
     if (!organization) {
       return
     }
-    console.log("organizationId", organization.id)
     mutate ({
       orgId: organization.id,
       title: formData.name,
@@ -76,6 +78,7 @@ export const CardCreator = () => {
       assignedTo: formData.assignedTo,
     }).then((id) => {
       toast.success("Tasks created");
+      onClose();
     })
     .catch(() => toast.error("Failed to create Task"));
   };
@@ -145,7 +148,7 @@ export const CardCreator = () => {
                 </div>
                 </div>
               </div>
-              <Button variant="outline">Cancel</Button>
+              <Button variant="outline" onClick={onClose}>Cancel</Button>
             <Button type="submit">Create task</Button>
             </form>
           </CardContent>
