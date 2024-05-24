@@ -77,7 +77,7 @@ export const OrgSidebar = () => {
                     size="lg"
                     className="font-normal justify-start px-2 w-full"
                 >
-                    <Link href="/" className="bg-amber-300">
+                    <Link href="/">
                         <LayoutDashboard  className="h-4 w-4 mr-2" />
                         Team tasks
                     </Link>
