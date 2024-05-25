@@ -87,8 +87,8 @@ export const CardCreator = ({ onClose }: CardCreatorProps) => {
   };
 
     return (
-        <div className="flex justify-center items-center h-full">
-        <Card className="w-[350px]">
+        <div className="flex justify-center items-center h-full bg-amber-200">
+        <Card className="w-[350px] bg-amber-200">
           <CardHeader>
             <CardTitle>Create Tasks</CardTitle>
             <CardDescription>Write here your new task, it will be added to your schedule</CardDescription>
@@ -99,6 +99,7 @@ export const CardCreator = ({ onClose }: CardCreatorProps) => {
                 <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="name">Name</Label>
                   <Input 
+                    className="bg-amber-200"
                     id="name" 
                     placeholder="Name of the client" 
                     value={formData.name}
@@ -108,6 +109,7 @@ export const CardCreator = ({ onClose }: CardCreatorProps) => {
                 <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="description">Description</Label>
                   <Textarea 
+                  className="bg-amber-200"
                   id="description" 
                   placeholder="Description of the order" 
                   rows={3} 
@@ -118,6 +120,7 @@ export const CardCreator = ({ onClose }: CardCreatorProps) => {
                 <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="type">Type of order</Label>
                   <Input 
+                  className="bg-amber-200"
                   id="type" 
                   placeholder="Category" 
                   value={formData.type}
@@ -127,6 +130,7 @@ export const CardCreator = ({ onClose }: CardCreatorProps) => {
                   <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="assignedTo">Assigned to</Label>
                   <Input 
+                  className="bg-amber-200"
                   id="assignedTo" 
                   placeholder="Select"
                   value={formData.assignedTo}
@@ -136,6 +140,7 @@ export const CardCreator = ({ onClose }: CardCreatorProps) => {
                 <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="date">Date</Label>
                   <Input
+                    className="bg-amber-200"
                     id="date"
                     type="date" // Use the date input type
                     value={formData.date}
