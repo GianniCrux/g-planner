@@ -10,6 +10,7 @@ interface TaskCardProps {
     assignedTo?: string;
     type?: string;
     authorName: string;
+    date?: string;
 }
 
 export const TaskCard = ({
@@ -21,6 +22,7 @@ export const TaskCard = ({
     assignedTo,
     type,
     authorName,
+    date,
 }: TaskCardProps) => {
     const formattedDate = new Date(createdAt).toLocaleDateString();
 
@@ -38,6 +40,7 @@ export const TaskCard = ({
       <div className="text-xs text-gray-600 font-medium italic">
         Created by {authorName} on {formattedDate}
       </div>
+      <div> Date: {date} </div>
     </div>
   );
 };

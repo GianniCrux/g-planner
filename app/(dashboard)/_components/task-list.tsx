@@ -99,6 +99,7 @@ export const TaskList = ({
                         createdAt={task._creationTime}
                         orgId={task.orgId}
                         authorName={task.authorName}
+                        date={task.date}
                     />
                 ))}
 

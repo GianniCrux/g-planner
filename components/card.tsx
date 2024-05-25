@@ -32,6 +32,7 @@ interface Task {
   type: string;
   assignedTo: string;
   selectType: string; // Added for the select dropdown
+  date: string;
 }
 
 interface CardCreatorProps {
@@ -50,6 +51,7 @@ export const CardCreator = ({ onClose }: CardCreatorProps) => {
     type: "",
     assignedTo: "",
     selectType: "", // Initialize with an empty string
+    date: "",
   });
 
 
@@ -76,6 +78,7 @@ export const CardCreator = ({ onClose }: CardCreatorProps) => {
       title: formData.name,
       description: formData.description,
       assignedTo: formData.assignedTo,
+      date: formData.date,
     }).then((id) => {
       toast.success("Tasks created");
       onClose();
@@ -113,7 +116,7 @@ export const CardCreator = ({ onClose }: CardCreatorProps) => {
                   />
                 </div>
                 <div className="flex flex-col space-y-1.5">
-                  <Label htmlFor="type">Category</Label>
+                  <Label htmlFor="type">Type of order</Label>
                   <Input 
                   id="type" 
                   placeholder="Category" 
@@ -121,22 +124,6 @@ export const CardCreator = ({ onClose }: CardCreatorProps) => {
                   onChange={handleChange}
                   />
                 </div>
-                <div className="flex flex-col space-y-1.5">
-                  <Label htmlFor="selectType">Types</Label>
-                  <Select
-                  onValueChange={(value) => setFormData((prevData) => ({ ...prevData, selectType: value }))} // Update formData on select change
-                  value={formData.selectType} // Set initial value
-                >
-                    <SelectTrigger id="types">
-                      <SelectValue placeholder="Select" />
-                    </SelectTrigger>
-                    <SelectContent position="popper">
-                      <SelectItem value="order">Order</SelectItem>
-                      <SelectItem value="note">Note</SelectItem>
-                      <SelectItem value="groupwork">Group work</SelectItem>
-                      <SelectItem value="funtime">Fun time</SelectItem>
-                    </SelectContent>
-                  </Select>
                   <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="assignedTo">Assigned to</Label>
                   <Input 
@@ -146,10 +133,20 @@ export const CardCreator = ({ onClose }: CardCreatorProps) => {
                   onChange={handleChange}
                   />
                 </div>
+                <div className="flex flex-col space-y-1.5">
+                  <Label htmlFor="date">Date</Label>
+                  <Input
+                    id="date"
+                    type="date" // Use the date input type
+                    value={formData.date}
+                    onChange={handleChange}
+                  />
                 </div>
               </div>
-              <Button variant="outline" onClick={onClose}>Cancel</Button>
+              <div className="pt-4">
+              <Button variant="outline" className="m-4" onClick={onClose}>Cancel</Button>
             <Button type="submit">Create task</Button>
+            </div>
             </form>
           </CardContent>
         </Card>
