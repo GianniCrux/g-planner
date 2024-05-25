@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils";
 import { OrganizationSwitcher } from "@clerk/clerk-react";
 import { Button } from "@/components/ui/button";
 import { LayoutDashboard } from "lucide-react";
+import { CalendarTask } from "./calendar-task";
 
 
 const font = Poppins({
@@ -96,6 +97,7 @@ export const OrgSidebar = () => {
                         Personal tasks
                     </Link>
                 </Button>
+                <CalendarTask />
             </div>
         </div>
 
