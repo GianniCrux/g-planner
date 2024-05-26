@@ -29,7 +29,7 @@ import { toast } from "sonner";
 interface Task {
   name: string;
   description: string;
-  type: string;
+  type?: string;
   assignedTo: string;
   selectType: string; // Added for the select dropdown
   date: string;
@@ -79,6 +79,7 @@ export const CardCreator = ({ onClose }: CardCreatorProps) => {
       description: formData.description,
       assignedTo: formData.assignedTo,
       date: formData.date,
+      type: formData.type,
     }).then((id) => {
       toast.success("Tasks created");
       onClose();

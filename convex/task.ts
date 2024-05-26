@@ -45,7 +45,8 @@ export const create = mutation({//passing the arguments which we expect a task m
         title: v.string(),
         description: v.string(),
         assignedTo: v.optional(v.string()),
-        date: v.string(),
+        date: v.optional(v.string()),
+        type: v.optional(v.string()),
     },
     handler: async (ctx, args) => {//has access to the context and the orguments from above
         const identity = await ctx.auth.getUserIdentity();
@@ -62,6 +63,7 @@ export const create = mutation({//passing the arguments which we expect a task m
             authorName: identity.name!,
             assignedTo: args.assignedTo,
             date: args.date,
+            type: args.type,
          })
             
 

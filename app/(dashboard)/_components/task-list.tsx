@@ -100,6 +100,7 @@ export const TaskList = ({
                         orgId={task.orgId}
                         authorName={task.authorName}
                         date={task.date}
+                        type={task.type}
                     />
                 ))}
 
