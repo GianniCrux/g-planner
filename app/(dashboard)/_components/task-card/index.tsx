@@ -1,5 +1,9 @@
 "use client";
 
+import { Actions } from "@/components/actions";
+import { MoreHorizontal } from "lucide-react";
+
+
 
 interface TaskCardProps {
     id: string;
@@ -28,8 +32,23 @@ export const TaskCard = ({
 
 
     return (
-        <div className="bg-yellow-200 p-4 rounded-lg shadow-md relative border border-yellow-300 min-w-[200px] flex flex-col"> {/* Sticky note styling */}
+        <div className="group bg-yellow-200 p-4 rounded-lg shadow-md relative border border-yellow-300 min-w-[200px] flex flex-col"> {/* Sticky note styling */}
     <div className="flex-grow">
+    <div className="pt-4">
+      <Actions 
+        id={id}
+        title={title}
+        side="right"
+      >
+        <button 
+        className="absolute top-1 left-1 opcaity-0 group-hover:opacity-100 px-3 py-2 outline-none"
+        >
+          <MoreHorizontal  
+          className="text-black opacity-75 hover:opacity-100 transition-opacity"
+          />
+        </button>
+      </Actions>
+      </div>
       <div className="font-semibold text-md mb-2">{title}</div> {/* Client Name */}
         <div className="text-lg text-black line-clamp-3 font-semibold"> {description} </div>
     </div>
