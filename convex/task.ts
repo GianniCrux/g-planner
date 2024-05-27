@@ -70,3 +70,18 @@ export const create = mutation({//passing the arguments which we expect a task m
         return tasks;
     },
 });
+
+export const remove = mutation({
+    args: { id: v.id("tasks") },
+    handler: async (ctx, args) => {
+        const identity = await ctx.auth.getUserIdentity();
+
+        if (!identity) {
+            throw new Error("Unauthorized");
+        }
+
+        //TODO:: check to delet personal relation as well after adding it
+
+        await ctx.db.delete(args.id);
+    },
+});

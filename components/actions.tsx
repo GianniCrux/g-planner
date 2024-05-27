@@ -9,8 +9,10 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
  } from "@/components/ui/dropdown-menu";
-import { Link2 } from "lucide-react";
+import { Link2, Trash2 } from "lucide-react";
 import { toast } from "sonner";
+import { useApiMutation } from "@/hooks/use-api-mutation";
+import { api } from "@/convex/_generated/api";
  
 
 
@@ -43,6 +45,15 @@ export const Actions = ({
     date,
 }: ActionsProps) => {
     const formattedDate = new Date(createdAt).toLocaleDateString();
+    const { mutate: deleteTask, pending } = useApiMutation(api.task.remove);
+
+    const handleDeleteTask = () => {
+        deleteTask({ id })
+            .then(() => {
+                toast.success("Task deleted");
+            })
+            .catch(() => toast.error("Failed to delete task"));
+    }
 
     const copyTaskText = async () => {
         const taskText =`
@@ -81,9 +92,19 @@ export const Actions = ({
                     className="p-3 cursor-pointer bg-amber-300 hover:bg-amber-600"
                 >
                     <Link2 
-                        className="h-4 w-4 mr-2"
+                        className="h-4 w-4 mr-2 hover:bg-amber-600"
                     />
                     Copy task text
+                </DropdownMenuItem>
+                <DropdownMenuItem 
+                    className="p-3 cursor-pointer bg-amber-300 hover:bg-amber-600"
+                    onClick={handleDeleteTask}
+                    disabled={pending}
+                >
+                    <Trash2 
+                        className="h-4 w-4 mr-2 hover:bg-amber-600"
+                    />
+                    Delete task
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
