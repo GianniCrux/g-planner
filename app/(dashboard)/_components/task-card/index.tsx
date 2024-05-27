@@ -39,6 +39,12 @@ export const TaskCard = ({
         id={id}
         title={title}
         side="right"
+        description={description}
+        createdAt={createdAt}
+        assignedTo={assignedTo}
+        type={type}
+        authorName={authorName}
+        date={date}
       >
         <button 
         className="absolute top-1 left-1 opcaity-0 group-hover:opacity-100 px-3 py-2 outline-none"
@@ -56,10 +62,10 @@ export const TaskCard = ({
         <span className="bg-amber-800 text-white text-xs px-2 py-1 rounded">Per: {assignedTo}</span>
       </div>
       <div className="mt-2 text-sm ">Type: {type}</div> {/* Order Type */}
+      <div> Date: {date} </div>
       <div className="text-xs text-gray-600 font-medium italic">
         Created by {authorName} on {formattedDate}
       </div>
-      <div> Date: {date} </div>
     </div>
   );
 };
