@@ -89,20 +89,20 @@ export const Actions = ({
                             .then(() => toast.success("Text copied to clipboard"))
                             .catch(() => toast.error("Failed to copy the text"))
                     }
-                    className="p-3 cursor-pointer bg-amber-300 hover:bg-amber-600"
+                    className="p-3 cursor-pointer bg-amber-300 data-[state=open]:bg-amber-600"
                 >
                     <Link2 
-                        className="h-4 w-4 mr-2 hover:bg-amber-600"
+                        className="h-4 w-4 mr-2"
                     />
                     Copy task text
                 </DropdownMenuItem>
                 <DropdownMenuItem 
-                    className="p-3 cursor-pointer bg-amber-300 hover:bg-amber-600"
+                    className="p-3 cursor-pointer bg-amber-300 data-[state=open]:bg-amber-600"
                     onClick={handleDeleteTask}
                     disabled={pending}
                 >
                     <Trash2 
-                        className="h-4 w-4 mr-2 hover:bg-amber-600"
+                        className="h-4 w-4 mr-2"
                     />
                     Delete task
                 </DropdownMenuItem>

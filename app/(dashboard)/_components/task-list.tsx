@@ -18,7 +18,6 @@ import {
     Dialog, 
     DialogContent,
 } from "@/components/ui/dialog";
-import { Loading } from "@/components/auth/loading";
 
 interface TaskListProps {
     orgId: string;
@@ -43,7 +42,9 @@ export const TaskList = ({
 
     if (data === undefined) { //data can never be undefined regardless there's an error or it's empty
         return (
-            <Loading />
+            <div>
+                Loading...
+            </div>
         )
     }
 

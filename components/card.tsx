@@ -31,7 +31,6 @@ interface Task {
   description: string;
   type?: string;
   assignedTo: string;
-  selectType: string; // Added for the select dropdown
   date: string;
 }
 
@@ -50,7 +49,6 @@ export const CardCreator = ({ onClose }: CardCreatorProps) => {
     description: "",
     type: "",
     assignedTo: "",
-    selectType: "", // Initialize with an empty string
     date: "",
   });
 
