@@ -97,7 +97,6 @@ export const OrgSidebar = () => {
                         Personal tasks
                     </Link>
                 </Button>
-                <CalendarTask />
             </div>
         </div>
 
