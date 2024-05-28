@@ -8,7 +8,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 const localizer = momentLocalizer(moment);
 
 export const CalendarTask = () => {
-  const [showCalendar, setShowCalendar] = useState(false);
+  
 
   return (
         <div>
