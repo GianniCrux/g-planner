@@ -35,10 +35,18 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
   return (
         <div>
           <div className="flex justify-between">
-        <button onClick={() => setCurrentMonth(currentMonth.clone().subtract(1, 'month'))}> Previous </button>
+        <Button 
+          onClick={() => setCurrentMonth(currentMonth.clone().subtract(1, 'month'))} 
+          className='bg-amber-600 text-black hover:bg-amber-900'
+        > 
+            Previous </Button>
         <div>
         </div>
-        <button onClick={() => setCurrentMonth(currentMonth.clone().add(1, 'month'))}> Next </button>
+        <Button 
+          onClick={() => setCurrentMonth(currentMonth.clone().add(1, 'month'))} 
+          className='bg-amber-600 text-black hover:bg-amber-900'
+        > 
+            Next </Button>
       </div>
           <BigCalendar
             localizer={localizer}

@@ -55,8 +55,8 @@ export const TaskCard = ({
         </button>
       </Actions>
       </div>
-      <div className="font-semibold text-md mb-2">{title}</div> {/* Client Name */}
-        <div className="text-lg text-black line-clamp-3 font-semibold"> {description} </div>
+      <div className="font-semibold text-2xl mb-2">{title}</div> {/* Client Name */}
+        <div className="text-md text-black line-clamp-3 font-semibold"> {description} </div>
     </div>
       <div className="absolute top-0 right-0 mb-2">
         <span className="bg-amber-800 text-white text-xs px-2 py-1 rounded">Per: {assignedTo}</span>
