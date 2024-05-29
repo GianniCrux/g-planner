@@ -64,8 +64,8 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
             defaultView='month'
             components={{
               toolbar: ({ label }) => (
-                <div className="rbc-toolbar">
-                  <span className="rbc-toolbar-label">{label}</span> 
+                <div className='relative top-1'>
+                  <span>{label}</span> 
                 </div>
               )
             }}
