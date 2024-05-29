@@ -9,7 +9,7 @@ import { useOrganization } from "@clerk/clerk-react";
 import { TaskList } from "./_components/task-list";
 import { useState } from "react";
 import { CalendarTask } from "./_components/calendar-task";
-import { Calendar, NotebookTextIcon } from "lucide-react";
+import { CalendarIcon, ListIcon } from "lucide-react";
 
 interface DashboardPageProps {
   searchParams: {
@@ -35,25 +35,7 @@ const DashboardPage = ({
     <EmptyOrg />
     ) : (
       <>
-    <div className="flex justify-center mb-4">
-      <Button
-        onClick={handleViewChange}
-        disabled={!isCalendarView}
-        className="px-4 py-2 rounded-l-md bg-amber-700 hover:bg-amber-900"
-      >
-      <NotebookTextIcon className="h-4 w-4 mr-2"/>
-        Task list
-      </Button>
-      <Button 
-        onClick={handleViewChange}
-        disabled={isCalendarView}
-        className="px-4 py-2 rounded-r-md bg-amber-700 hover:bg-amber-900"
-      >
-      <Calendar className="h-4 w-4 mr-2" />
-          Calendar
-      </Button>
-    </div>
-    {isCalendarView ? <CalendarTask /> : <TaskList orgId={organization.id} query={searchParams} />}
+    <TaskList orgId={organization.id} query={searchParams}    />
     </>
     )}
   </div>

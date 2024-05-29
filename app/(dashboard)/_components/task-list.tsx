@@ -19,12 +19,14 @@ import {
     DialogContent,
 } from "@/components/ui/dialog";
 import { Loading } from "@/components/auth/loading";
+import { CalendarTask } from "./calendar-task";
 
 interface TaskListProps {
     orgId: string;
     query: {
         search?: string;
         personal?: string;
+        [key: string]: string | undefined;
     };
 };
 
@@ -36,10 +38,15 @@ export const TaskList = ({
     const data = useQuery(api.tasks.get, { orgId });
 
     const [showDialog, setShowDialog] = useState(false);
+    const [isCalendarView, setIsCalendarView] = useState(false);
 
     const toggleDialog = () => {
         setShowDialog((prevState) => !prevState);
     };
+
+    const handleViewChange = () => {
+        setIsCalendarView((prevState) => !prevState);
+    }
 
     if (data === undefined) { //data can never be undefined regardless there's an error or it's empty
         return (
@@ -70,43 +77,46 @@ export const TaskList = ({
 
     return (
         <div className="flex flex-col">
-            <h2 className="text-3xl">
-                {query.personal ? "Personal tasks" : "Team tasks"}
-            </h2>
-            <div className="grid gird-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 mt-8 pb-10">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-3xl">{query.personal ? "Personal tasks" : "Team tasks"}</h2>
+            <Button onClick={handleViewChange} variant={isCalendarView ? "secondary" : "ghost"} className="px-4 py-2 rounded-md">
+              {isCalendarView ? "Task List View" : "Calendar View"}
+            </Button>
+          </div>
+          {isCalendarView ? (
+            <CalendarTask tasks={data} />
+          ) : (
+            <>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 mt-8 pb-10">
                 <div className="flex justify-end mb-4">
-                    <Button 
-                    onClick={toggleDialog}
-                    className="h-full w-full bg-yellow-200 text-black hover:bg-amber-500"
-                    >
-                        <Plus className="mr-2 h-4 w-4" />
-                        Add Task
-                    </Button>
-                    { showDialog && (
-                        <Dialog open={showDialog}> {/* TODO: onClose function on Dialog */} 
-                            <DialogContent className="bg-amber-200" >
-                                <CardCreator onClose={toggleDialog}/>
-                            </DialogContent>
-                        </Dialog>
-                    ) }
+                  <Button onClick={toggleDialog} className="h-full w-full bg-yellow-200 text-black hover:bg-amber-500">
+                    <Plus className="mr-2 h-4 w-4" /> Add Task
+                  </Button>
+                  {showDialog && (
+                    <Dialog open={showDialog}>
+                      <DialogContent className="bg-amber-200">
+                        <CardCreator onClose={toggleDialog} />
+                      </DialogContent>
+                    </Dialog>
+                  )}
                 </div>
                 {data?.map((task) => (
-                    <TaskCard 
-                        key={task._id}
-                        id={task._id}
-                        title={task.title}
-                        description={task.description}
-                        assignedTo={task.assignedTo}
-                        createdAt={task._creationTime}
-                        orgId={task.orgId}
-                        authorName={task.authorName}
-                        date={task.date}
-                        type={task.type}
-                    />
+                  <TaskCard
+                    key={task._id}
+                    id={task._id}
+                    title={task.title}
+                    description={task.description}
+                    assignedTo={task.assignedTo}
+                    createdAt={task._creationTime}
+                    orgId={task.orgId}
+                    authorName={task.authorName}
+                    date={task.date}
+                    type={task.type}
+                  />
                 ))}
-
-            </div>
-            </div>
-
-    )
-}
+              </div>
+            </>
+          )}
+        </div>
+      );
+    };
