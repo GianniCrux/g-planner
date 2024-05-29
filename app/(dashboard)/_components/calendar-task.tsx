@@ -71,7 +71,16 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
             }}
             date={currentMonth.toDate()} 
             onNavigate={(newDate) => setCurrentMonth(moment(newDate))}
-    
+            dayPropGetter={(date) => {
+              const isCurrentMonth = date.getMonth() === currentMonth.month(); 
+          
+              return {
+                style: {
+                  backgroundColor: isCurrentMonth ? '#ffb300' : '#ffee58', // Light gray for non-current month days
+                  // Add other styles as needed
+                }
+              };
+            }}
           />
           </div>
   );
