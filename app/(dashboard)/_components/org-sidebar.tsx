@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 
-import { Star } from "lucide-react";
+import { UserIcon } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 
 
@@ -93,7 +93,7 @@ export const OrgSidebar = () => {
                         pathname: "/",
                         query: { personal: true }
                     }}>
-                        <Star  className="h-4 w-4 mr-2" />
+                        <UserIcon  className="h-4 w-4 mr-2" />
                         Personal tasks
                     </Link>
                 </Button>
