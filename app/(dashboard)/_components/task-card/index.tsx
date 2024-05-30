@@ -61,11 +61,14 @@ export const TaskCard = ({
       <div className="absolute top-0 right-0 mb-2">
         <span className="bg-amber-800 text-white text-xs px-2 py-1 rounded">Per: {assignedTo}</span>
       </div>
+      <div className="mt-6">
       <div className="mt-2 text-sm ">Type: {type}</div> {/* Order Type */}
       <div> Date: {date} </div>
-      <div className="text-xs text-gray-600 font-medium italic">
-        Created by {authorName} on {formattedDate}
       </div>
+      <div className="bg-amber-800 text-white text-xs px-2 py-1 rounded mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+    Created by {authorName} on {formattedDate}
+  </div>
     </div>
+    
   );
 };
