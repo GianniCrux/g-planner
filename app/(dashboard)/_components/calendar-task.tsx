@@ -34,7 +34,8 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
 
   return (
         <div>
-          <div className="flex justify-between">
+        <div>
+          <div className="flex justify-between flex-grow">
         <Button 
           onClick={() => setCurrentMonth(currentMonth.clone().subtract(1, 'month'))} 
           className='bg-amber-600 text-black hover:bg-amber-900'
@@ -54,7 +55,7 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
             toolbar={true}
             startAccessor="start"
             endAccessor="end"
-            style={{ height: '70vh', width: '70vw' }} // Fill the dialog
+            style={{ height: '70vh', width: '70vw' }} 
             eventPropGetter={(event, start, end, isSelected) => ({
               style: {
                 fontSize: '12px',
@@ -77,11 +78,14 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
               return {
                 style: {
                   backgroundColor: isCurrentMonth ? '#ffb300' : '#ffee58', // Light gray for non-current month days
-                  // Add other styles as needed
                 }
               };
             }}
           />
+          </div>
+          <div className='relative py-8'>
+            <div className='absolute inset-x-0 bottom-o h-px bg-gradient-to-r from-transparent via-black to-transparent'></div>
+          </div>
           </div>
   );
 };
