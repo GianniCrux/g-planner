@@ -38,14 +38,14 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
           <div className="flex justify-between flex-grow">
         <Button 
           onClick={() => setCurrentMonth(currentMonth.clone().subtract(1, 'month'))} 
-          className='bg-amber-600 text-black hover:bg-amber-900'
+          className='bg-amber-500 text-black hover:bg-amber-800'
         > 
             Previous </Button>
         <div>
         </div>
         <Button 
           onClick={() => setCurrentMonth(currentMonth.clone().add(1, 'month'))} 
-          className='bg-amber-600 text-black hover:bg-amber-900'
+          className='bg-amber-500 text-black hover:bg-amber-800'
         > 
             Next </Button>
       </div>
