@@ -4,6 +4,8 @@ import { Actions } from "@/components/actions";
 import { MoreHorizontal } from "lucide-react";
 
 import { formatDistanceToNow } from "date-fns";
+import { useState } from "react";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 interface TaskCardProps {
     id: string;
@@ -33,9 +35,19 @@ export const TaskCard = ({
       addSuffix: true,
     })
 
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+    const toggleDialog = () => {
+      setIsDialogOpen((prevState) => !prevState);
+    };
+
 
     return (
-        <div className="group bg-yellow-200 p-4 rounded-lg shadow-md relative border border-yellow-300 min-w-[200px] flex flex-col"> {/* Sticky note styling */}
+      <>
+        <div 
+          className="group bg-yellow-200 p-4 rounded-lg shadow-md relative border border-yellow-300 min-w-[200px] flex flex-col"
+          onClick={toggleDialog}
+          > {/* Sticky note styling */}
     <div className="flex-grow">
     <div className="pt-4">
       <Actions 
@@ -62,16 +74,28 @@ export const TaskCard = ({
         <div className="text-md text-black line-clamp-3 font-semibold"> {description} </div>
     </div>
       <div className="absolute top-0 right-0 mb-2">
-        <span className="bg-amber-800 text-white text-xs px-2 py-1 rounded">Per: {assignedTo}</span>
+        <span className="bg-amber-800 text-white text-xs px-2 py-1 rounded">Per: {assignedTo} </span>
       </div>
       <div className="mt-6">
-      <div className="mt-2 text-sm ">Type: {type}</div> {/* Order Type */}
-      <div> Date: {date} </div>
       </div>
       <div className="bg-amber-800 text-white text-xs px-2 py-1 rounded mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
       Created by {authorName}, {createdAtLabel}
     </div>
     </div>
-    
+        {isDialogOpen && (
+          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+            <DialogContent className="bg-amber-300">
+              <div className="bg-amber-300">
+              <h2 className="text-2xl font-bold">{title}</h2>
+            <p className="mt-2">{description}</p>
+            <p className="mt-2">Assigned To: {assignedTo}</p>
+            <p className="mt-2">Type: {type}</p>
+            <p className="mt-2">Date: {date}</p>
+            <p className="mt-2">Created by {authorName}, {createdAtLabel}</p>
+              </div>
+            </DialogContent>
+          </Dialog>
+        )}
+   </>
   );
 };
