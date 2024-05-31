@@ -24,7 +24,7 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
     const calendarEvents: CalendarEvent[] = tasks.map((task) => ({
       title: task.description,
       start: new Date(task.date),
-      end: new Date(task.date),
+      end: new Date(task.date), //is only taking tasks from the user, not displaying org tasks. 
     }));
 
     setEvents(calendarEvents);

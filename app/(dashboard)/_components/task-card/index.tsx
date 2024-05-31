@@ -3,7 +3,7 @@
 import { Actions } from "@/components/actions";
 import { MoreHorizontal } from "lucide-react";
 
-
+import { formatDistanceToNow } from "date-fns";
 
 interface TaskCardProps {
     id: string;
@@ -28,7 +28,10 @@ export const TaskCard = ({
     authorName,
     date,
 }: TaskCardProps) => {
-    const formattedDate = new Date(createdAt).toLocaleDateString();
+    /* const formattedDate = new Date(createdAt).toLocaleDateString(); */
+    const createdAtLabel = formatDistanceToNow(createdAt, {
+      addSuffix: true,
+    })
 
 
     return (
@@ -66,8 +69,8 @@ export const TaskCard = ({
       <div> Date: {date} </div>
       </div>
       <div className="bg-amber-800 text-white text-xs px-2 py-1 rounded mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-    Created by {authorName} on {formattedDate}
-  </div>
+      Created by {authorName}, {createdAtLabel}
+    </div>
     </div>
     
   );
