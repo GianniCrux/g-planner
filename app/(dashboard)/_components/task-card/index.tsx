@@ -74,7 +74,7 @@ export const TaskCard = ({
         <div className="text-md text-black line-clamp-3 font-semibold"> {description} </div>
     </div>
       <div className="absolute top-0 right-0 mb-2">
-        <span className="bg-amber-800 text-white text-xs px-2 py-1 rounded">Per: {assignedTo} </span>
+        <span className="bg-amber-800 text-white text-xs px-2 py-1 rounded">Genre: {type} </span>  {/* decide for type or assignedTo */}
       </div>
       <div className="mt-6">
       </div>
@@ -84,15 +84,28 @@ export const TaskCard = ({
     </div>
         {isDialogOpen && (
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-            <DialogContent className="bg-amber-300">
-              <div className="bg-amber-300">
-              <h2 className="text-2xl font-bold">{title}</h2>
-            <p className="mt-2">{description}</p>
-            <p className="mt-2">Assigned To: {assignedTo}</p>
-            <p className="mt-2">Type: {type}</p>
-            <p className="mt-2">Date: {date}</p>
-            <p className="mt-2">Created by {authorName}, {createdAtLabel}</p>
-              </div>
+            <DialogContent 
+              className="bg-amber-300 rounded-lg shadow-md p-6 "
+              style={{
+                minHeight: "300px",
+              }}
+            >
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-2xl font-bold">{title}</h2>
+        <div className="flex items-center">
+          <span className="bg-amber-800 text-white text-xs px-2 py-1 rounded mr-2">
+            Per: {assignedTo}
+          </span>
+          <span className="bg-amber-800 text-white text-xs px-2 py-1 rounded">
+            Genre: {type}
+          </span>
+        </div>
+      </div>
+        <p className="mb-2 text-md">{description}</p>
+        <div className="mt-auto">
+        <span className="text-sm">Date: {date}</span>
+        <p className="text-sm mt-2">Created by {authorName}, {createdAtLabel}</p>
+      </div>
             </DialogContent>
           </Dialog>
         )}
