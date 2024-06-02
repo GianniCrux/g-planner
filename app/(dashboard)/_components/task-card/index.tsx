@@ -45,7 +45,7 @@ export const TaskCard = ({
     return (
       <>
         <div 
-          className="group bg-yellow-200 p-4 rounded-lg shadow-md relative border border-yellow-300 min-w-[200px] flex flex-col"
+          className="group bg-yellow-200 p-4 rounded-lg shadow-md relative border border-yellow-300 min-w-[200px] flex flex-col cursor-pointer"
           onClick={toggleDialog}
           > {/* Sticky note styling */}
     <div className="flex-grow">
