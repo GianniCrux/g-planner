@@ -85,7 +85,7 @@ export const TaskCard = ({
         {isDialogOpen && (
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogContent 
-              className="bg-amber-300 rounded-lg shadow-md p-6 "
+              className="bg-yellow-200 rounded-lg shadow-md p-6 "
               style={{
                 minHeight: "300px",
               }}

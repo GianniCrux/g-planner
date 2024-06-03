@@ -51,8 +51,13 @@ export const SingleTaskView = ({ task }: SingleTaskViewProps) => {
       </div>
       <p className="text-gray-700 mb-4">{task.description}</p>
       <div className="flex items-center">
-        <span className="text-gray-700">Assigned to: {task.assignedTo}</span>
-      </div>
+          <span className="bg-amber-800 text-white text-xs px-2 py-1 rounded mr-2">
+            Per: {task.assignedTo}
+          </span>
+          <span className="bg-amber-800 text-white text-xs px-2 py-1 rounded">
+            Genre: {task.type}
+          </span>
+        </div>
       <div className="mt-4">
         <span className="text-gray-500 mr-2">Created by:</span>
         <span className="text-gray-700">{task.authorName}</span>
