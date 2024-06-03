@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/dialog";
 import { Loading } from "@/components/auth/loading";
 import { CalendarTask } from "./calendar-task";
+import { SingleTaskView } from "./task-card/single-task-view";
 
 interface TaskListProps {
     orgId: string;
@@ -39,6 +40,7 @@ export const TaskList = ({
 
     const [showDialog, setShowDialog] = useState(false);
     const [isCalendarView, setIsCalendarView] = useState(false);
+    const [isCardView, setIsCardView] = useState(false);
 
     const toggleDialog = () => {
         setShowDialog((prevState) => !prevState);
@@ -46,6 +48,10 @@ export const TaskList = ({
 
     const handleViewChange = () => {
         setIsCalendarView((prevState) => !prevState);
+    }
+
+    const toggleCardView = () => {
+      setIsCardView((prevState) => !prevState);
     }
 
     if (data === undefined) { //data can never be undefined regardless there's an error or it's empty
@@ -79,6 +85,9 @@ export const TaskList = ({
         <div className="flex flex-col">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-3xl">{query.personal ? "Personal tasks" : "Team tasks"}</h2>
+            <Button onClick={toggleCardView} variant={isCardView ? "secondary" : "ghost"} className="px-4 py-2 rounded-md mr-2">
+              {isCardView ? "Grid View" : "Card View"}
+            </Button>
             <Button onClick={handleViewChange} variant={isCalendarView ? "secondary" : "ghost"} className="px-4 py-2 rounded-md">
               {isCalendarView ? <List className="mr-2 h-4 w-4" /> : <Calendar className="mr-2 h-4 w-4" />}
               {isCalendarView ? "Task List View" : "Calendar View"}
@@ -86,6 +95,8 @@ export const TaskList = ({
           </div>
           {isCalendarView ? (
             <CalendarTask tasks={data} />
+          ) : isCardView ? (
+            data.map((task) =>  <SingleTaskView key={task._id} task={task} />)
           ) : (
             <>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 mt-8 pb-10">
