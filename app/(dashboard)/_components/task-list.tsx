@@ -10,7 +10,7 @@ import { EmptyPersonal } from "./empty-personal";
 import { EmptyTask } from "./empty-task";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import { Calendar, List, Plus } from "lucide-react";
+import { Calendar, GalleryHorizontal, GalleryVertical, List, Plus } from "lucide-react";
 import { TaskCard } from "./task-card";
 import { useState } from "react";
 
@@ -48,11 +48,13 @@ export const TaskList = ({
 
     const handleViewChange = () => {
         setIsCalendarView((prevState) => !prevState);
+        setIsCardView(false); 
     }
 
     const toggleCardView = () => {
       setIsCardView((prevState) => !prevState);
     }
+    
 
     if (data === undefined) { //data can never be undefined regardless there's an error or it's empty
         return (
@@ -84,14 +86,31 @@ export const TaskList = ({
     return (
         <div className="flex flex-col">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-3xl">{query.personal ? "Personal tasks" : "Team tasks"}</h2>
-            <Button onClick={toggleCardView} variant={isCardView ? "secondary" : "ghost"} className="px-4 py-2 rounded-md mr-2">
-              {isCardView ? "Grid View" : "Card View"}
-            </Button>
-            <Button onClick={handleViewChange} variant={isCalendarView ? "secondary" : "ghost"} className="px-4 py-2 rounded-md">
-              {isCalendarView ? <List className="mr-2 h-4 w-4" /> : <Calendar className="mr-2 h-4 w-4" />}
-              {isCalendarView ? "Task List View" : "Calendar View"}
-            </Button>
+            <h2 className="text-xl sm:text-md">{query.personal ? "Personal tasks" : "Team tasks"}</h2>
+            <div className="flex">
+            {!isCalendarView && (
+              <Button 
+                onClick={toggleCardView} 
+                variant={isCardView ? "secondary" : "ghost"} 
+                className="px-4 py-2 rounded-md"
+                >
+                {isCardView ? <GalleryVertical className="mr-2 h-w w-4"/> : <GalleryHorizontal className="mr-2 h-4 w-4"/>}
+                <span className="hidden lg:inline">
+                {isCardView ? "Grid View" : "Card View"}
+                </span>
+              </Button>
+            )}
+              <Button 
+                onClick={handleViewChange} 
+                variant={isCalendarView ? "secondary" : "ghost"} 
+                className="px-4 py-2 rounded-md"
+                >
+                {isCalendarView ? <List className="mr-2 h-4 w-4" /> : <Calendar className="mr-2 h-4 w-4" />}
+                <span className="hidden lg:inline">
+                {isCalendarView ? "Task List View" : "Calendar View"}
+                </span>
+              </Button>
+            </div>
           </div>
           {isCalendarView ? (
             <CalendarTask tasks={data} />
