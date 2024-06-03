@@ -87,15 +87,15 @@ export const CardCreator = ({ onClose }: CardCreatorProps) => {
 
     return (
         <div className="flex justify-center items-center h-full bg-amber-200">
-        <Card className="w-[350px] bg-amber-200">
+        <Card className="w-[300px] bg-amber-200">
           <CardHeader>
-            <CardTitle>Create Tasks</CardTitle>
-            <CardDescription>Write here your new task, it will be added to your schedule</CardDescription>
+            <CardTitle className="text-xl">Create Tasks</CardTitle>
+            <CardDescription className="text-sm">Write here your new task, it will be added to your schedule</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="space-y-2">
             <form onSubmit={handleSubmit}>
-              <div className="grid w-full items-center gap-4">
-                <div className="flex flex-col space-y-1.5">
+              <div className="space-y-2">
+                <div className="flex flex-col">
                   <Label htmlFor="name">Name</Label>
                   <Input 
                     className="bg-amber-200"
@@ -105,7 +105,7 @@ export const CardCreator = ({ onClose }: CardCreatorProps) => {
                     onChange={handleChange}
                     />
                 </div>
-                <div className="flex flex-col space-y-1.5">
+                <div className="flex flex-col">
                   <Label htmlFor="description">Description</Label>
                   <Textarea 
                   className="bg-amber-200"
@@ -116,7 +116,7 @@ export const CardCreator = ({ onClose }: CardCreatorProps) => {
                   onChange={handleChange}
                   />
                 </div>
-                <div className="flex flex-col space-y-1.5">
+                <div className="flex flex-col">
                   <Label htmlFor="type">Type of order</Label>
                   <Input 
                   className="bg-amber-200"
@@ -126,7 +126,7 @@ export const CardCreator = ({ onClose }: CardCreatorProps) => {
                   onChange={handleChange}
                   />
                 </div>
-                  <div className="flex flex-col space-y-1.5">
+                  <div className="flex flex-col">
                   <Label htmlFor="assignedTo">Assigned to</Label>
                   <Input 
                   className="bg-amber-200"
@@ -136,7 +136,7 @@ export const CardCreator = ({ onClose }: CardCreatorProps) => {
                   onChange={handleChange}
                   />
                 </div>
-                <div className="flex flex-col space-y-1.5">
+                <div className="flex flex-col">
                   <Label htmlFor="date">Date</Label>
                   <Input
                     className="bg-amber-200"
@@ -147,8 +147,8 @@ export const CardCreator = ({ onClose }: CardCreatorProps) => {
                   />
                 </div>
               </div>
-              <div className="pt-4">
-              <Button variant="outline" className="m-4" onClick={onClose}>Cancel</Button>
+              <div className="flex pt-2 space-x-2 justify-between">
+              <Button variant="outline" onClick={onClose}>Cancel</Button>
             <Button type="submit">Create task</Button>
             </div>
             </form>

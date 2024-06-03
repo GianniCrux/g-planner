@@ -1,3 +1,5 @@
+import { Actions } from "@/components/actions";
+import { MoreHorizontal } from "lucide-react";
 
 
 interface SingleTaskViewProps {
@@ -21,7 +23,28 @@ export const SingleTaskView = ({ task }: SingleTaskViewProps) => {
 
     
     return (
-        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
+        <div className="min-h-[calc(95vh-64px)] sm:min-h-[calc(95vh-56px)] max-h-screen[95vh] bg-yellow-200 rounded-lg shadow-md p-6 mb-8">
+      <div className="">
+      <Actions 
+        id={task._id}
+        title={task.title}
+        side="right"
+        description={task.description}
+        createdAt={task._creationTime}
+        assignedTo={task.assignedTo}
+        type={task.type}
+        authorName={task.authorName}
+        date={task.date}
+      >
+        <button 
+        className="opcaity-0 group-hover:opacity-100 px-3 py-2 outline-none"
+        >
+          <MoreHorizontal  
+          className="text-black opacity-75 hover:opacity-100 transition-opacity"
+          />
+        </button>
+      </Actions>
+      </div>
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-bold">{task.title}</h2>
         <span className="text-gray-500">{task.date}</span>
