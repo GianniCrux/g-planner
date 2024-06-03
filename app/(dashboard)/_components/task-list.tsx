@@ -105,7 +105,7 @@ export const TaskList = ({
                     <Plus className="mr-2 h-4 w-4" /> Add Task
                   </Button>
                   {showDialog && (
-                    <Dialog open={showDialog}>
+                    <Dialog open={showDialog} onOpenChange={toggleDialog}>
                       <DialogContent className="bg-amber-200">
                         <CardCreator onClose={toggleDialog} />
                       </DialogContent>
