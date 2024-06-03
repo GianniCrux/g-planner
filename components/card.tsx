@@ -86,8 +86,8 @@ export const CardCreator = ({ onClose }: CardCreatorProps) => {
   };
 
     return (
-        <div className="flex justify-center items-center h-full bg-amber-200">
-        <Card className="w-[300px] bg-amber-200">
+        <div className="flex justify-center items-center h-full bg-amber-400">
+        <Card className="w-[300px] bg-amber-400">
           <CardHeader>
             <CardTitle className="text-xl">Create Tasks</CardTitle>
             <CardDescription className="text-sm">Write here your new task, it will be added to your schedule</CardDescription>

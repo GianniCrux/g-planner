@@ -137,7 +137,7 @@ export const TaskList = ({
                   </Button>
                   {showDialog && (
                     <Dialog open={showDialog} onOpenChange={toggleDialog}>
-                      <DialogContent className="bg-amber-200">
+                      <DialogContent className="bg-amber-400">
                         <CardCreator onClose={toggleDialog} />
                       </DialogContent>
                     </Dialog>
