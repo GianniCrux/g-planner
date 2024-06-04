@@ -7,7 +7,7 @@ import { formatDistanceToNow } from "date-fns";
 import { useState } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 
-interface TaskCardProps {
+export interface TaskCardProps {
     id: string;
     title: string;
     description: string;
@@ -30,10 +30,8 @@ export const TaskCard = ({
     authorName,
     date,
 }: TaskCardProps) => {
-    /* const formattedDate = new Date(createdAt).toLocaleDateString(); */
-    const createdAtLabel = formatDistanceToNow(createdAt, {
-      addSuffix: true,
-    })
+    const formattedDate = new Date(createdAt).toLocaleDateString(); 
+
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -79,7 +77,7 @@ export const TaskCard = ({
       <div className="mt-6">
       </div>
       <div className="bg-amber-800 text-white text-xs px-2 py-1 rounded mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-      Created by {authorName}, {createdAtLabel}
+      Created by {authorName}, {formattedDate}
     </div>
     </div>
         {isDialogOpen && (
@@ -104,7 +102,7 @@ export const TaskCard = ({
         <p className="mb-2 text-md">{description}</p>
         <div className="mt-auto">
         <span className="text-sm">Date: {date}</span>
-        <p className="text-sm mt-2">Created by {authorName}, {createdAtLabel}</p>
+        <p className="text-sm mt-2">Created by {authorName}, {formattedDate}</p>
       </div>
             </DialogContent>
           </Dialog>

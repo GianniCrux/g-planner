@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Calendar } from "lucide-react";
-import { Calendar as BigCalendar, momentLocalizer } from 'react-big-calendar';
+import { Calendar as BigCalendar, momentLocalizer} from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+import { Dialog, DialogClose, DialogContent, DialogFooter} from '@/components/ui/dialog';
+import { TaskCard, TaskCardProps } from './task-card';
+
 
 const localizer = momentLocalizer(moment);
 
@@ -11,28 +14,38 @@ interface CalendarTaskProps {
   tasks: any[];
 }
 
-interface CalendarEvent {
-  title: string;
+interface CalendarEvent extends TaskCardProps {
   start: Date;
   end: Date;
 }
 
 export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
   const [events, setEvents] = useState<CalendarEvent[]>([]); //CalendarEvent[] indica che lo stato events deve essere un array di oggetti che rispettano l'interfaccia CalendarEvent. Questo garantisce che ogni evento abbia le proprietà title, start ed end. 
+  const [showDialog, setShowDialog] = useState(false);
+  const [selectedTask, setSelectedTask] = useState<CalendarEvent | null>(null);
+
 
   useEffect(() => {
-    const calendarEvents: CalendarEvent[] = tasks
-    .filter((task) => task.date)
-    .map((task) => ({
-      title: task.description,
+    const calendarEvents: CalendarEvent[] = tasks.filter((task) => task.date).map((task) => ({
+      ...task, // Include all task properties in the calendar event
       start: new Date(task.date),
-      end: new Date(task.date), //is only taking tasks from the user, not displaying org tasks. 
+      end: new Date(task.date),
     }));
 
     setEvents(calendarEvents);
   }, [tasks]);
   
   const [currentMonth, setCurrentMonth] = useState(moment());
+
+  const handleSelectEvent = (event: CalendarEvent) => {
+    setSelectedTask(event);  // Set the selected task directly
+    setShowDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setShowDialog(false);
+    setSelectedTask(null);
+  };
 
   return (
         <div>
@@ -52,6 +65,7 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
             Next </Button>
       </div>
           <BigCalendar
+            onSelectEvent={handleSelectEvent}
             localizer={localizer}
             events={events}
             toolbar={true}
@@ -88,6 +102,18 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
           <div className='relative py-8'>
             <div className='absolute inset-x-0 bottom-o h-px bg-gradient-to-r from-transparent via-black to-transparent'></div>
           </div>
+          {showDialog && selectedTask && ( 
+        <Dialog open={showDialog} onOpenChange={handleCloseDialog}>
+          <DialogContent className="bg-amber-400">
+            <TaskCard {...selectedTask} /* add multiple tasks per day view */ /> 
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button type="button" variant="secondary" onClick={handleCloseDialog}>Close</Button>
+              </DialogClose>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      )}
           </div>
   );
 };
