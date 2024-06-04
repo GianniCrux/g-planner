@@ -46,7 +46,6 @@ export const TaskCard = ({
       <>
         <div 
           className="group bg-yellow-200 p-4 rounded-lg shadow-md relative border border-yellow-300 min-w-[200px] flex flex-col cursor-pointer"
-          onClick={toggleDialog}
           > {/* Sticky note styling */}
     <div className="flex-grow">
     <div className="pt-4">
@@ -70,6 +69,7 @@ export const TaskCard = ({
         </button>
       </Actions>
       </div>
+      <div onClick={toggleDialog}>
       <div className="font-semibold text-2xl mb-2">{title}</div> {/* Client Name */}
         <div className="text-md text-black line-clamp-3 font-semibold"> {description} </div>
     </div>
@@ -109,6 +109,7 @@ export const TaskCard = ({
             </DialogContent>
           </Dialog>
         )}
+        </div>
    </>
   );
 };

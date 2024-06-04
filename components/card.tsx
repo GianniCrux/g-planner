@@ -27,6 +27,7 @@ import { toast } from "sonner";
 
 
 interface Task {
+  _id: string;
   name: string;
   description: string;
   type?: string;
@@ -45,6 +46,7 @@ export const CardCreator = ({ onClose }: CardCreatorProps) => {
   const { mutate } = useApiMutation(api.task.create);
 
   const [formData, setFormData] = useState<Task>({
+    _id: "",
     name: "",
     description: "",
     type: "",
