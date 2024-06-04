@@ -21,7 +21,9 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
   const [events, setEvents] = useState<CalendarEvent[]>([]); //CalendarEvent[] indica che lo stato events deve essere un array di oggetti che rispettano l'interfaccia CalendarEvent. Questo garantisce che ogni evento abbia le proprietà title, start ed end. 
 
   useEffect(() => {
-    const calendarEvents: CalendarEvent[] = tasks.map((task) => ({
+    const calendarEvents: CalendarEvent[] = tasks
+    .filter((task) => task.date)
+    .map((task) => ({
       title: task.description,
       start: new Date(task.date),
       end: new Date(task.date), //is only taking tasks from the user, not displaying org tasks. 
