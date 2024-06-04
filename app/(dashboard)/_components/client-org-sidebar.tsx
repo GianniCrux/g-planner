@@ -35,6 +35,7 @@ export const ClientOrgSidebar = () => {
 
   return (
     <>
+    <div className="relative">
       <div className="sm:block hidden">
         <OrgSidebar />
       </div>
@@ -46,10 +47,10 @@ export const ClientOrgSidebar = () => {
           <SidebarIcon className="text-black"/>
         </Button>
         {isSidebarOpen && (
-          <div className="fixed inset-0 z-50 bg-amber-600 bg-opacity-50">
+          <div className="fixed inset-0 z-50 bg-amber-600 bg-opacity-50 flex">
             <div 
                 ref={sidebarRef}
-                className="absolute top-0 left-0 h-full bg-amber-300"
+                className="h-full bg-amber-300 w-64 max-w-[80vw]"
             >
                 <div className="flex justify-end p-4">
                     <Button 
@@ -64,6 +65,7 @@ export const ClientOrgSidebar = () => {
           </div>
         )}
       </div>
+    </div>
     </>
   );
 };

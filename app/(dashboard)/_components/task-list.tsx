@@ -87,7 +87,7 @@ export const TaskList = ({
         <div className="flex flex-col">
           <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl sm:text-md">{query.personal ? "Personal tasks" : "Team tasks"}</h2>
-            <div className="flex">
+            <div className="flex space-x-1">
             {isCardView && (
               <Button onClick={toggleDialog} className="bg-amber-300 text-black hover:bg-amber-600/20">
                 <Plus className="h-w w-4" /> Add task
@@ -97,7 +97,7 @@ export const TaskList = ({
               <Button 
                 onClick={toggleCardView} 
                 variant={isCardView ? "secondary" : "ghost"} 
-                className="px-4 py-2 rounded-md"
+                className="px-4 py-2 rounded-md bg-amber-500 hover:bg-amber-800"
                 >
                 {isCardView ? <GalleryVertical className="mr-2 h-w w-4"/> : <GalleryHorizontal className="mr-2 h-4 w-4"/>}
                 <span className="hidden lg:inline">
@@ -108,7 +108,7 @@ export const TaskList = ({
               <Button 
                 onClick={handleViewChange} 
                 variant={isCalendarView ? "secondary" : "ghost"} 
-                className="px-4 py-2 rounded-md"
+                className="px-4 py-2 rounded-md bg-amber-500 hover:bg-amber-800"
                 >
                 {isCalendarView ? <List className="mr-2 h-4 w-4" /> : <Calendar className="mr-2 h-4 w-4" />}
                 <span className="hidden lg:inline">
@@ -118,7 +118,7 @@ export const TaskList = ({
             </div>
             {showDialog && (
             <Dialog open={showDialog} onOpenChange={toggleDialog}>
-            <DialogContent className="bg-amber-200">
+            <DialogContent className="bg-amber-400">
               <CardCreator onClose={toggleDialog} />
             </DialogContent>
           </Dialog>
@@ -130,7 +130,7 @@ export const TaskList = ({
             data.map((task) =>  <SingleTaskView key={task._id} task={task} />)
           ) : (
             <>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 mt-8 pb-10">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 mt-8 pb-10">
                 <div className="flex justify-end mb-4">
                   <Button onClick={toggleDialog} className="h-full w-full bg-yellow-200 text-black hover:bg-amber-500">
                     <Plus className="mr-2 h-4 w-4" /> Add Task
