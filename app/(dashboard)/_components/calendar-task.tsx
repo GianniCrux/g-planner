@@ -48,11 +48,10 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
   };
 
   return (
-    <div className="relative bg-gray-900 text-xl shadow-lg overflow-hidden p-8 md:p-16">
-      <div className='absolute inset-0 opacity-50'>
-        <div className='absolute inset-0 bg-gradient-radial from-white/20 via-transparent'></div>
-        <div className='absolute inset-0 bg-gradieent-to-b from-trasparent via-black/20 to-transparent'></div>
-      </div>
+    <div className="relative bg-transparent text-xl shadow-lg overflow-hidden p-8 md:p-16">
+  <div className="absolute inset-0 opacity-70">
+    <div className="absolute inset-0 bg-gradient-to-r from-amber-500 via-yellow-300 to-amber-500"></div>
+  </div>
       <div className='relative z-10'>
         <div className="flex justify-between items-center mb-4">
                 <Button 
@@ -60,6 +59,10 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
                   className='bg-amber-500 text-black hover:bg-amber-800'
                 > 
                   Previous </Button>
+          <span className="rbc-toolbar-label text-amber-600 text-xl mx-4"> 
+            {currentMonth.format('MMMM YYYY')}
+          </span> 
+          
         <Button 
           onClick={() => setCurrentMonth(currentMonth.clone().add(1, 'month'))} 
           className='bg-amber-500 text-black hover:bg-amber-800'
@@ -70,7 +73,7 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
             onSelectEvent={handleSelectEvent}
             localizer={localizer}
             events={events}
-            toolbar={true}
+            toolbar={false}
             startAccessor="start"
             endAccessor="end"
             style={{ height: '70vh', width: '100%' }} 
@@ -84,7 +87,7 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
             defaultView='month'
             components={{
               toolbar: ({ label }) => (
-                <div className="rbc-toolbar">
+                <div className="rbc-toolbar"> 
                   <span className="rbc-toolbar-label text-amber-600 text-xl">{label}</span> 
                 </div>
               ),
