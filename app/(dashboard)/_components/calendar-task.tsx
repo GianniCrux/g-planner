@@ -48,22 +48,24 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
   };
 
   return (
-        <div>
-        <div>
-          <div className="flex justify-between flex-grow">
-        <Button 
-          onClick={() => setCurrentMonth(currentMonth.clone().subtract(1, 'month'))} 
-          className='bg-amber-500 text-black hover:bg-amber-800'
-        > 
-            Previous </Button>
-        <div>
-        </div>
+    <div className="relative bg-gray-900 text-xl shadow-lg overflow-hidden p-8 md:p-16">
+      <div className='absolute inset-0 opacity-50'>
+        <div className='absolute inset-0 bg-gradient-radial from-white/20 via-transparent'></div>
+        <div className='absolute inset-0 bg-gradieent-to-b from-trasparent via-black/20 to-transparent'></div>
+      </div>
+      <div className='relative z-10'>
+        <div className="flex justify-between items-center mb-4">
+                <Button 
+                  onClick={() => setCurrentMonth(currentMonth.clone().subtract(1, 'month'))} 
+                  className='bg-amber-500 text-black hover:bg-amber-800'
+                > 
+                  Previous </Button>
         <Button 
           onClick={() => setCurrentMonth(currentMonth.clone().add(1, 'month'))} 
           className='bg-amber-500 text-black hover:bg-amber-800'
         > 
             Next </Button>
-      </div>
+            </div>
           <BigCalendar
             onSelectEvent={handleSelectEvent}
             localizer={localizer}
@@ -71,20 +73,24 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
             toolbar={true}
             startAccessor="start"
             endAccessor="end"
-            style={{ height: '70vh', width: '70vw' }} 
+            style={{ height: '70vh', width: '100%' }} 
             eventPropGetter={(event, start, end, isSelected) => ({
               style: {
                 fontSize: '12px',
-                backgroundColor: 'black'
+                backgroundColor: 'black',
+                color: 'tan',
               }
             })}
             defaultView='month'
             components={{
               toolbar: ({ label }) => (
                 <div className="rbc-toolbar">
-                  <span className="rbc-toolbar-label">{label}</span> 
+                  <span className="rbc-toolbar-label text-amber-600 text-xl">{label}</span> 
                 </div>
-              )
+              ),
+              header: ({ date, label }) => (
+                <div className='rbc-day-header text-base text-amber-600'>{label}</div>
+              ),
             }}
             date={currentMonth.toDate()} 
             onNavigate={(newDate) => setCurrentMonth(moment(newDate))}
@@ -93,27 +99,31 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
           
               return {
                 style: {
-                  backgroundColor: isCurrentMonth ? '#ffb300' : '#ffee58', // Light gray for non-current month days
+                  backgroundColor: isCurrentMonth ? '#ffb300' : '#ffee58',
+                  color: isCurrentMonth ? '#000' : '#555',
                 }
               };
             }}
           />
-          </div>
+ 
           <div className='relative py-8'>
             <div className='absolute inset-x-0 bottom-o h-px bg-gradient-to-r from-transparent via-black to-transparent'></div>
           </div>
           {showDialog && selectedTask && ( 
         <Dialog open={showDialog} onOpenChange={handleCloseDialog}>
           <DialogContent className="bg-amber-400">
-            <TaskCard {...selectedTask} /* add multiple tasks per day view */ /> 
+            <TaskCard {...selectedTask} /* TODO: add multiple tasks per day view */ /> 
             <DialogFooter>
               <DialogClose asChild>
-                <Button type="button" variant="secondary" onClick={handleCloseDialog}>Close</Button>
+                <Button type="button" variant="secondary" onClick={handleCloseDialog}>
+                  Close
+                </Button>
               </DialogClose>
             </DialogFooter>
           </DialogContent>
         </Dialog>
       )}
-          </div>
+    </div>
+  </div>
   );
 };
