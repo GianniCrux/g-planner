@@ -1,74 +1,101 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { SidebarIcon, XIcon } from "lucide-react";
-import { OrgSidebar } from "./org-sidebar";
+import { SidebarIcon, XIcon, ToggleLeftIcon } from "lucide-react";
+import { OrgSidebar, OrgSidebarProps } from "./org-sidebar"; // Import OrgSidebarProps
 
 export const ClientOrgSidebar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  const closeSidebar = ( ) => {
+  const closeSidebar = () => {
     setIsSidebarOpen(false);
   };
 
   const handleClickOutside = (event: MouseEvent) => {
-    if(
-        sidebarRef.current &&
-        !sidebarRef.current.contains(event.target as Node)
+    if (
+      sidebarRef.current &&
+      !sidebarRef.current.contains(event.target as Node)
     ) {
-        closeSidebar();
+      closeSidebar();
     }
   };
-
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   });
 
   return (
-    <>
     <div className="relative">
-      {/* Desktop view */}
-{/*       <div className="hidden md:block">
-        <OrgSidebar />
-      </div> */}
-
-      {/*  view */}
-      <div className="">
-        <Button 
-            className="bg-amber-600 hover:bg-amber-800"
-            onClick={toggleSidebar}
+      {/* Mobile view */}
+      <div className="sm:hidden">
+        <Button
+          className="bg-amber-600 hover:bg-amber-800"
+          onClick={toggleSidebar}
         >
-          <SidebarIcon className="text-black"/>
+          <SidebarIcon className="text-black" />
         </Button>
         {isSidebarOpen && (
           <div className="fixed inset-0 z-50 bg-amber-600 bg-opacity-50 flex">
-            <div 
-                ref={sidebarRef}
-                className="h-full bg-amber-300 w-64 max-w-[80vw]"
+            <div
+              ref={sidebarRef}
+              className="h-full bg-amber-300 w-64 max-w-[80vw]"
             >
-                <div className="flex justify-end p-4">
-                    <Button 
-                        onClick={closeSidebar}
-                        className="bg-amber-500 hover:bg-amber-800"
-                    >
-                        <XIcon className="text-black" />
-                    </Button>
+              <div className="flex justify-end p-4">
+                <Button
+                  onClick={closeSidebar}
+                  className="bg-amber-500 hover:bg-amber-800"
+                >
+                  <XIcon className="text-black" />
+                </Button>
+              </div>
+              <OrgSidebar>
+                <div className="px-4 pb-4">
+                  <Button
+                    className="bg-amber-600 hover:bg-amber-800 w-full"
+                    onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+                  >
+                    <ToggleLeftIcon className="text-black" />
+                    {isSidebarCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
+                  </Button>
                 </div>
-              <OrgSidebar />
+              </OrgSidebar>
             </div>
           </div>
         )}
       </div>
+
+      {/* Medium and larger screens */}
+      <div className="hidden sm:block">
+        {isSidebarCollapsed ? (
+          <Button
+            className="bg-amber-600 hover:bg-amber-800"
+            onClick={() => setIsSidebarCollapsed(false)}
+          >
+            <SidebarIcon className="text-black" />
+          </Button>
+        ) : (
+          <OrgSidebar>
+            <div className="px-4 pb-4">
+              <Button
+                className="bg-amber-600 hover:bg-amber-800 w-full"
+                onClick={() => setIsSidebarCollapsed(true)}
+              >
+                <ToggleLeftIcon className="text-black" />
+                Collapse Sidebar
+              </Button>
+            </div>
+          </OrgSidebar>
+        )}
+      </div>
     </div>
-    </>
   );
 };

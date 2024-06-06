@@ -14,6 +14,7 @@ import { OrganizationSwitcher } from "@clerk/clerk-react";
 import { Button } from "@/components/ui/button";
 import { LayoutDashboard } from "lucide-react";
 import { CalendarTask } from "./calendar-task";
+import React from "react";
 
 
 const font = Poppins({
@@ -21,8 +22,12 @@ const font = Poppins({
     weight: ["600"],
 });
 
+export interface OrgSidebarProps {
+    children?: React.ReactNode;
+}
 
-export const OrgSidebar = () => {
+
+export const OrgSidebar = ({children}: OrgSidebarProps) => {
     const searchParams = useSearchParams(); 
     const personal = searchParams.get("personal");
 
@@ -44,6 +49,7 @@ export const OrgSidebar = () => {
                     </span>
                 </div>
             </Link>
+            {children}
             <OrganizationSwitcher
                 hidePersonal
                 appearance={{
