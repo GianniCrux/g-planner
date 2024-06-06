@@ -33,7 +33,7 @@ export const OrgSidebar = ({children}: OrgSidebarProps) => {
 
     return (
         <div className="flex-col w-[206px] pl-4 pt-2">
-            <Link href="/">
+            {/* <Link href="/">
                 <div className="flex items-center gap-x-2">
                     <Image 
                         src="/plannerLogo.svg"
@@ -48,7 +48,7 @@ export const OrgSidebar = ({children}: OrgSidebarProps) => {
                         GPlanner
                     </span>
                 </div>
-            </Link>
+            </Link> */}
             {children}
             <OrganizationSwitcher
                 hidePersonal

@@ -130,7 +130,7 @@ export const TaskList = ({
             data.map((task) =>  <SingleTaskView key={task._id} task={task} />)
           ) : (
             <>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 mt-8 pb-10">
+              <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 mt-8 pb-10">
                 <div className="flex justify-end mb-4">
                   <Button onClick={toggleDialog} className="h-full w-full bg-yellow-200 text-black hover:bg-amber-500">
                     <Plus className="mr-2 h-4 w-4" /> Add Task
