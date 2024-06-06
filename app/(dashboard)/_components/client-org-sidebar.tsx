@@ -36,10 +36,13 @@ export const ClientOrgSidebar = () => {
   return (
     <>
     <div className="relative">
-      <div className="sm:block hidden">
+      {/* Desktop view */}
+{/*       <div className="hidden md:block">
         <OrgSidebar />
-      </div>
-      <div className="sm:hidden pt-5">
+      </div> */}
+
+      {/*  view */}
+      <div className="">
         <Button 
             className="bg-amber-600 hover:bg-amber-800"
             onClick={toggleSidebar}
