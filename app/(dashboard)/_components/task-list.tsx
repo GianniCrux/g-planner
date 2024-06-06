@@ -99,7 +99,7 @@ export const TaskList = ({
                 variant={isCardView ? "secondary" : "ghost"} 
                 className="px-4 py-2 rounded-md bg-amber-500 hover:bg-amber-800"
                 >
-                {isCardView ? <GalleryVertical className="mr-2 h-w w-4"/> : <GalleryHorizontal className="mr-2 h-4 w-4"/>}
+                {isCardView ? <GalleryVertical className="h-w w-4"/> : <GalleryHorizontal className="h-4 w-4"/>}
                 <span className="hidden lg:inline">
                 {isCardView ? "Grid View" : "Card View"}
                 </span>
@@ -110,7 +110,7 @@ export const TaskList = ({
                 variant={isCalendarView ? "secondary" : "ghost"} 
                 className="px-4 py-2 rounded-md bg-amber-500 hover:bg-amber-800"
                 >
-                {isCalendarView ? <List className="mr-2 h-4 w-4" /> : <Calendar className="mr-2 h-4 w-4" />}
+                {isCalendarView ? <List className="h-4 w-4" /> : <Calendar className="h-4 w-4" />}
                 <span className="hidden lg:inline">
                 {isCalendarView ? "Task List View" : "Calendar View"}
                 </span>

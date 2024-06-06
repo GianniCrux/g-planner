@@ -50,7 +50,7 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
   return (
     <div className="relative bg-transparent text-xl shadow-lg overflow-hidden p-8 md:p-16">
   <div className="absolute inset-0 opacity-70">
-    <div className="absolute inset-0 bg-gradient-to-r from-amber-500 via-yellow-300 to-amber-500"></div>
+    <div className="absolute inset-0 bg-gradient-to-r from-amber-500 via-amber-300 to-amber-500"></div>
   </div>
       <div className='relative z-10'>
         <div className="flex justify-between items-center mb-4">
