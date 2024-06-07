@@ -3,6 +3,16 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { SidebarIcon, XIcon, ToggleLeftIcon } from "lucide-react";
 import { OrgSidebar, OrgSidebarProps } from "./org-sidebar"; // Import OrgSidebarProps
+import Link from "next/link";
+import Image from "next/image";
+import { cn } from "@/lib/utils";
+import { Poppins } from "next/font/google";
+
+
+const font = Poppins({
+  subsets: ["latin"],
+  weight: ["600"],
+});
 
 export const ClientOrgSidebar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -57,7 +67,26 @@ export const ClientOrgSidebar = () => {
                   <XIcon className="text-black" />
                 </Button>
               </div>
-              <OrgSidebar />
+              <OrgSidebar>
+                <div className="px-4 pb-4">
+                <Link href="/">
+                <div className="flex items-center gap-x-2">
+                    <Image 
+                        src="/plannerLogo.svg"
+                        alt="Logo"
+                        height={60}
+                        width={60}
+                    />
+                    <span className={cn(
+                        "font-semibold text-2xl",
+                        font.className,
+                    )}>
+                        GPlanner
+                    </span>
+                </div>
+            </Link>
+                </div>
+              </OrgSidebar>
             </div>
           </div>
         )}
