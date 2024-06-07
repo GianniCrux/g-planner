@@ -8,6 +8,7 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Poppins } from "next/font/google";
 import { InviteButton } from "./invite-button";
+import { useOrganization } from "@clerk/nextjs";
 
 
 const font = Poppins({
@@ -16,6 +17,8 @@ const font = Poppins({
 });
 
 export const ClientOrgSidebar = () => {
+  const { organization } = useOrganization();
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
@@ -49,7 +52,7 @@ export const ClientOrgSidebar = () => {
       {/* Mobile view */}
       <div className="sm:hidden">
         <Button
-          className="bg-amber-600 hover:bg-amber-800"
+          className="bg-amber-500 hover:bg-amber-700"
           onClick={toggleSidebar}
         >
           <SidebarIcon className="text-black" />
@@ -63,7 +66,7 @@ export const ClientOrgSidebar = () => {
               <div className="flex justify-end p-4">
                 <Button
                   onClick={closeSidebar}
-                  className="bg-amber-500 hover:bg-amber-800"
+                  className="bg-amber-300 hover:bg-amber-300"
                 >
                   <XIcon className="text-black" />
                 </Button>
@@ -89,7 +92,9 @@ export const ClientOrgSidebar = () => {
                 </div>
               </OrgSidebar>
               <div className="pl-4">
+              {organization && (
               <InviteButton />
+              )}
               </div>
             </div>
           </div>
@@ -99,7 +104,7 @@ export const ClientOrgSidebar = () => {
       {/* Medium and larger screens */}
       <div className="hidden sm:block">
         <Button
-          className={`bg-amber-600 hover:bg-amber-800 transition-transform duration-300 ${
+          className={`bg-amber-300 hover:bg-amber-300 transition-transform duration-300 ${
             isSidebarCollapsed ? "rotate-180" : ""
           }`}
           onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
