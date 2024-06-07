@@ -7,6 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Poppins } from "next/font/google";
+import { InviteButton } from "./invite-button";
 
 
 const font = Poppins({
@@ -87,6 +88,9 @@ export const ClientOrgSidebar = () => {
             </Link>
                 </div>
               </OrgSidebar>
+              <div className="pl-4">
+              <InviteButton />
+              </div>
             </div>
           </div>
         )}

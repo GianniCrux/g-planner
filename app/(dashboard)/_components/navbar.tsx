@@ -41,7 +41,9 @@ export const Navbar = () => {
                 <SearchInput />
             </div>
             {organization && (
+            <div className="hidden sm:block">
             <InviteButton />
+            </div>
             )}
             <UserButton />
         </div>
