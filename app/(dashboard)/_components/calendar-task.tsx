@@ -22,7 +22,8 @@ interface CalendarEvent extends TaskCardProps {
 export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
   const [events, setEvents] = useState<CalendarEvent[]>([]); //CalendarEvent[] indica che lo stato events deve essere un array di oggetti che rispettano l'interfaccia CalendarEvent. Questo garantisce che ogni evento abbia le proprietà title, start ed end. 
   const [showDialog, setShowDialog] = useState(false);
-  const [selectedTask, setSelectedTask] = useState<CalendarEvent | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [tasksForSelectedDate, setTasksForSelectedDate] = useState<CalendarEvent[]>([]);
 
 
   useEffect(() => {
@@ -37,14 +38,17 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
   
   const [currentMonth, setCurrentMonth] = useState(moment());
 
-  const handleSelectEvent = (event: CalendarEvent) => {
-    setSelectedTask(event);  // Set the selected task directly
+  const handleSelectSlot = ({ start, end }: { start: Date; end: Date }) => {
+    setSelectedDate(start);
+    const selectedDateEvents = events.filter((event) => moment(event.start).isSame(moment(start), 'day'));
+    setTasksForSelectedDate(selectedDateEvents);
     setShowDialog(true);
   };
 
   const handleCloseDialog = () => {
     setShowDialog(false);
-    setSelectedTask(null);
+    setSelectedDate(null);
+    setTasksForSelectedDate([]);
   };
 
   return (
@@ -70,7 +74,7 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
             Next </Button>
             </div>
           <BigCalendar
-            onSelectEvent={handleSelectEvent}
+            onSelectEvent={handleSelectSlot}
             localizer={localizer}
             events={events}
             toolbar={false}
@@ -112,11 +116,16 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
           <div className='relative py-8'>
             <div className='absolute inset-x-0 bottom-o h-px bg-gradient-to-r from-transparent via-black to-transparent'></div>
           </div>
-          {showDialog && selectedTask && ( 
-        <Dialog open={showDialog} onOpenChange={handleCloseDialog}>
-          <DialogContent className="bg-amber-400">
-            <TaskCard {...selectedTask} /* TODO: add multiple tasks per day view */ /> 
-            <DialogFooter>
+          {showDialog && selectedDate && ( 
+            <Dialog open={showDialog} onOpenChange={handleCloseDialog}>
+            <DialogContent className="bg-amber-400 max-h-[600px] overflow-auto">
+              {tasksForSelectedDate.map((task) => (
+                <TaskCard key={task.id} {...task} />
+              ))}
+              {tasksForSelectedDate.length === 0 && (
+                <p>No tasks available for the selected date.</p>
+              )}
+              <DialogFooter>
               <DialogClose asChild>
                 <Button type="button" variant="secondary" onClick={handleCloseDialog}>
                   Close
