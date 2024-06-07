@@ -57,17 +57,7 @@ export const ClientOrgSidebar = () => {
                   <XIcon className="text-black" />
                 </Button>
               </div>
-              <OrgSidebar>
-                <div className="px-4 pb-4">
-                  <Button
-                    className="bg-amber-600 hover:bg-amber-800 w-full"
-                    onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-                  >
-                    <ToggleLeftIcon className="text-black" />
-                    {isSidebarCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
-                  </Button>
-                </div>
-              </OrgSidebar>
+              <OrgSidebar />
             </div>
           </div>
         )}
@@ -75,25 +65,16 @@ export const ClientOrgSidebar = () => {
 
       {/* Medium and larger screens */}
       <div className="hidden sm:block">
-        {isSidebarCollapsed ? (
-          <Button
-            className="bg-amber-600 hover:bg-amber-800"
-            onClick={() => setIsSidebarCollapsed(false)}
-          >
-            <SidebarIcon className="text-black" />
-          </Button>
-        ) : (
-          <OrgSidebar>
-            <div className="px-4 pb-4">
-              <Button
-                className="bg-amber-600 hover:bg-amber-800 w-full"
-                onClick={() => setIsSidebarCollapsed(true)}
-              >
-                <ToggleLeftIcon className="text-black" />
-                Collapse Sidebar
-              </Button>
-            </div>
-          </OrgSidebar>
+        <Button
+          className={`bg-amber-600 hover:bg-amber-800 transition-transform duration-300 ${
+            isSidebarCollapsed ? "rotate-180" : ""
+          }`}
+          onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+        >
+          <ToggleLeftIcon className="text-black" />
+        </Button>
+        {!isSidebarCollapsed && (
+          <OrgSidebar />
         )}
       </div>
     </div>
