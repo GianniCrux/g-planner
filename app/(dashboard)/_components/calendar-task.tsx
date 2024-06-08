@@ -17,6 +17,7 @@ interface CalendarTaskProps {
 interface CalendarEvent extends TaskCardProps {
   start: Date;
   end: Date;
+  _id: string;
 }
 
 export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
@@ -140,7 +141,7 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
             <Dialog open={showDialog} onOpenChange={handleCloseDialog}>
             <DialogContent className="bg-amber-400 max-h-[600px] overflow-auto">
               {tasksForSelectedDate.map((task) => (
-                <TaskCard key={task.id} {...task} />
+                <TaskCard key={task._id} {...task} />
               ))}
               {tasksForSelectedDate.length === 0 && (
                 <p>No tasks available for the selected date.</p>
