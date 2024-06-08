@@ -45,8 +45,7 @@ export const CardCreator = ({ onClose }: CardCreatorProps) => {
     
   const { mutate } = useApiMutation(api.task.create);
 
-  const [formData, setFormData] = useState<Task>({
-    _id: "",
+  const [formData, setFormData] = useState<Omit<Task, "_id">>({
     name: "",
     description: "",
     type: "",

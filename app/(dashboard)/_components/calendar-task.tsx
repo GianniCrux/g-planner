@@ -29,7 +29,7 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
   useEffect(() => {
     const calendarEvents: CalendarEvent[] = tasks.filter((task) => task.date).map((task) => ({
       ...task, // Include all task properties in the calendar event
-      start: new Date(task.date),
+      start: new Date(task.date), //TODO: Add logic for hours
       end: new Date(task.date),
     }));
 
