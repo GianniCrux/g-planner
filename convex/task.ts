@@ -45,6 +45,7 @@ export const create = mutation({//passing the arguments which we expect a task m
         title: v.string(),
         description: v.string(),
         assignedTo: v.optional(v.string()),
+        assignedToName: v.optional(v.string()),
         date: v.optional(v.string()),
         type: v.optional(v.string()),
     },
@@ -62,6 +63,7 @@ export const create = mutation({//passing the arguments which we expect a task m
             authorId: identity.subject,
             authorName: identity.name!,
             assignedTo: args.assignedTo,
+            assignedToName: args.assignedToName,
             date: args.date,
             type: args.type,
          })

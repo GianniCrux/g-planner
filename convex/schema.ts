@@ -7,6 +7,7 @@ export default defineSchema({
         description: v.string(),
         orgId: v.string(),
         assignedTo: v.optional(v.string()),
+        assignedToName: v.optional(v.string()),
         authorId: v.string(),
         authorName: v.string(),
         date: v.optional(v.string()),

@@ -150,6 +150,7 @@ export const TaskList = ({
                     title={task.title}
                     description={task.description}
                     assignedTo={task.assignedTo}
+                    assignedToName={task.assignedToName}
                     createdAt={task._creationTime}
                     orgId={task.orgId}
                     authorName={task.authorName}

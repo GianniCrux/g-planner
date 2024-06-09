@@ -14,6 +14,7 @@ export interface TaskCardProps {
     createdAt: number;
     orgId: string;
     assignedTo?: string;
+    assignedToName?: string;
     type?: string;
     authorName: string;
     date?: string;
@@ -26,11 +27,13 @@ export const TaskCard = ({
     createdAt,
     orgId,
     assignedTo,
+    assignedToName,
     type,
     authorName,
     date,
 }: TaskCardProps) => {
     const formattedDate = new Date(createdAt).toLocaleDateString(); 
+    
 
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -92,7 +95,7 @@ export const TaskCard = ({
         <h2 className="text-2xl font-bold">{title}</h2>
         <div className="flex items-center">
           <span className="bg-amber-800 text-white text-xs px-2 py-1 rounded mr-2">
-            Per: {assignedTo}
+            Per: {assignedToName}
           </span>
           <span className="bg-amber-800 text-white text-xs px-2 py-1 rounded">
             Genre: {type}

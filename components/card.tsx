@@ -18,12 +18,13 @@ import {
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
-import { use, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useApiMutation } from "@/hooks/use-api-mutation";
 import { useOrganization } from "@clerk/clerk-react";
 import { toast } from "sonner";
+import { OrganizationMembershipResource } from '@clerk/types';
 
 
 interface Task {
@@ -32,6 +33,7 @@ interface Task {
   description: string;
   type?: string;
   assignedTo: string;
+  assignedToName: string;
   date: string;
 }
 
@@ -42,7 +44,9 @@ interface CardCreatorProps {
 export const CardCreator = ({ onClose }: CardCreatorProps) => {
 
   const { organization } = useOrganization();
-    
+
+  const [memberships, setMemberships] = useState<OrganizationMembershipResource[]>([]);
+
   const { mutate } = useApiMutation(api.task.create);
 
   const [formData, setFormData] = useState<Omit<Task, "_id">>({
@@ -50,8 +54,22 @@ export const CardCreator = ({ onClose }: CardCreatorProps) => {
     description: "",
     type: "",
     assignedTo: "",
+    assignedToName: "",
     date: "",
   });
+
+
+  
+  useEffect(() => {
+    const fetchMembers = async () => {
+        if (organization) {
+            const response = await organization.getMemberships();
+            setMemberships(response.data); // Extract the data property
+        }
+    };
+
+    fetchMembers();
+  }, [organization]);
 
 
 
@@ -72,11 +90,21 @@ export const CardCreator = ({ onClose }: CardCreatorProps) => {
     if (!organization) {
       return
     }
+
+    const selectedMembership = memberships.find(
+      (membership) => membership.publicUserData.userId === formData.assignedTo
+    );
+
+    const assignedToName = selectedMembership
+    ? `${selectedMembership.publicUserData.firstName} ${selectedMembership.publicUserData.lastName}`
+    : '';
+
     mutate ({
       orgId: organization.id,
       title: formData.name,
       description: formData.description,
       assignedTo: formData.assignedTo,
+      assignedToName,
       date: formData.date,
       type: formData.type,
     }).then((id) => {
@@ -127,16 +155,26 @@ export const CardCreator = ({ onClose }: CardCreatorProps) => {
                   onChange={handleChange}
                   />
                 </div>
-                  <div className="flex flex-col">
-                  <Label htmlFor="assignedTo">Assigned to</Label>
-                  <Input 
-                  className="bg-amber-200"
-                  id="assignedTo" 
-                  placeholder="Select"
-                  value={formData.assignedTo}
-                  onChange={handleChange}
-                  />
-                </div>
+                <div className="flex flex-col">
+               <Label htmlFor="assignedTo">
+                Assigned to
+              </Label>
+              <Select 
+              value={formData.assignedTo}
+              onValueChange={(value) => setFormData(prevData => ({...prevData, assignedTo: value}))}
+              >
+              <SelectTrigger className="bg-amber-200">
+               <SelectValue placeholder="Select Member" />
+              </SelectTrigger>
+              <SelectContent>
+              {memberships && memberships.map((membership) => (
+              <SelectItem key={membership.id} value={membership.publicUserData.userId ?? ''}>
+            {membership.publicUserData.firstName} {membership.publicUserData.lastName}
+              </SelectItem>
+               ))}
+              </SelectContent>
+              </Select>
+              </div>
                 <div className="flex flex-col">
                   <Label htmlFor="date">Date</Label>
                   <Input
