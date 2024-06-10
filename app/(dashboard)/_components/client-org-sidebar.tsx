@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { SidebarIcon, XIcon, ToggleLeftIcon } from "lucide-react";
-import { OrgSidebar, OrgSidebarProps } from "./org-sidebar"; // Import OrgSidebarProps
+import { SidebarIcon, XIcon, ArrowRightIcon } from "lucide-react";
+import { OrgSidebar } from "./org-sidebar"; // Import OrgSidebarProps
 import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
@@ -22,6 +22,8 @@ export const ClientOrgSidebar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
+
+  const [isContentVisible, setIsContentVisible] = useState(false);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -46,6 +48,16 @@ export const ClientOrgSidebar = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   });
+
+
+  useEffect(() => {
+    if (!isSidebarCollapsed) {
+      const timeoutId = setTimeout(() => setIsContentVisible(true), 150);
+      return () => clearTimeout(timeoutId);
+    } else {
+      setIsContentVisible(false);
+    }
+  }, [isSidebarCollapsed]);
 
   return (
     <div className="relative">
@@ -109,11 +121,27 @@ export const ClientOrgSidebar = () => {
           }`}
           onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
         >
-          <ToggleLeftIcon className="text-black" />
+          <ArrowRightIcon className="text-black" />
         </Button>
-        {!isSidebarCollapsed && (
-          <OrgSidebar />
+        <div className={cn(
+          "overflow-hidden duration-300 ease-in-out",
+          {
+            "w-64": !isSidebarCollapsed,
+            "w-0": isSidebarCollapsed,
+          }
         )}
+      >
+        {!isSidebarCollapsed && (
+                  <div 
+                  className={cn(
+                    "transition-opacity duration-300",
+                    { "opacity-0": !isContentVisible, "opacity-100": isContentVisible }
+                  )}
+                > 
+          <OrgSidebar />
+          </div>
+        )}
+        </div>
       </div>
     </div>
   );
