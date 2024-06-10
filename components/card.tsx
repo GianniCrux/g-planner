@@ -186,31 +186,33 @@ export const CardCreator = ({ onClose }: CardCreatorProps) => {
                   <Input
                     className="bg-amber-200"
                     id="date"
-                    type="date" // Use the date input type
+                    type="date"
                     value={formData.date}
                     onChange={handleChange}
                   />
                 </div>
-                <div className="flex flex-col">
-                <Label htmlFor="startTime">Start Time (Optional)</Label>
-                <Input 
-                  className="bg-amber-200"
-                  id="startTime" 
-                  type="time" 
-                  value={formData.startTime}
-                  onChange={handleChange}
-                />
-              </div>
+                <div className="flex space-x-2">
+                <div className="flex-1 w-24"> 
+                  <Label htmlFor="startTime">Start Time (Optional)</Label>
+                  <Input
+                    className="bg-amber-200 h-8"
+                    id="startTime"
+                    type="time"
+                    value={formData.startTime}
+                    onChange={handleChange}
+                  />
+                </div>
 
-              <div className="flex flex-col">
-                <Label htmlFor="endTime">End Time (Optional)</Label>
-                <Input 
-                  className="bg-amber-200"
-                  id="endTime" 
-                  type="time" 
-                  value={formData.endTime}
-                  onChange={handleChange}
-                />
+                <div className="flex-1 w-24"> 
+                  <Label htmlFor="endTime">End Time (Optional)</Label>
+                  <Input
+                    className="bg-amber-200 h-8"
+                    id="endTime"
+                    type="time"
+                    value={formData.endTime}
+                    onChange={handleChange}
+                  />
+                </div>
               </div>
               </div>
               <div className="flex pt-2 space-x-2 justify-between">
