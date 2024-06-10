@@ -29,6 +29,8 @@ interface ActionsProps {
     type?: string;
     authorName: string;
     date?: string;
+    startTime?: string;
+    endTime?: string;
 }
 
 export const Actions = ({
@@ -43,6 +45,8 @@ export const Actions = ({
     type,
     authorName,
     date,
+    startTime,
+    endTime,
 }: ActionsProps) => {
     const formattedDate = new Date(createdAt).toLocaleDateString();
     const { mutate: deleteTask, pending } = useApiMutation(api.task.remove);
@@ -63,6 +67,7 @@ export const Actions = ({
         Type: ${type}
         Date: ${date}
         Created by: ${authorName} on ${formattedDate}
+        To complete between ${startTime} and ${endTime}
     `;
         try {
             await navigator.clipboard.writeText(taskText);

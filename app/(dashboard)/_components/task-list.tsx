@@ -156,6 +156,8 @@ export const TaskList = ({
                     authorName={task.authorName}
                     date={task.date}
                     type={task.type}
+                    startTime={task.startTime}
+                    endTime={task.endTime}
                   />
                 ))}
               </div>

@@ -14,6 +14,8 @@ interface SingleTaskViewProps {
       authorName: string;
       date?: string;
       type?: string;
+      startTime?: string;
+      endTime?: string;
     };
   }
   
@@ -35,6 +37,8 @@ export const SingleTaskView = ({ task }: SingleTaskViewProps) => {
         type={task.type}
         authorName={task.authorName}
         date={task.date}
+        startTime={task.startTime}
+        endTime={task.endTime}
       >
         <button 
         className="opcaity-0 group-hover:opacity-100 px-3 py-2 outline-none"
@@ -61,6 +65,7 @@ export const SingleTaskView = ({ task }: SingleTaskViewProps) => {
       <div className="mt-4">
         <span className="text-gray-500 mr-2">Created by:</span>
         <span className="text-gray-700">{task.authorName}</span>
+        <p className="text-sm mt-2">Complete between {task.startTime}, {task.endTime}</p>
       </div>
     </div>
     )

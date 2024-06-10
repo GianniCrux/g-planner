@@ -18,6 +18,8 @@ export interface TaskCardProps {
     type?: string;
     authorName: string;
     date?: string;
+    startTime?: string;
+    endTime?: string;
 }
 
 export const TaskCard = ({
@@ -31,6 +33,8 @@ export const TaskCard = ({
     type,
     authorName,
     date,
+    startTime,
+    endTime,
 }: TaskCardProps) => {
     const formattedDate = new Date(createdAt).toLocaleDateString(); 
     
@@ -60,6 +64,8 @@ export const TaskCard = ({
         type={type}
         authorName={authorName}
         date={date}
+        startTime={startTime}
+        endTime={endTime}
       >
         <button 
         className="absolute top-1 left-1 opcaity-0 group-hover:opacity-100 px-3 py-2 outline-none"
@@ -73,11 +79,10 @@ export const TaskCard = ({
       <div onClick={toggleDialog}>
       <div className="font-semibold text-2xl mb-2">{title}</div> {/* Client Name */}
         <div className="text-md text-black line-clamp-3 font-semibold"> {description} </div>
+        <p className="text-sm mt-2">Complete between {startTime} and {endTime}</p>
     </div>
       <div className="absolute top-0 right-0 mb-2">
         <span className="bg-amber-800 text-white text-xs px-2 py-1 rounded">Genre: {type} </span>  {/* decide for type or assignedTo */}
-      </div>
-      <div className="mt-6">
       </div>
       <div className="bg-amber-800 text-white text-xs px-2 py-1 rounded mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
       Created by {authorName}, {formattedDate}
@@ -106,6 +111,7 @@ export const TaskCard = ({
         <div className="mt-auto">
         <span className="text-sm">Date: {date}</span>
         <p className="text-sm mt-2">Created by {authorName}, {formattedDate}</p>
+        <p className="text-sm mt-2">Complete between {startTime} and {endTime}</p>
       </div>
             </DialogContent>
           </Dialog>
