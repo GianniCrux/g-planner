@@ -96,7 +96,7 @@ export const CardCreator = ({ onClose }: CardCreatorProps) => {
     );
 
     const assignedToName = selectedMembership
-    ? `${selectedMembership.publicUserData.firstName} ${selectedMembership.publicUserData.lastName || ''}`
+    ? `${selectedMembership.publicUserData.firstName || ''} ${selectedMembership.publicUserData.lastName || ''}`
     : '';
 
     mutate ({
