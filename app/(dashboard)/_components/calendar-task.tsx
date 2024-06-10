@@ -77,27 +77,13 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
           </Button>  
 
           </span>
-        <div className="flex justify-between items-center mb-4">
-          <Button 
-            onClick={() => setCurrentMonth(currentMonth.clone().subtract(1, 'month'))} 
-            className='bg-amber-500 text-black hover:bg-amber-800'
-          > 
-            Previous </Button>
-          <span className="rbc-toolbar-label text-amber-600 text-xl mx-4"> 
-            {currentMonth.format('MMMM YYYY')}
-          </span> 
-        <Button 
-          onClick={() => setCurrentMonth(currentMonth.clone().add(1, 'month'))} 
-          className='bg-amber-500 text-black hover:bg-amber-800'
-        > 
-          Next </Button>
-        </div>
+
           <BigCalendar
             onSelectEvent={handleSelectSlot}
             selectable
             localizer={localizer}
             events={events}
-            toolbar={false}
+            toolbar={true}
             startAccessor="start"
             endAccessor="end"
             style={{ height: '70vh', width: '100%' }} 
@@ -110,9 +96,29 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
             })}
             view={currentView}
             components={{
-              toolbar: ({ label }) => (
-                <div className="rbc-toolbar"> 
-                  <span className="rbc-toolbar-label text-amber-600 text-xl">{label}</span> 
+              toolbar: ({ label, onNavigate, view }) => (
+                <div className="rbc-toolbar flex justify-between items-center">
+                  <span className="rbc-toolbar-label text-amber-600 text-xl">{label}</span>
+                  <div className="rbc-btn-group pt-2">
+                    <Button 
+                      className="!bg-amber-300 text-black hover:!bg-amber-500 !border-none"
+                      onClick={() => onNavigate('TODAY')}
+                    >
+                      Today
+                    </Button>
+                    <Button
+                      className="!bg-amber-300 text-black hover:!bg-amber-500 !border-none"
+                      onClick={() => onNavigate('PREV')}
+                    >
+                      Back
+                    </Button>
+                    <Button
+                      className="!bg-amber-300 text-black hover:!bg-amber-500 !border-none"
+                      onClick={() => onNavigate('NEXT')}
+                    >
+                      Next
+                    </Button>
+                  </div>
                 </div>
               ),
               header: ({ date, label }) => (
