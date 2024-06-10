@@ -12,6 +12,8 @@ export default defineSchema({
         authorName: v.string(),
         date: v.optional(v.string()),
         type: v.optional(v.string()),
+        startTime: v.optional(v.string()),
+        endTime: v.optional(v.string()),
     })
         .index("by_org", ["orgId"]) //defining the index (by_org) for faster query and define the field to be "orgId"
 

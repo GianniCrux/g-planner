@@ -35,6 +35,8 @@ interface Task {
   assignedTo: string;
   assignedToName: string;
   date: string;
+  startTime?: string;
+  endTime?: string;
 }
 
 interface CardCreatorProps {
@@ -56,6 +58,8 @@ export const CardCreator = ({ onClose }: CardCreatorProps) => {
     assignedTo: "",
     assignedToName: "",
     date: "",
+    startTime: "",
+    endTime: "",
   });
 
 
@@ -107,6 +111,8 @@ export const CardCreator = ({ onClose }: CardCreatorProps) => {
       assignedToName,
       date: formData.date,
       type: formData.type,
+      startTime: formData.startTime,
+      endTime: formData.endTime,
     }).then((id) => {
       toast.success("Tasks created");
       onClose();
@@ -185,6 +191,27 @@ export const CardCreator = ({ onClose }: CardCreatorProps) => {
                     onChange={handleChange}
                   />
                 </div>
+                <div className="flex flex-col">
+                <Label htmlFor="startTime">Start Time (Optional)</Label>
+                <Input 
+                  className="bg-amber-200"
+                  id="startTime" 
+                  type="time" 
+                  value={formData.startTime}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <Label htmlFor="endTime">End Time (Optional)</Label>
+                <Input 
+                  className="bg-amber-200"
+                  id="endTime" 
+                  type="time" 
+                  value={formData.endTime}
+                  onChange={handleChange}
+                />
+              </div>
               </div>
               <div className="flex pt-2 space-x-2 justify-between">
               <Button variant="outline" onClick={onClose}>Cancel</Button>
