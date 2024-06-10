@@ -18,6 +18,8 @@ interface CalendarEvent extends TaskCardProps {
   start: Date;
   end: Date;
   _id: string;
+  startTime?: string;
+  endTime?: string; 
 }
 
 export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
@@ -28,12 +30,46 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
   const [currentView, setCurrentView] = useState<'month' | 'week' | 'day' | 'work_week' | 'agenda'>('month');
 
   useEffect(() => {
-    const calendarEvents: CalendarEvent[] = tasks.filter((task) => task.date).map((task) => ({
-      ...task, // Include all task properties in the calendar event
-      start: new Date(task.date + (task.startTime ? 'T' + task.startTime : 'T08:00')), //TODO: Add logic for hours
-      end: new Date(task.date + (task.endTime ? 'T' + task.endTime : 'T22:00')),
-    }));
-
+    const calendarEvents: CalendarEvent[] = tasks
+      .filter((task) => task.date)
+      .map((task) => {
+        const baseDate = new Date(task.date);
+        let startHour = 9;
+        let startMinute = 0; // Default to 0 minutes
+        let endHour = 11;
+        let endMinute = 0;   // Default to 0 minutes
+  
+        if (task.startTime) {
+          const timeParts = task.startTime.split(":");
+          startHour = parseInt(timeParts[0], 10);
+          startMinute = timeParts.length > 1 ? parseInt(timeParts[1], 10) : 0; 
+        } else {
+          startHour = Math.floor(Math.random() * 11) + 9;
+        }
+  
+        if (task.endTime) {
+          const timeParts = task.endTime.split(":");
+          endHour = parseInt(timeParts[0], 10);
+          endMinute = timeParts.length > 1 ? parseInt(timeParts[1], 10) : 0;
+        } else {
+          endHour = startHour + 2;
+        }
+  
+        baseDate.setHours(startHour, startMinute, 0); // Set start time
+        const startDate = new Date(baseDate);
+  
+        baseDate.setHours(endHour, endMinute, 0);    // Set end time
+        const endDate = new Date(baseDate);
+  
+        return {
+          ...task,
+          start: startDate,
+          end: endDate,
+          startTime: task.startTime,
+          endTime: task.endTime,
+        };
+      });
+  
     setEvents(calendarEvents);
   }, [tasks]);
   
