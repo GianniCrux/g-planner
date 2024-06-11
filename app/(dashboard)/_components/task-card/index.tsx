@@ -6,6 +6,7 @@ import { MoreHorizontal } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { useState } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Hint } from "@/components/hint";
 
 export interface TaskCardProps {
     id: string;
@@ -49,6 +50,12 @@ export const TaskCard = ({
 
     return (
       <>
+              <Hint
+          label="Open task view"
+          side="left"
+          align="center"
+          sideOffset={10}
+        >
         <div 
           className="group bg-yellow-200 p-4 rounded-lg shadow-md relative border border-yellow-300 min-w-[200px] flex flex-col cursor-pointer"
           > {/* Sticky note styling */}
@@ -75,7 +82,7 @@ export const TaskCard = ({
           />
         </button>
       </Actions>
-      </div>
+    </div>
       <div onClick={toggleDialog}>
       <div className="font-semibold text-2xl mb-2">{title}</div> {/* Client Name */}
         <div className="text-md text-black line-clamp-3 font-semibold"> {description} </div>
@@ -121,6 +128,7 @@ export const TaskCard = ({
           </Dialog>
         )}
         </div>
+      </Hint>
    </>
   );
 };
