@@ -30,45 +30,33 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
   const [currentView, setCurrentView] = useState<'month' | 'week' | 'day' | 'work_week' | 'agenda'>('month');
 
   useEffect(() => {
-    const calendarEvents: CalendarEvent[] = tasks
-      .filter((task) => task.date)
-      .map((task) => {
-        const baseDate = new Date(task.date);
-        let startHour = 9;
-        let startMinute = 0; // Default to 0 minutes
-        let endHour = 11;
-        let endMinute = 0;   // Default to 0 minutes
+    const calendarEvents: CalendarEvent[] = tasks.map((task) => {
+      const baseDate = new Date(task.date);
+      let startDate, endDate;
   
-        if (task.startTime) {
-          const timeParts = task.startTime.split(":");
-          startHour = parseInt(timeParts[0], 10);
-          startMinute = timeParts.length > 1 ? parseInt(timeParts[1], 10) : 0; 
-        } else {
-          startHour = Math.floor(Math.random() * 11) + 9;
-        }
-  
-        if (task.endTime) {
-          const timeParts = task.endTime.split(":");
-          endHour = parseInt(timeParts[0], 10);
-          endMinute = timeParts.length > 1 ? parseInt(timeParts[1], 10) : 0;
-        } else {
-          endHour = startHour + 2;
-        }
+      if (task.startTime && task.endTime) {
+        const [startHour, startMinute] = task.startTime.split(":").map(Number);
+        const [endHour, endMinute] = task.endTime.split(":").map(Number);
   
         baseDate.setHours(startHour, startMinute, 0); // Set start time
-        const startDate = new Date(baseDate);
+        startDate = new Date(baseDate);
   
-        baseDate.setHours(endHour, endMinute, 0);    // Set end time
-        const endDate = new Date(baseDate);
+        baseDate.setHours(endHour, endMinute, 0); // Set end time
+        endDate = new Date(baseDate);
+      } else {
+        // If no start and end time, treat it as an all-day event
+        startDate = new Date(task.date);
+        endDate = new Date(task.date);
+      }
   
-        return {
-          ...task,
-          start: startDate,
-          end: endDate,
-          startTime: task.startTime,
-          endTime: task.endTime,
-        };
-      }); //This allow us to display the tasks in the calendar in the current span of hours, if the hour is not set, it will be randomly scheduled between the span of 9am and 22pm with a duration of 2 hours.
+      return {
+        ...task,
+        start: startDate,
+        end: endDate,
+        startTime: task.startTime,
+        endTime: task.endTime,
+      };
+    });
   
     setEvents(calendarEvents);
   }, [tasks]);
