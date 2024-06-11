@@ -68,7 +68,7 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
           startTime: task.startTime,
           endTime: task.endTime,
         };
-      });
+      }); //This allow us to display the tasks in the calendar in the current span of hours, if the hour is not set, it will be randomly scheduled between the span of 9am and 22pm with a duration of 2 hours.
   
     setEvents(calendarEvents);
   }, [tasks]);

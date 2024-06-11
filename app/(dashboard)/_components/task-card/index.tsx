@@ -79,7 +79,9 @@ export const TaskCard = ({
       <div onClick={toggleDialog}>
       <div className="font-semibold text-2xl mb-2">{title}</div> {/* Client Name */}
         <div className="text-md text-black line-clamp-3 font-semibold"> {description} </div>
+        {startTime && endTime && (
         <p className="text-sm mt-2">Complete between {startTime} and {endTime}</p>
+      )}
     </div>
       <div className="absolute top-0 right-0 mb-2">
         <span className="bg-amber-800 text-white text-xs px-2 py-1 rounded">Genre: {type} </span>  {/* decide for type or assignedTo */}
@@ -111,7 +113,9 @@ export const TaskCard = ({
         <div className="mt-auto">
         <span className="text-sm">Date: {date}</span>
         <p className="text-sm mt-2">Created by {authorName}, {formattedDate}</p>
+        {startTime && endTime && (
         <p className="text-sm mt-2">Complete between {startTime} and {endTime}</p>
+      )}
       </div>
             </DialogContent>
           </Dialog>
