@@ -21,6 +21,7 @@ import {
 import { Loading } from "@/components/auth/loading";
 import { CalendarTask } from "./calendar-task";
 import { SingleTaskView } from "./task-card/single-task-view";
+import { useUser } from "@clerk/clerk-react";
 
 interface TaskListProps {
     orgId: string;
@@ -37,6 +38,7 @@ export const TaskList = ({
     query,
 }: TaskListProps) => {
     const data = useQuery(api.tasks.get, { orgId });
+    const { user } = useUser();
 
     const [showDialog, setShowDialog] = useState(false);
     const [isCalendarView, setIsCalendarView] = useState(false);
@@ -143,10 +145,21 @@ export const TaskList = ({
                     </Dialog>
                   )}
                 </div>
-                {data?.map((task) => (
-                  <TaskCard
-                    key={task._id}
-                    id={task._id}
+                {data
+              ?.filter((task) => {
+                if (query.personal === "true" && user) {
+                  return task.assignedTo === user.id; 
+                }
+                return query.search
+                  ? task.title.toLowerCase().includes(query.search.toLowerCase()) ||
+                    task.description.toLowerCase().includes(query.search.toLowerCase()) ||
+                    task.assignedToName?.toLowerCase().includes(query.search.toLowerCase())
+                  : true;
+              })
+              .map((task) => (
+                <TaskCard
+                  key={task._id}
+                  id={task._id}
                     title={task.title}
                     description={task.description}
                     assignedTo={task.assignedTo}
