@@ -22,28 +22,20 @@ export const Navbar = () => {
     return (
         <div className="flex items-center gap-x-4 p-5 relative">
             <Link href="/">
-                <div className="hidden sm:flex items-center gap-x-2">
+                <div className="flex items-center gap-x-2">
                     <Image 
                         src="/plannerLogo.svg"
-                        alt="Logo"
+                        alt="GPlanner"
                         height={60}
                         width={60}
                     />
                     <span className={cn(
-                        "font-semibold text-2xl",
+                        "font-semibold text-2xl hidden sm:block",
                         font.className,
                     )}>
                         GPlanner
                     </span>
                 </div>
-                <div className="sm:hidden flex">
-            <Image 
-                        src="/plannerLogo.svg"
-                        alt="Logo"
-                        height={60}
-                        width={60}
-                    />
-            </div>
             </Link>
             <div className="lg:flex-1">
                 <SearchInput />
