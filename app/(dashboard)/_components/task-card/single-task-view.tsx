@@ -10,6 +10,7 @@ interface SingleTaskViewProps {
       description: string;
       orgId: string;
       assignedTo?: string;
+      assignedToName?: string;
       authorId: string;
       authorName: string;
       date?: string;
@@ -34,6 +35,7 @@ export const SingleTaskView = ({ task }: SingleTaskViewProps) => {
         description={task.description}
         createdAt={task._creationTime}
         assignedTo={task.assignedTo}
+        assignedToName={task.assignedToName}
         type={task.type}
         authorName={task.authorName}
         date={task.date}
@@ -56,7 +58,7 @@ export const SingleTaskView = ({ task }: SingleTaskViewProps) => {
       <p className="text-gray-700 mb-4">{task.description}</p>
       <div className="flex items-center">
           <span className="bg-amber-800 text-white text-xs px-2 py-1 rounded mr-2">
-            Per: {task.assignedTo}
+            Per: {task.assignedToName}
           </span>
           <span className="bg-amber-800 text-white text-xs px-2 py-1 rounded">
             Genre: {task.type}

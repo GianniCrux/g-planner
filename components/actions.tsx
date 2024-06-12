@@ -26,6 +26,7 @@ interface ActionsProps {
     description: string;
     createdAt: number;
     assignedTo?: string;
+    assignedToName?: string;
     type?: string;
     authorName: string;
     date?: string;
@@ -42,6 +43,7 @@ export const Actions = ({
     description,
     createdAt,
     assignedTo,
+    assignedToName,
     type,
     authorName,
     date,
@@ -63,7 +65,7 @@ export const Actions = ({
         const taskText =`
         Title: ${title}
         Description: ${description}
-        Assigned To: ${assignedTo}
+        Assigned To: ${assignedToName}
         Type: ${type}
         Date: ${date}
         Created by: ${authorName} on ${formattedDate}
