@@ -13,6 +13,8 @@ import { Link2, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { useApiMutation } from "@/hooks/use-api-mutation";
 import { api } from "@/convex/_generated/api";
+import { ConfirmModal } from "./confirm-modal";
+import { Button } from "./ui/button";
  
 
 
@@ -90,29 +92,32 @@ export const Actions = ({
                 sideOffset={sideOffset}
                 className="w-60 bg-amber-300"
             >
-                <DropdownMenuItem 
+                <Button
                     onClick={() => 
                         copyTaskText()
                             .then(() => toast.success("Text copied to clipboard"))
                             .catch(() => toast.error("Failed to copy the text"))
                     }
-                    className="p-3 cursor-pointer bg-amber-300 data-[state=open]:bg-amber-600"
+                    className="p-3 cursor-pointer bg-transparent text-sm w-full justify-start font-normal hover:bg-amber-600 text-black"
                 >
                     <Link2 
                         className="h-4 w-4 mr-2"
                     />
                     Copy task text
-                </DropdownMenuItem>
-                <DropdownMenuItem 
-                    className="p-3 cursor-pointer bg-amber-300 data-[state=open]:bg-amber-600"
-                    onClick={handleDeleteTask}
-                    disabled={pending}
-                >
-                    <Trash2 
-                        className="h-4 w-4 mr-2"
-                    />
-                    Delete task
-                </DropdownMenuItem>
+                </Button>
+                    <ConfirmModal
+                        header="Delete Task?"
+                        description="This will delete the task and all of its content"
+                        disabled={pending}
+                        onConfirm={handleDeleteTask}
+                    >
+                        <Button className="bg-transparent text-sm w-full justify-start font-normal hover:bg-amber-600 text-black">
+                        <Trash2 
+                            className="h-4 w-4 mr-2"
+                        />
+                        Delete task
+                        </Button>
+                    </ConfirmModal>
             </DropdownMenuContent>
         </DropdownMenu>
     )
