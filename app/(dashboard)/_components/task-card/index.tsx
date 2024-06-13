@@ -1,12 +1,14 @@
 "use client";
 
 import { Actions } from "@/components/actions";
-import { MoreHorizontal } from "lucide-react";
+import { Edit2Icon, MoreHorizontal } from "lucide-react";
 
 import { formatDistanceToNow } from "date-fns";
 import { useState } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Hint } from "@/components/hint";
+import { Button } from "@/components/ui/button";
+import { EditTaskModal } from "@/components/edit-task-modal";
 
 export interface TaskCardProps {
     id: string;
@@ -39,7 +41,7 @@ export const TaskCard = ({
 }: TaskCardProps) => {
     const formattedDate = new Date(createdAt).toLocaleDateString(); 
     
-
+    const [isEditing, setIsEditing] = useState(false);
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -106,6 +108,24 @@ export const TaskCard = ({
               }}
             >
       <div className="flex justify-between items-center mb-4">
+        {isEditing && (
+        <EditTaskModal 
+            isOpen={isEditing}
+            onClose={() => setIsEditing(false)}
+            id={id}
+            title={title}
+            description={description} 
+            createdAt={createdAt}
+            orgId={orgId}
+            assignedTo={assignedTo}
+            assignedToName={assignedToName}
+            type={type}
+            authorName={authorName}
+            date={date}
+            startTime={startTime}
+            endTime={endTime}
+    /> 
+        )}
         <h2 className="text-2xl font-bold">{title}</h2>
         <div className="flex items-center">
           <span className="bg-amber-800 text-white text-xs px-2 py-1 rounded mr-2">
@@ -123,6 +143,12 @@ export const TaskCard = ({
         {startTime && endTime && (
         <p className="text-sm mt-2">Complete between {startTime} and {endTime}</p>
       )}
+              <Button 
+          onClick={() => setIsEditing(true)}
+          className="bg-amber-800"
+        >
+          <Edit2Icon/>
+        </Button>
       </div>
             </DialogContent>
           </Dialog>

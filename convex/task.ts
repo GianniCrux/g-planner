@@ -91,3 +91,32 @@ export const remove = mutation({
         await ctx.db.delete(args.id);
     },
 });
+
+
+export const update = mutation({
+    args: { 
+        id: v.id("tasks"),
+        title: v.optional(v.string()),
+        description: v.optional(v.string()),
+        assignedTo: v.optional(v.string()),
+        assignedToName: v.optional(v.string()),
+        date: v.optional(v.string()),
+        type: v.optional(v.string()),
+        startTime: v.optional(v.string()),
+        endTime: v.optional(v.string()),
+    },
+    handler: async (ctx, args) => {
+        const identity = await ctx.auth.getUserIdentity();
+    
+        if (!identity) {
+          throw new Error("Unauthorized");
+        }
+        
+        const task = await ctx.db.patch(args.id, {
+            title: args.title,
+            description: args.description,
+        });
+      
+          return task;
+    },
+})
