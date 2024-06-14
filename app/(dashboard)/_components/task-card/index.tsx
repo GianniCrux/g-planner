@@ -143,12 +143,14 @@ export const TaskCard = ({
         {startTime && endTime && (
         <p className="text-sm mt-2">Complete between {startTime} and {endTime}</p>
       )}
+      <div className="absolute bottom-4 right-4">
               <Button 
           onClick={() => setIsEditing(true)}
           className="bg-amber-800"
         >
           <Edit2Icon/>
         </Button>
+      </div>
       </div>
             </DialogContent>
           </Dialog>
