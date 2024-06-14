@@ -115,6 +115,12 @@ export const update = mutation({
         const task = await ctx.db.patch(args.id, {
             title: args.title,
             description: args.description,
+            assignedTo: args.assignedTo,
+            assignedToName: args.assignedToName,
+            date: args.date,
+            type: args.type,
+            startTime: args.startTime,
+            endTime: args.endTime
         });
       
           return task;
