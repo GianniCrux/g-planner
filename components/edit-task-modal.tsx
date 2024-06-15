@@ -119,7 +119,7 @@ export const EditTaskModal = ({
         <SelectTrigger className="bg-amber-200">
             <SelectValue placeholder="Select Member" />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="bg-amber-200">
             {memberships &&
                 memberships.map((membership) => (
                     <SelectItem

@@ -172,7 +172,7 @@ export const CardCreator = ({ onClose }: CardCreatorProps) => {
               <SelectTrigger className="bg-amber-200">
                <SelectValue placeholder="Select Member" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-amber-200">
               {memberships && memberships.map((membership) => (
               <SelectItem key={membership.id} value={membership.publicUserData.userId ?? ''}>
             {membership.publicUserData.firstName} {membership.publicUserData.lastName}
