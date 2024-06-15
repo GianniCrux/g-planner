@@ -54,7 +54,7 @@ export const TaskCard = ({
       <>
               <Hint
           label="Open task view"
-          side="left"
+          side="top"
           align="center"
           sideOffset={10}
         >
