@@ -18,6 +18,10 @@ import { toast } from "sonner";
 import { TaskCardProps } from "@/app/(dashboard)/_components/task-card";
 import { Textarea } from "./ui/textarea";
 
+import { useOrganization } from "@clerk/clerk-react";
+import { OrganizationMembershipResource } from '@clerk/types';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
+
 interface EditTaskModalProps extends TaskCardProps {
     isOpen: boolean;
     onClose: () => void;
@@ -30,7 +34,7 @@ export const EditTaskModal = ({
     description: initialDescription,
     isOpen,
     onClose,
-    assignedTo,
+    assignedTo: initialAssignedTo,
     assignedToName,
     type,
     date,
@@ -38,15 +42,38 @@ export const EditTaskModal = ({
     endTime: initialEndTime,
 }: EditTaskModalProps) => {
     const { mutate, pending } = useApiMutation(api.task.update);
+    const { organization } = useOrganization();
+    const [memberships, setMemberships] = useState<OrganizationMembershipResource[]>([]);
 
     const [title, setTitle] = useState(initialTitle);
     const [description, setDescription] = useState(initialDescription);
-    const [startTime, setStartTime] = useState(initialDescription);
-    const [endTime, setEndTime] = useState(initialDescription);
+    const [startTime, setStartTime] = useState(initialStartTime);
+    const [endTime, setEndTime] = useState(initialEndTime);
+    const [assignedTo, setAssignedTo] = useState(initialAssignedTo);
+
+
+    useEffect(() => {
+      const fetchMembers = async () => {
+          if (organization) {
+              const response = await organization.getMemberships();
+              setMemberships(response.data); // Extract the data property
+          }
+      };
+
+      fetchMembers();
+  }, [organization]);
 
     const handleSubmit: FormEventHandler = async (e) => {
         e.preventDefault();
         try {
+          const selectedMembership = memberships.find(
+            (membership) => membership.publicUserData.userId === assignedTo
+        );
+
+        const assignedToName = selectedMembership
+            ? `${selectedMembership.publicUserData.firstName || ''} ${selectedMembership.publicUserData.lastName || ''}`
+            : '';
+
             await mutate({ id, title, description, assignedTo, assignedToName, type, date, startTime, endTime}); 
             toast.success("Task updated!");
             onClose();
@@ -84,6 +111,27 @@ export const EditTaskModal = ({
                 placeholder="Task Description"
                 className="bg-amber-200"
               />
+                  <Select
+                  disabled={pending}
+                 value={assignedTo}
+                onValueChange={(value) => setAssignedTo(value)}
+    >
+        <SelectTrigger className="bg-amber-200">
+            <SelectValue placeholder="Select Member" />
+        </SelectTrigger>
+        <SelectContent>
+            {memberships &&
+                memberships.map((membership) => (
+                    <SelectItem
+                        key={membership.id}
+                        value={membership.publicUserData.userId ?? ''}
+                    >
+                        {membership.publicUserData.firstName}{' '}
+                        {membership.publicUserData.lastName}
+                    </SelectItem>
+                ))}
+        </SelectContent>
+    </Select>
             <div className="flex space-x-2">
             <div className="flex-1 w-24"> 
               <Input 
