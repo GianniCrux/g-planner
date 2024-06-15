@@ -34,13 +34,15 @@ export const EditTaskModal = ({
     assignedToName,
     type,
     date,
-    startTime,
-    endTime,
+    startTime: initialStartTime,
+    endTime: initialEndTime,
 }: EditTaskModalProps) => {
     const { mutate, pending } = useApiMutation(api.task.update);
 
     const [title, setTitle] = useState(initialTitle);
     const [description, setDescription] = useState(initialDescription);
+    const [startTime, setStartTime] = useState(initialDescription);
+    const [endTime, setEndTime] = useState(initialDescription);
 
     const handleSubmit: FormEventHandler = async (e) => {
         e.preventDefault();
@@ -82,7 +84,24 @@ export const EditTaskModal = ({
                 placeholder="Task Description"
                 className="bg-amber-200"
               />
-
+              <Input 
+                disabled={pending}
+                required
+                type="time"
+                value={startTime}
+                onChange={(e) => setStartTime(e.target.value)}
+                placeholder="Modify time"
+                className="bg-amber-200"
+              />
+              <Input 
+                disabled={pending}
+                required
+                type="time"
+                value={endTime}
+                onChange={(e) => setEndTime(e.target.value)}
+                placeholder="Modify time"
+                className="bg-amber-200"
+              />
               <DialogFooter>
                 <DialogClose asChild>
                   <Button type="button" variant="outline" className="bg-amber-500 hover:bg-amber-700">
