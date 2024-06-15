@@ -84,6 +84,8 @@ export const EditTaskModal = ({
                 placeholder="Task Description"
                 className="bg-amber-200"
               />
+            <div className="flex space-x-2">
+            <div className="flex-1 w-24"> 
               <Input 
                 disabled={pending}
                 required
@@ -93,6 +95,8 @@ export const EditTaskModal = ({
                 placeholder="Modify time"
                 className="bg-amber-200"
               />
+              </div>
+              <div className="flex-1 w-24">
               <Input 
                 disabled={pending}
                 required
@@ -102,6 +106,8 @@ export const EditTaskModal = ({
                 placeholder="Modify time"
                 className="bg-amber-200"
               />
+              </div>
+              </div>
               <DialogFooter>
                 <DialogClose asChild>
                   <Button type="button" variant="outline" className="bg-amber-500 hover:bg-amber-700">
