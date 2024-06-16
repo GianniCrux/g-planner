@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { SidebarIcon, XIcon, ArrowRightIcon } from "lucide-react";
+import { SidebarIcon, XIcon, ArrowRightIcon, ArrowLeftIcon } from "lucide-react";
 import { OrgSidebar } from "./org-sidebar"; // Import OrgSidebarProps
 import Link from "next/link";
 import Image from "next/image";
@@ -121,7 +121,7 @@ export const ClientOrgSidebar = () => {
           }`}
           onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
         >
-          <ArrowRightIcon className="text-black" />
+          <ArrowLeftIcon className="text-black" />
         </Button>
         <div className={cn(
           "overflow-hidden duration-300 ease-in-out",
