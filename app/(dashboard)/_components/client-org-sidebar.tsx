@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { SidebarIcon, XIcon, ArrowRightIcon, ArrowLeftIcon } from "lucide-react";
+import { SidebarIcon, XIcon, ArrowLeftIcon } from "lucide-react";
 import { OrgSidebar } from "./org-sidebar"; // Import OrgSidebarProps
 import Link from "next/link";
 import Image from "next/image";
@@ -94,7 +94,7 @@ export const ClientOrgSidebar = () => {
                         width={60}
                     />
                     <span className={cn(
-                        "font-semibold text-2xl",
+                        "text-2xl",
                         font.className,
                     )}>
                         GPlanner
