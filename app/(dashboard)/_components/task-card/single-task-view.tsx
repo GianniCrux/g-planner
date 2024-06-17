@@ -43,7 +43,7 @@ export const SingleTaskView = ({ task }: SingleTaskViewProps) => {
         endTime={task.endTime}
       >
         <button 
-        className="opcaity-0 group-hover:opacity-100 px-3 py-2 outline-none"
+        className="opacity-0 group-hover:opacity-100 px-3 py-2 outline-none"
         >
           <MoreHorizontal  
           className="text-black opacity-75 hover:opacity-100 transition-opacity"

@@ -3,7 +3,6 @@
 import { Actions } from "@/components/actions";
 import { Edit2Icon, MoreHorizontal } from "lucide-react";
 
-import { formatDistanceToNow } from "date-fns";
 import { useState } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Hint } from "@/components/hint";
