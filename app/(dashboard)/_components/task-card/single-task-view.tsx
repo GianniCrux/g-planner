@@ -1,5 +1,6 @@
 import { Actions } from "@/components/actions";
 import { MoreHorizontal } from "lucide-react";
+import { useState } from "react";
 
 
 interface SingleTaskViewProps {
@@ -23,6 +24,7 @@ interface SingleTaskViewProps {
 
 export const SingleTaskView = ({ task }: SingleTaskViewProps) => {
 
+  const [isEditing, setIsEditing] = useState(false);
 
     
     return (
@@ -42,11 +44,11 @@ export const SingleTaskView = ({ task }: SingleTaskViewProps) => {
         startTime={task.startTime}
         endTime={task.endTime}
       >
-        <button 
-        className="opacity-0 group-hover:opacity-100 px-3 py-2 outline-none"
+        <button
+          className="opacity group-hover:opacity-100 px-3 py-2 outline-none transition-transform duration-200 ease-in-out hover:scale-150"
         >
-          <MoreHorizontal  
-          className="text-black opacity-75 hover:opacity-100 transition-opacity"
+          <MoreHorizontal
+            className="text-black opacity-75 hover:opacity-100 transition-opacity"
           />
         </button>
       </Actions>

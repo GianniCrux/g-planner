@@ -75,7 +75,7 @@ export const TaskCard = ({
         endTime={endTime}
       >
         <button 
-        className="absolute top-1 left-1 opcaity-0 group-hover:opacity-100 px-3 py-2 outline-none"
+        className="absolute top-1 left-1 opacity group-hover:opacity-100 px-3 py-2 outline-none transition-transform duration-200 ease-in-out hover:scale-150"
         >
           <MoreHorizontal  
           className="text-black opacity-75 hover:opacity-100 transition-opacity"
