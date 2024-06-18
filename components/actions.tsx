@@ -9,12 +9,14 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
  } from "@/components/ui/dropdown-menu";
-import { Link2, Trash2 } from "lucide-react";
+import { Edit2Icon, Link2, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { useApiMutation } from "@/hooks/use-api-mutation";
 import { api } from "@/convex/_generated/api";
 import { ConfirmModal } from "./confirm-modal";
 import { Button } from "./ui/button";
+import { EditTaskModal } from "./edit-task-modal";
+import { useState } from "react";
  
 
 
@@ -54,6 +56,8 @@ export const Actions = ({
 }: ActionsProps) => {
     const formattedDate = new Date(createdAt).toLocaleDateString();
     const { mutate: deleteTask, pending } = useApiMutation(api.task.remove);
+
+    const [isEditing, setIsEditing] = useState(false);
 
     const handleDeleteTask = () => {
         deleteTask({ id })
@@ -118,6 +122,29 @@ export const Actions = ({
                         Delete task
                         </Button>
                     </ConfirmModal>
+                    {isEditing && (
+        <EditTaskModal 
+            isOpen={isEditing}
+            onClose={() => setIsEditing(false)}
+            id={id}
+            title={title}
+            description={description} 
+            createdAt={createdAt}
+            assignedTo={assignedTo}
+            assignedToName={assignedToName}
+            type={type}
+            authorName={authorName}
+            date={date}
+            startTime={startTime}
+            endTime={endTime}
+    /> 
+        )}
+        <Button 
+          onClick={() => setIsEditing(true)}
+          className="p-3 cursor-pointer bg-transparent text-sm w-full justify-start font-normal hover:bg-amber-600 text-black"
+        >
+          <Edit2Icon className="h-4 w-4 mr-2" /> Edit Task
+        </Button>
             </DropdownMenuContent>
         </DropdownMenu>
     )
