@@ -1,6 +1,5 @@
 import { Actions } from "@/components/actions";
 import { MoreHorizontal } from "lucide-react";
-import { useState } from "react";
 
 
 interface SingleTaskViewProps {
@@ -24,12 +23,11 @@ interface SingleTaskViewProps {
 
 export const SingleTaskView = ({ task }: SingleTaskViewProps) => {
 
-  const [isEditing, setIsEditing] = useState(false);
 
     
     return (
         <div className="min-h-[calc(95vh-64px)] sm:min-h-[calc(95vh-56px)] max-h-screen[95vh] bg-yellow-200 rounded-lg shadow-md p-6 mb-8">
-      <div className="">
+      <div>
       <Actions 
         id={task._id}
         title={task.title}
@@ -57,7 +55,7 @@ export const SingleTaskView = ({ task }: SingleTaskViewProps) => {
         <h2 className="text-2xl font-bold">{task.title}</h2>
         <span className="text-gray-500">{task.date}</span>
       </div>
-      <p className="text-gray-700 mb-4">{task.description}</p>
+      <p className="text-black mb-4">{task.description}</p>
       <div className="flex items-center">
           <span className="bg-amber-800 text-white text-xs px-2 py-1 rounded mr-2">
             Per: {task.assignedToName}
