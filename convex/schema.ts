@@ -14,6 +14,7 @@ export default defineSchema({
         type: v.optional(v.string()),
         startTime: v.optional(v.string()),
         endTime: v.optional(v.string()),
+        isCompleted: v.optional(v.boolean()),
     })
         .index("by_org", ["orgId"]) //defining the index (by_org) for faster query and define the field to be "orgId"
 

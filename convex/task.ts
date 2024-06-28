@@ -126,3 +126,11 @@ export const update = mutation({
           return task;
     },
 })
+
+export const toggleTaskCompletion = mutation({
+    args: { taskId: v.id("tasks"), isCompleted: v.boolean() },
+    handler: async (ctx, args) => {
+        const { taskId, isCompleted } = args;
+        await ctx.db.patch(taskId, { isCompleted });
+    },
+});

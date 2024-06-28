@@ -171,6 +171,7 @@ export const TaskList = ({
                     type={task.type}
                     startTime={task.startTime}
                     endTime={task.endTime}
+                    isCompleted={task.isCompleted}
                   />
                 ))}
               </div>

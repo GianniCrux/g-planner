@@ -8,6 +8,8 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Hint } from "@/components/hint";
 import { Button } from "@/components/ui/button";
 import { EditTaskModal } from "@/components/edit-task-modal";
+import { useApiMutation } from "@/hooks/use-api-mutation";
+import { api } from "@/convex/_generated/api";
 
 export interface TaskCardProps {
     id: string;
@@ -44,7 +46,7 @@ export const TaskCard = ({
 }: TaskCardProps) => {
     const formattedDate = new Date(createdAt).toLocaleDateString(); 
     
-
+    const toggleCompletion = useApiMutation(api.task.toggleTaskCompletion);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
     const [completed, setCompleted] = useState(isCompleted);
@@ -53,9 +55,8 @@ export const TaskCard = ({
       setIsDialogOpen((prevState) => !prevState);
     };
 
-    const handleToggleComplete = ( ) => {
-      setCompleted(!completed);
-      onToggleComplete?.(id);
+    const handleToggleComplete = () => {
+      toggleCompletion.mutate({ taskId: id, isCompleted: !isCompleted});
     }
 
 
