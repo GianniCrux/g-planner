@@ -96,7 +96,7 @@ export const TaskCard = ({
         </button>
       </Actions>
     </div>
-    <div className="absolute bottom-8 pb-2 right-6">
+    <div className="absolute bottom-8 pb-2 right-6 mb-3">
             <Checkbox
               id={`checkbox-${id}`}
               checked={isCompleted}
@@ -147,7 +147,7 @@ export const TaskCard = ({
         <div className="grid-cols-2">
         <p className="text-sm mt-2">Created by {authorName}, {formattedDate}</p>
         <div className="absolute bottom-8 pb-2 right-6">
-            <Checkbox
+            <Checkbox 
               id={`checkbox-${id}`}
               checked={isCompleted}
               onCheckedChange={handleToggleComplete}
