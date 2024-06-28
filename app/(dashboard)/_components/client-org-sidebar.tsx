@@ -114,33 +114,38 @@ export const ClientOrgSidebar = () => {
       </div>
 
       {/* Medium and larger screens */}
-      <div className="hidden sm:block">
-        <Button
-          className={`bg-amber-300 hover:bg-amber-300 transition-transform duration-300 ${
-            isSidebarCollapsed ? "rotate-180" : ""
-          }`}
-          onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+      <div className="hidden sm:flex">
+        <div
+          className={cn(
+            "relative bg-amber-300 transition-all duration-300 ease-in-out",
+            {
+              "w-64": !isSidebarCollapsed,
+              "w-0": isSidebarCollapsed,
+            }
+          )}
         >
-          <ArrowLeftIcon className="text-black" />
-        </Button>
-        <div className={cn(
-          "overflow-hidden duration-300 ease-in-out",
-          {
-            "w-64": !isSidebarCollapsed,
-            "w-0": isSidebarCollapsed,
-          }
-        )}
-      >
-        {!isSidebarCollapsed && (
-                  <div 
-                  className={cn(
-                    "transition-opacity duration-300",
-                    { "opacity-0": !isContentVisible, "opacity-100": isContentVisible }
-                  )}
-                > 
-          <OrgSidebar />
-          </div>
-        )}
+          {!isSidebarCollapsed && (
+            <div 
+              className={cn(
+                "transition-opacity duration-300",
+                { "opacity-0": !isContentVisible, "opacity-100": isContentVisible }
+              )}
+            > 
+              <OrgSidebar />
+            </div>
+          )}
+          <Button
+            className={cn(
+              "absolute top-0 bg-amber-300 hover:bg-amber-300 transition-all duration-300",
+              {
+                "-right-10 rotate-180": !isSidebarCollapsed,
+                "right": isSidebarCollapsed,
+              }
+            )}
+            onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+          >
+            <ArrowLeftIcon className="text-black" />
+          </Button>
         </div>
       </div>
     </div>

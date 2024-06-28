@@ -88,7 +88,7 @@ export const TaskList = ({
     return (
         <div className="flex flex-col">
           <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl sm:text-md">{query.personal ? "Personal tasks" : "Team tasks"}</h2>
+              <h2 className="text-xl sm:text-md pt-3">{query.personal ? "Personal tasks" : "Team tasks"}</h2>
             <div className="flex space-x-1">
             {isCardView && (
               <Button onClick={toggleDialog} className="bg-amber-300 text-black hover:bg-amber-600/20">
