@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { EditTaskModal } from "@/components/edit-task-modal";
 import { useApiMutation } from "@/hooks/use-api-mutation";
 import { api } from "@/convex/_generated/api";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export interface TaskCardProps {
     id: string;
@@ -49,14 +50,14 @@ export const TaskCard = ({
     const toggleCompletion = useApiMutation(api.task.toggleTaskCompletion);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-    const [completed, setCompleted] = useState(isCompleted);
+
 
     const toggleDialog = () => {
       setIsDialogOpen((prevState) => !prevState);
     };
 
-    const handleToggleComplete = () => {
-      toggleCompletion.mutate({ taskId: id, isCompleted: !isCompleted});
+    const handleToggleComplete = (checked: boolean) => {
+      toggleCompletion.mutate({ taskId: id, isCompleted: checked});
     }
 
 
@@ -95,6 +96,17 @@ export const TaskCard = ({
         </button>
       </Actions>
     </div>
+    <div className="absolute bottom-8 pb-2 right-6">
+            <Checkbox
+              id={`checkbox-${id}`}
+              checked={isCompleted}
+              onCheckedChange={handleToggleComplete}
+              className="cursor-pointer"
+            />
+          <label className=""> 
+            <span className="ml-2">Done</span>
+          </label>
+        </div>
       <div onClick={toggleDialog}>
       <div className="font-semibold text-2xl mb-2">{title}</div> {/* Client Name */}
         <div className="text-md text-black line-clamp-3 font-semibold"> {description} </div>
@@ -135,11 +147,10 @@ export const TaskCard = ({
         <div className="grid-cols-2">
         <p className="text-sm mt-2">Created by {authorName}, {formattedDate}</p>
         <div className="absolute bottom-8 pb-2 right-6">
-            <input //TODO: Connect the htmlfor to the form
-              type="checkbox"
+            <Checkbox
               id={`checkbox-${id}`}
               checked={isCompleted}
-              onChange={handleToggleComplete}
+              onCheckedChange={handleToggleComplete}
               className="cursor-pointer"
             />
           <label className=""> 
