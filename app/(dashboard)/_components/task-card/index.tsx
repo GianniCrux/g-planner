@@ -70,7 +70,7 @@ export const TaskCard = ({
           sideOffset={10}
         >
         <div 
-          className="group bg-yellow-200 p-4 rounded-lg shadow-md relative border border-yellow-300 min-w-[200px] flex flex-col cursor-pointer"
+          className="group bg-yellow-200 p-4 rounded-lg shadow-md relative border border-yellow-300 min-w-[200px] flex flex-col cursor-pointer min-h-[200px]"
           > {/* Sticky note styling */}
     <div className="flex-grow">
     <div className="pt-4">
@@ -117,7 +117,7 @@ export const TaskCard = ({
       <div className="absolute top-0 right-0 mb-2">
         <span className="bg-amber-800 text-white text-xs px-2 py-1 rounded">Genre: {type} </span>  {/* decide for type or assignedTo */}
       </div>
-      <div className="bg-amber-800 text-white text-xs px-2 py-1 rounded mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+      <div className="bg-amber-800 text-white text-xs px-2 py-1 rounded mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute bottom-0 items-center truncate">
       Created by {authorName}, {formattedDate}
     </div>
     </div>
