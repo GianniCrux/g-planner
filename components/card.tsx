@@ -122,7 +122,7 @@ export const CardCreator = ({ onClose }: CardCreatorProps) => {
 
     return (
         <div className="flex justify-center items-center h-full bg-amber-400">
-        <Card className="w-[300px] bg-amber-400">
+        <Card className="w-[300px] bg-amber-400 border-none">
           <CardHeader>
             <CardTitle className="text-xl">Create Tasks</CardTitle>
             <CardDescription className="text-sm">Write here your new task, it will be added to your schedule</CardDescription>
@@ -216,8 +216,8 @@ export const CardCreator = ({ onClose }: CardCreatorProps) => {
               </div>
               </div>
               <div className="flex pt-2 space-x-2 justify-between">
-              <Button variant="outline" onClick={onClose}>Cancel</Button>
-            <Button type="submit">Create task</Button>
+              <Button variant="outline" className="bg-amber-200 hover:bg-amber-600 border-none" onClick={onClose}>Cancel</Button>
+            <Button type="submit" className="bg-amber-200 hover:bg-amber-600 text-black border-none">Create task</Button>
             </div>
             </form>
           </CardContent>
