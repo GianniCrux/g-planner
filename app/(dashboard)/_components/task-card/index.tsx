@@ -117,7 +117,7 @@ export const TaskCard = ({
       <div className="absolute top-0 right-0 mb-2">
         <span className="bg-amber-800 text-white text-xs px-2 py-1 rounded">Genre: {type} </span>  {/* decide for type or assignedTo */}
       </div>
-      <div className="bg-amber-800 text-white text-xs px-2 py-1 rounded mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute bottom-0 items-center">
+      <div className="bg-amber-800 text-white text-xs px-2 py-1 rounded mt-4  transition-opacity duration-300 absolute bottom-0 right-0 items-center">
       Created by {authorName}, {formattedDate}
     </div>
     </div>
