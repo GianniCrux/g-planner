@@ -11,6 +11,7 @@ import { EditTaskModal } from "@/components/edit-task-modal";
 import { useApiMutation } from "@/hooks/use-api-mutation";
 import { api } from "@/convex/_generated/api";
 import { Checkbox } from "@/components/ui/checkbox";
+import { cn } from "@/lib/utils";
 
 export interface TaskCardProps {
     id: string;
@@ -46,16 +47,11 @@ export const TaskCard = ({
     onToggleComplete,
 }: TaskCardProps) => {
     const formattedDate = new Date(createdAt).toLocaleDateString(); 
-    
     const toggleCompletion = useApiMutation(api.task.toggleTaskCompletion);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
-
-
-
     const toggleDialog = () => {
       setIsDialogOpen((prevState) => !prevState);
     };
-
     const handleToggleComplete = (checked: boolean) => {
       toggleCompletion.mutate({ taskId: id, isCompleted: checked});
     }
@@ -70,7 +66,9 @@ export const TaskCard = ({
           sideOffset={10}
         >
         <div 
-          className="group bg-yellow-200 p-4 rounded-lg shadow-md relative border border-yellow-300 min-w-[200px] flex flex-col cursor-pointer min-h-[200px]"
+          className={cn("group bg-yellow-200 p-4 rounded-lg shadow-md relative border border-yellow-300 min-w-[200px] flex flex-col cursor-pointer min-h-[200px]",
+            {"opacity-40": isCompleted}
+          )}
           > {/* Sticky note styling */}
     <div className="flex-grow">
     <div className="pt-4">
