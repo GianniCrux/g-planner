@@ -119,7 +119,7 @@ export const TaskCard = ({
       Done
     </label>
   </div>
-</div>
+      </div>
     </div>
         {isDialogOpen && (
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -144,20 +144,22 @@ export const TaskCard = ({
         <p className="mb-2 text-md">{description}</p>
         <div className="mt-auto">
         <span className="text-sm">Date: {date}</span>
-        <div className="grid-cols-2">
-        <p className="text-sm mt-2">Created by {authorName}, {formattedDate}</p>
-        <div className="absolute bottom-8 pb-2 right-6">
-            <Checkbox 
-              id={`checkbox-${id}`}
-              checked={isCompleted}
-              onCheckedChange={handleToggleComplete}
-              className="cursor-pointer"
-            />
-          <label className=""> 
-            <span className="ml-2">Done</span>
-          </label>
-          </div>
+        <div className="mt-auto pt-2 flex justify-between items-center">
+        <div className="text-xs text-amber-800">
+          Created by {authorName}, {formattedDate}
         </div>
+        <div className="flex items-center">
+          <Checkbox
+            id={`checkbox-${id}`}
+            checked={isCompleted}
+            onCheckedChange={handleToggleComplete}
+            className="cursor-pointer"
+          />
+          <label htmlFor={`checkbox-${id}`} className="ml-2 text-sm">
+            Done
+          </label>
+        </div>
+      </div>
         {startTime && endTime && (
         <p className="text-sm mt-2">Complete between {startTime} and {endTime}</p>
       )}
