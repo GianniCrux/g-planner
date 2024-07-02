@@ -70,7 +70,7 @@ export const TaskCard = ({
             {"opacity-40": isCompleted}
           )}
           > {/* Sticky note styling */}
-    <div className="flex-grow">
+    <div className="flex flex-col flex-grow">
     <div className="pt-4">
       <Actions 
         id={id}
@@ -94,17 +94,6 @@ export const TaskCard = ({
         </button>
       </Actions>
     </div>
-    <div className="absolute bottom-8 pb-2 right-6 mb-3">
-            <Checkbox
-              id={`checkbox-${id}`}
-              checked={isCompleted}
-              onCheckedChange={handleToggleComplete}
-              className="cursor-pointer"
-            />
-          <label className=""> 
-            <span className="ml-2">Done</span>
-          </label>
-        </div>
       <div onClick={toggleDialog}>
       <div className="font-semibold text-2xl mb-2">{title}</div> {/* Client Name */}
         <div className="text-md text-black line-clamp-3 font-semibold"> {description} </div>
@@ -115,9 +104,22 @@ export const TaskCard = ({
       <div className="absolute top-0 right-0 mb-2">
         <span className="bg-amber-800 text-white text-xs px-2 py-1 rounded">Genre: {type} </span>  {/* decide for type or assignedTo */}
       </div>
-      <div className="bg-amber-800 text-white text-xs px-2 py-1 rounded mt-4  transition-opacity duration-300 absolute bottom-0 right-0 items-center">
-      Created by {authorName}, {formattedDate}
-    </div>
+      <div className="mt-auto pt-2 flex justify-between items-center">
+  <div className="text-xs text-amber-800">
+    Created by {authorName}, {formattedDate}
+  </div>
+  <div className="flex items-center">
+    <Checkbox
+      id={`checkbox-${id}`}
+      checked={isCompleted}
+      onCheckedChange={handleToggleComplete}
+      className="cursor-pointer"
+    />
+    <label htmlFor={`checkbox-${id}`} className="ml-2 text-sm">
+      Done
+    </label>
+  </div>
+</div>
     </div>
         {isDialogOpen && (
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
