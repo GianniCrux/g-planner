@@ -70,7 +70,7 @@ export const TaskCard = ({
             {"opacity-40": isCompleted}
           )}
           > {/* Sticky note styling */}
-    <div className="flex flex-col flex-grow">
+    <div className="flex flex-col flex-grow" onClick={toggleDialog}>
     <div className="pt-4">
       <Actions 
         id={id}
@@ -94,7 +94,7 @@ export const TaskCard = ({
         </button>
       </Actions>
     </div>
-      <div onClick={toggleDialog}>
+      <div>
       <div className="font-semibold text-2xl mb-2">{title}</div> {/* Client Name */}
         <div className="text-md text-black line-clamp-3 font-semibold"> {description} </div>
         {startTime && endTime && (
