@@ -64,7 +64,7 @@ export const TaskCard = ({
         onToggleComplete(id);
       }
       if(!checked) {
-        toast.success("Task removed");
+        toast.success("Task removed from completed tasks!");
       }
     }
 
@@ -106,18 +106,18 @@ export const TaskCard = ({
         </button>
       </Actions>
     </div>
-      <div>
-      <div className="font-semibold text-2xl mb-2">{title}</div> {/* Client Name */}
-        <div className="text-md text-black line-clamp-3 font-semibold"> {description} </div>
-        {startTime && endTime && (
-        <p className="text-sm mt-2">Complete between {startTime} and {endTime}</p>
-      )}
-    </div>
+      <div onClick={toggleDialog}>
       <div className="absolute top-0 right-0 mb-2">
         <span className="bg-amber-800 text-white text-xs px-2 py-1 rounded">Genre: {type} </span>  {/* decide for type or assignedTo */}
       </div>
+      <div className="font-semibold text-2xl mb-2">{title}</div> {/* Client Name */}
+        <div className="text-md text-black line-clamp-3 font-semibold"> {description} </div>
+        {startTime && endTime && (
+        <p className="text-sm mt-2" onClick={toggleDialog}>Complete between {startTime} and {endTime}</p>
+      )}
+    </div>
       <div className="mt-auto pt-2 flex justify-between items-center">
-  <div className="text-xs text-amber-800">
+  <div className="text-xs text-amber-800" onClick={toggleDialog}>
     Created by {authorName}, {formattedDate}
   </div>
   {!hideCheckbox && (
