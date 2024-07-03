@@ -63,6 +63,9 @@ export const TaskCard = ({
       if (onToggleComplete) {
         onToggleComplete(id);
       }
+      if(!checked) {
+        toast.success("Task removed");
+      }
     }
 
 
@@ -79,7 +82,7 @@ export const TaskCard = ({
             {"opacity-40": isCompleted}
           )}
           > {/* Sticky note styling */}
-    <div className="flex flex-col flex-grow" onClick={toggleDialog}>
+    <div className="flex flex-col flex-grow">
     <div className="pt-4">
       <Actions 
         id={id}
