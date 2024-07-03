@@ -28,6 +28,7 @@ export interface TaskCardProps {
     endTime?: string;
     isCompleted?: boolean;
     onToggleComplete?: (taskId: string) => void;
+    hideCheckbox?: boolean;
 }
 
 export const TaskCard = ({
@@ -45,6 +46,7 @@ export const TaskCard = ({
     endTime,
     isCompleted = false,
     onToggleComplete,
+    hideCheckbox = false,
 }: TaskCardProps) => {
     const formattedDate = new Date(createdAt).toLocaleDateString(); 
     const toggleCompletion = useApiMutation(api.task.toggleTaskCompletion);
@@ -108,6 +110,7 @@ export const TaskCard = ({
   <div className="text-xs text-amber-800">
     Created by {authorName}, {formattedDate}
   </div>
+  {!hideCheckbox && (
   <div className="flex items-center">
     <Checkbox
       id={`checkbox-${id}`}
@@ -119,6 +122,7 @@ export const TaskCard = ({
       Done
     </label>
   </div>
+  )}
       </div>
     </div>
         {isDialogOpen && (
@@ -148,6 +152,7 @@ export const TaskCard = ({
         <div className="text-xs text-amber-800">
           Created by {authorName}, {formattedDate}
         </div>
+      {!hideCheckbox && (
         <div className="flex items-center">
           <Checkbox
             id={`checkbox-${id}`}
@@ -159,6 +164,7 @@ export const TaskCard = ({
             Done
           </label>
         </div>
+      )}
       </div>
         {startTime && endTime && (
         <p className="text-sm mt-2">Complete between {startTime} and {endTime}</p>

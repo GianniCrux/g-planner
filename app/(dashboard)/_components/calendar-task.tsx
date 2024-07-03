@@ -171,7 +171,7 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
             <Dialog open={showDialog} onOpenChange={handleCloseDialog}>
               <DialogContent className="bg-amber-400 max-h-[600px] overflow-auto">
                 {tasksForSelectedDate.map((task) => (
-                  <TaskCard key={task._id} {...task} />
+                  <TaskCard key={task._id} {...task} hideCheckbox={true} />
                 ))}
                 {tasksForSelectedDate.length === 0 && (
                   <p>No tasks available for the selected date.</p>
