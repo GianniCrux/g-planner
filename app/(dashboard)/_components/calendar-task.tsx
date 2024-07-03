@@ -30,7 +30,9 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
   const [currentView, setCurrentView] = useState<'month' | 'week' | 'day' | 'work_week' | 'agenda'>('month');
 
   useEffect(() => {
-    const calendarEvents: CalendarEvent[] = tasks.map((task) => {
+    const calendarEvents: CalendarEvent[] = tasks
+    .filter(task => !task.isCompleted)
+    .map((task) => {
       const baseDate = new Date(task.date);
       let startDate, endDate;
   
@@ -65,7 +67,7 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
 
   const handleSelectSlot = ({ start, end }: { start: Date; end: Date }) => {
     setSelectedDate(start);
-    const selectedDateEvents = events.filter((event) => moment(event.start).isSame(moment(start), 'day'));
+    const selectedDateEvents = events.filter((event) => moment(event.start).isSame(moment(start), 'day') && !event.isCompleted);
     setTasksForSelectedDate(selectedDateEvents);
     setShowDialog(true);
   };
