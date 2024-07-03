@@ -12,6 +12,7 @@ import { useApiMutation } from "@/hooks/use-api-mutation";
 import { api } from "@/convex/_generated/api";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
+import { toast } from "sonner";
 
 export interface TaskCardProps {
     id: string;
@@ -56,6 +57,12 @@ export const TaskCard = ({
     };
     const handleToggleComplete = (checked: boolean) => {
       toggleCompletion.mutate({ taskId: id, isCompleted: checked});
+      if (checked) {
+        toast.success("Task marked as completed!");
+      }
+      if (onToggleComplete) {
+        onToggleComplete(id);
+      }
     }
 
 
