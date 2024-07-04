@@ -1,5 +1,9 @@
 import { Actions } from "@/components/actions";
+import { Checkbox } from "@/components/ui/checkbox";
+import { api } from "@/convex/_generated/api";
+import { useApiMutation } from "@/hooks/use-api-mutation";
 import { MoreHorizontal } from "lucide-react";
+import { toast } from "sonner";
 
 
 interface SingleTaskViewProps {
@@ -17,13 +21,23 @@ interface SingleTaskViewProps {
       type?: string;
       startTime?: string;
       endTime?: string;
+      isCompleted?: boolean;
     };
   }
   
 
 export const SingleTaskView = ({ task }: SingleTaskViewProps) => {
 
+  const toggleCompletion = useApiMutation(api.task.toggleTaskCompletion);
 
+  const handleToggleComplete = (checked: boolean) => {
+    toggleCompletion.mutate({ taskId: task._id, isCompleted: checked });
+    if (checked) {
+      toast.success("Task marked as completed!");
+    } else {
+      toast.success("Task removed from completed tasks!");
+    }
+  };
     
     return (
         <div className="min-h-[calc(95vh-64px)] sm:min-h-[calc(95vh-56px)] max-h-screen[95vh] bg-yellow-200 rounded-lg shadow-md p-6 mb-8">
@@ -71,6 +85,17 @@ export const SingleTaskView = ({ task }: SingleTaskViewProps) => {
         <p className="text-sm text-gray-500 mt-2">Complete between {task.startTime}, {task.endTime}</p>
         )}
       </div>
+      <div className="flex items-center">
+          <Checkbox
+            id={`checkbox-${task._id}`}
+            checked={task.isCompleted}
+            onCheckedChange={handleToggleComplete}
+            className="cursor-pointer"
+          />
+          <label htmlFor={`checkbox-${task._id}`} className="ml-2 text-sm">
+            Done
+          </label>
+        </div>
     </div>
     )
 }
