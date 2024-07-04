@@ -2,6 +2,7 @@ import { Actions } from "@/components/actions";
 import { Checkbox } from "@/components/ui/checkbox";
 import { api } from "@/convex/_generated/api";
 import { useApiMutation } from "@/hooks/use-api-mutation";
+import { cn } from "@/lib/utils";
 import { MoreHorizontal } from "lucide-react";
 import { toast } from "sonner";
 
@@ -40,7 +41,8 @@ export const SingleTaskView = ({ task }: SingleTaskViewProps) => {
   };
     
     return (
-        <div className="min-h-[calc(95vh-64px)] sm:min-h-[calc(95vh-56px)] max-h-screen[95vh] bg-yellow-200 rounded-lg shadow-md p-6 mb-8">
+        <div className={cn("min-h-[calc(95vh-64px)] sm:min-h-[calc(95vh-56px)] max-h-screen[95vh] bg-yellow-200 rounded-lg shadow-md p-6 mb-8", {"opacity-40": task.isCompleted}
+        )}>
       <div>
       <Actions 
         id={task._id}
