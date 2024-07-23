@@ -64,23 +64,23 @@ export const ClientOrgSidebar = () => {
       {/* Mobile view */}
       <div className="sm:hidden">
         <Button
-          className="bg-amber-500 hover:bg-amber-700"
+          className="bg-amber-500 hover:bg-amber-700 dark:bg-amber-600 dark:hover:bg-amber-800"
           onClick={toggleSidebar}
         >
-          <SidebarIcon className="text-black" />
+          <SidebarIcon className="text-black dark:text-amber-100" />
         </Button>
         {isSidebarOpen && (
-          <div className="fixed inset-0 z-50 bg-amber-600 bg-opacity-50 flex">
+          <div className="fixed inset-0 z-50 bg-amber-600 bg-opacity-50 flex dark:bg-amber-600 dark:bg-opacity-70">
             <div
               ref={sidebarRef}
-              className="h-full bg-amber-300 w-64 max-w-[80vw]"
+              className="h-full bg-amber-300 w-64 max-w-[80vw] dark:bg-amber-800"
             >
               <div className="flex justify-end p-4">
                 <Button
                   onClick={closeSidebar}
-                  className="bg-amber-300 hover:bg-amber-300"
+                  className="bg-amber-300 hover:bg-amber-300 dark:bg-amber-800 dark:hover:bg-amber-800"
                 >
-                  <XIcon className="text-black" />
+                  <XIcon className="text-black dark:text-amber-100" />
                 </Button>
               </div>
               <OrgSidebar>
@@ -117,7 +117,7 @@ export const ClientOrgSidebar = () => {
       <div className="hidden sm:flex">
         <div
           className={cn(
-            "relative bg-amber-300 transition-all duration-300 ease-in-out",
+            "relative bg-amber-300 transition-all duration-300 ease-in-out dark:bg-amber-600",
             {
               "w-64": !isSidebarCollapsed,
               "w-0": isSidebarCollapsed,
@@ -136,7 +136,7 @@ export const ClientOrgSidebar = () => {
           )}
           <Button
             className={cn(
-              "absolute top-0 bg-amber-300 hover:bg-amber-300 transition-all duration-300",
+              "absolute top-0 bg-amber-300 hover:bg-amber-300 transition-all duration-300 dark:bg-amber-800 dark:hover:bg-amber-800",
               {
                 "-right-10 rotate-180": !isSidebarCollapsed,
                 "right": isSidebarCollapsed,
@@ -144,7 +144,7 @@ export const ClientOrgSidebar = () => {
             )}
             onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
           >
-            <ArrowLeftIcon className="text-black" />
+            <ArrowLeftIcon className="text-black dark:text-amber-100" />
           </Button>
         </div>
       </div>

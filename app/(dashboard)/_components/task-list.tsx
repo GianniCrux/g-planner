@@ -88,10 +88,10 @@ export const TaskList = ({
     return (
         <div className="flex flex-col">
           <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl sm:text-md pt-3">{query.personal ? "Personal tasks" : "Team tasks"}</h2>
+              <h2 className="text-xl sm:text-md pt-3 dark:text-amber-200">{query.personal ? "Personal tasks" : "Team tasks"}</h2>
             <div className="flex space-x-1">
             {isCardView && (
-              <Button onClick={toggleDialog} className="bg-amber-300 text-black hover:bg-amber-600/20">
+              <Button onClick={toggleDialog} className="bg-amber-300 text-black hover:bg-amber-600/20 dark:bg-amber-700 dark:text-amber-100 dark:hover:bg-amber-800">
                 <Plus className="h-w w-4" /> Add task
               </Button>
             )}
@@ -99,7 +99,7 @@ export const TaskList = ({
               <Button 
                 onClick={toggleCardView} 
                 variant={isCardView ? "secondary" : "ghost"} 
-                className="px-4 py-2 rounded-md bg-amber-500 hover:bg-amber-800"
+                className="px-4 py-2 rounded-md bg-amber-500 hover:bg-amber-800 dark:bg-amber-700 dark:hover:bg-amber-800"
                 >
                 {isCardView ? <GalleryVertical className="h-w w-4"/> : <GalleryHorizontal className="h-4 w-4"/>}
                 <span className="hidden lg:inline">
@@ -110,7 +110,7 @@ export const TaskList = ({
               <Button 
                 onClick={handleViewChange} 
                 variant={isCalendarView ? "secondary" : "ghost"} 
-                className="px-4 py-2 rounded-md bg-amber-500 hover:bg-amber-800"
+                className="px-4 py-2 rounded-md bg-amber-500 hover:bg-amber-800 dark:bg-amber-700 dark:hover:bg-amber-800"
                 >
                 {isCalendarView ? <List className="h-4 w-4" /> : <Calendar className="h-4 w-4" />}
                 <span className="hidden lg:inline">
@@ -120,7 +120,7 @@ export const TaskList = ({
             </div>
             {showDialog && (
             <Dialog open={showDialog} onOpenChange={toggleDialog}>
-            <DialogContent className="bg-amber-400">
+            <DialogContent className="bg-amber-400 dark:bg-amber-800">
               <CardCreator onClose={toggleDialog} />
             </DialogContent>
           </Dialog>
@@ -134,12 +134,12 @@ export const TaskList = ({
             <>
               <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 gap-5 mt-8 pb-10">
                 <div className="flex justify-end mb-4">
-                  <Button onClick={toggleDialog} className="h-full w-full bg-yellow-200 text-black hover:bg-amber-500">
+                  <Button onClick={toggleDialog} className="h-full w-full bg-yellow-200 text-black hover:bg-amber-500 dark:bg-amber-700 dark:text-amber-100 dark:hover:bg-amber-800">
                     <Plus className="mr-2 h-4 w-4" /> Add Task
                   </Button>
                   {showDialog && (
                     <Dialog open={showDialog} onOpenChange={toggleDialog}>
-                      <DialogContent className="bg-amber-400 border-none">
+                      <DialogContent className="bg-amber-400 border-none dark:bg-amber-800 dark:border-amber-600">
                         <CardCreator onClose={toggleDialog} />
                       </DialogContent>
                     </Dialog>

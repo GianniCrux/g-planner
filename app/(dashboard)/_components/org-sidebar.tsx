@@ -77,12 +77,12 @@ export const OrgSidebar = ({children}: OrgSidebarProps) => {
                     }
                 }}
             />
-            <div className="space-y-1 w-full bg-amber-300">
+            <div className="space-y-1 w-full bg-amber-300 dark:bg-amber-600">
                 <Button
                     variant={personal ? "ghost" : "secondary"}
                     asChild
                     size="lg"
-                    className="font-normal justify-start px-2 w-full"
+                    className="font-normal justify-start px-2 w-full dark:text-amber-200 dark:bg-amber-700"
                 >
                     <Link href="/">
                         <LayoutDashboard  className="h-4 w-4 mr-2" />
@@ -93,7 +93,7 @@ export const OrgSidebar = ({children}: OrgSidebarProps) => {
                     variant={personal ? "secondary" : "ghost"}
                     asChild
                     size="lg"
-                    className="font-normal justify-start px-2 w-full"
+                    className="font-normal justify-start px-2 w-full dark:text-amber-200 dark:bg-amber-700"
                 >
                     <Link href={{
                         pathname: "/",
