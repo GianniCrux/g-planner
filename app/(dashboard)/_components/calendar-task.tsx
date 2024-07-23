@@ -89,7 +89,7 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
 
 
   return (
-    <div className="relative bg-transparent text-xl shadow-lg overflow-hidden p-8 md:p-16">
+    <div className="relative bg-transparent text-xl shadow-lg overflow-hidden p-8 md:p-16 dark:bg-amber-900">
   <div className="absolute inset-0 opacity-70">
     <div className="absolute inset-0 bg-gradient-to-r from-amber-500 via-amber-300 to-amber-500"></div>
   </div>
@@ -127,19 +127,19 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
                   <span className="rbc-toolbar-label text-amber-600 text-xl">{label}</span>
                   <div className="rbc-btn-group pt-2">
                     <Button 
-                      className="!bg-amber-300 text-black hover:!bg-amber-500 !border-none"
+                      className="!bg-amber-300 text-black hover:!bg-amber-500 dark:!bg-amber-700 dark:hover:!bg-amber-900 dark:text-black dark:hover:text-black !border-none"
                       onClick={() => onNavigate('TODAY')}
                     >
                       Today
                     </Button>
                     <Button
-                      className="!bg-amber-300 text-black hover:!bg-amber-500 !border-none"
+                      className="!bg-amber-300 text-black hover:!bg-amber-500 dark:!bg-amber-700 dark:hover:!bg-amber-900 dark:text-black dark:hover:text-black !border-none"
                       onClick={() => onNavigate('PREV')}
                     >
                       Back
                     </Button>
                     <Button
-                      className="!bg-amber-300 text-black hover:!bg-amber-500 !border-none"
+                      className="!bg-amber-300 text-black hover:!bg-amber-500 dark:!bg-amber-700 dark:hover:!bg-amber-900 dark:text-black dark:hover:text-black !border-none"
                       onClick={() => onNavigate('NEXT')}
                     >
                       Next
@@ -158,7 +158,7 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
               const isCurrentMonth = date.getMonth() === currentMonth.month(); 
           
               return {
-                style: {
+                style: { //TODO: Change colors for dark mode
                   backgroundColor: isCurrentMonth ? '#ffb300' : '#ffee58',
                   color: isCurrentMonth ? '#000' : '#555',
                 }
