@@ -10,6 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Poppins } from "next/font/google";
+import DarkModeToggle from "./dark-mode-toggle";
 
 const font = Poppins({
     subsets: ["latin"],
@@ -45,6 +46,7 @@ export const Navbar = () => {
             <InviteButton />
             </div>
             )}
+            <DarkModeToggle />
             <UserButton />
         </div>
     );
