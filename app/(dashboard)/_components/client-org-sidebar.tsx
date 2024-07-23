@@ -73,12 +73,12 @@ export const ClientOrgSidebar = () => {
           <div className="fixed inset-0 z-50 bg-amber-600 bg-opacity-50 flex dark:bg-amber-600 dark:bg-opacity-70">
             <div
               ref={sidebarRef}
-              className="h-full bg-amber-300 w-64 max-w-[80vw] dark:bg-amber-800"
+              className="h-full bg-amber-300 w-64 max-w-[80vw] dark:bg-amber-600"
             >
               <div className="flex justify-end p-4">
                 <Button
                   onClick={closeSidebar}
-                  className="bg-amber-300 hover:bg-amber-300 dark:bg-amber-800 dark:hover:bg-amber-800"
+                  className="bg-amber-300 hover:bg-amber-300 dark:bg-amber-800 dark:hover:bg-amber-900"
                 >
                   <XIcon className="text-black dark:text-amber-100" />
                 </Button>
@@ -136,7 +136,7 @@ export const ClientOrgSidebar = () => {
           )}
           <Button
             className={cn(
-              "absolute top-0 bg-amber-300 hover:bg-amber-300 transition-all duration-300 dark:bg-amber-800 dark:hover:bg-amber-800",
+              "absolute top-0 bg-amber-300 hover:bg-amber-300 transition-all duration-300 dark:bg-amber-600",
               {
                 "-right-10 rotate-180": !isSidebarCollapsed,
                 "right": isSidebarCollapsed,
