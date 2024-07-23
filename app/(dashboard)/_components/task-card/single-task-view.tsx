@@ -84,7 +84,7 @@ export const SingleTaskView = ({ task }: SingleTaskViewProps) => {
         <span className="text-gray-500 dark:text-amber-300 mr-2">Created by:</span>
         <span className="text-gray-700 dark:text-amber-100">{task.authorName}</span>
         {task.startTime && task.endTime && (
-        <p className="text-sm text-gray-500 mt-2">Complete between {task.startTime}, {task.endTime}</p>
+        <p className="text-sm text-gray-500 dark:text-amber-50 mt-2">Complete between {task.startTime}, {task.endTime}</p>
         )}
       </div>
       <div className="flex items-center">
