@@ -41,7 +41,7 @@ export const SingleTaskView = ({ task }: SingleTaskViewProps) => {
   };
     
     return (
-        <div className={cn("min-h-[calc(95vh-64px)] sm:min-h-[calc(95vh-56px)] max-h-screen[95vh] bg-yellow-200 rounded-lg shadow-md p-6 mb-8", {"opacity-40": task.isCompleted}
+        <div className={cn("min-h-[calc(95vh-64px)] sm:min-h-[calc(95vh-56px)] max-h-screen[95vh] bg-yellow-200 dark:bg-amber-700 rounded-lg shadow-md p-6 mb-8", {"opacity-40": task.isCompleted}
         )}>
       <div>
       <Actions 
@@ -68,10 +68,10 @@ export const SingleTaskView = ({ task }: SingleTaskViewProps) => {
       </Actions>
       </div>
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-bold">{task.title}</h2>
-        <span className="text-gray-500">{task.date}</span>
+        <h2 className="text-2xl font-bold dark:text-amber-300">{task.title}</h2>
+        <span className="text-gray-500 dark:text-amber-200">{task.date}</span>
       </div>
-      <p className="text-black mb-4">{task.description}</p>
+      <p className="text-black dark:text-amber-200 mb-4">{task.description}</p>
       <div className="flex items-center">
           <span className="bg-amber-800 text-white text-xs px-2 py-1 rounded mr-2">
             Per: {task.assignedToName}
@@ -81,8 +81,8 @@ export const SingleTaskView = ({ task }: SingleTaskViewProps) => {
           </span>
         </div>
       <div className="mt-4">
-        <span className="text-gray-500 mr-2">Created by:</span>
-        <span className="text-gray-700">{task.authorName}</span>
+        <span className="text-gray-500 dark:text-amber-300 mr-2">Created by:</span>
+        <span className="text-gray-700 dark:text-amber-100">{task.authorName}</span>
         {task.startTime && task.endTime && (
         <p className="text-sm text-gray-500 mt-2">Complete between {task.startTime}, {task.endTime}</p>
         )}

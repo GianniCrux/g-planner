@@ -110,14 +110,14 @@ export const TaskCard = ({
       <div className="absolute top-0 right-0 mb-2">
         <span className="bg-amber-800 text-white dark:text-black text-xs px-2 py-1 rounded">Genre: {type} </span>  {/* decide for type or assignedTo */}
       </div>
-      <div className="font-semibold text-2xl mb-2 dark:text-black">{title}</div> {/* Client Name */}
-        <div className="text-md text-black dark:text-gray-900 line-clamp-3 font-semibold"> {description} </div>
+      <div className="font-semibold text-2xl mb-2 dark:text-amber-300">{title}</div> {/* Client Name */}
+        <div className="text-md text-black dark:text-amber-200 line-clamp-3 font-semibold"> {description} </div>
         {startTime && endTime && (
         <p className="text-sm mt-2" onClick={toggleDialog}>Complete between {startTime} and {endTime}</p>
       )}
     </div>
       <div className="mt-auto pt-2 flex justify-between items-center">
-  <div className="text-xs text-amber-800 dark:text-amber-950 dark:text-sm" onClick={toggleDialog}>
+  <div className="text-xs text-amber-800 dark:text-amber-200" onClick={toggleDialog}>
     Created by {authorName}, {formattedDate}
   </div>
   {!hideCheckbox && (
