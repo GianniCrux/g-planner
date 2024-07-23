@@ -38,7 +38,7 @@ export const SearchInput = () => {
                 className="absolute top-1/2 left-3 transform -translate-y-1/2 text-muted-foreground h-4 w-4"
             />
             <Input 
-                className="w-full max-w-[580px] pl-9 lg:max-w-[750px] rounded-full bg-amber-500"
+                className="w-full max-w-[580px] pl-9 lg:max-w-[750px] rounded-full bg-amber-500 border-none"
                 placeholder="Search tasks"
                 onChange={handleChange}
                 value={value}
