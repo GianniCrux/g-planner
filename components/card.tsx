@@ -110,7 +110,7 @@ const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 };
 
 return (
-  <div className="flex justify-center items-center h-full bg-amber-400 dark:bg-amber-800">
+  <div className="flex justify-center items-center h-full bg-amber-300 dark:bg-amber-600">
     <Card className="w-[300px] bg-amber-400 border-none dark:bg-amber-800">
       <CardHeader>
         <CardTitle className="text-xl text-black dark:text-amber-300">Create Tasks</CardTitle>
