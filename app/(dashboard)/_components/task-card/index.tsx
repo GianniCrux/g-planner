@@ -138,28 +138,28 @@ export const TaskCard = ({
         {isDialogOpen && (
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogContent 
-              className="bg-yellow-200 rounded-lg shadow-md p-6 "
+              className="bg-yellow-200 dark:bg-amber-800 rounded-lg shadow-md p-6 "
               style={{
                 minHeight: "300px",
               }}
             >
       <div className="flex justify-between items-center mb-4">
 
-        <h2 className="text-2xl font-bold">{title}</h2>
+        <h2 className="text-2xl font-bold dark:text-amber-300">{title}</h2>
         <div className="flex items-center">
-          <span className="bg-amber-800 text-white text-xs px-2 py-1 rounded mr-2">
+          <span className="bg-amber-800 dark:bg-amber-900 text-white dark:text-black text-xs px-2 py-1 rounded mr-2">
             Per: {assignedToName}
           </span>
-          <span className="bg-amber-800 text-white text-xs px-2 py-1 rounded">
+          <span className="bg-amber-800 dark:bg-amber-900 text-white dark:text-black text-xs px-2 py-1 rounded">
             Genre: {type}
           </span>
         </div>
       </div>
-        <p className="mb-2 text-md">{description}</p>
+        <p className="mb-2 text-md dark:text-amber-200">{description}</p>
         <div className="mt-auto">
-        <span className="text-sm">Date: {date}</span>
+        <span className="text-sm dark:text-amber-200">Date: {date}</span>
         <div className="mt-auto pt-2 flex justify-between items-center">
-        <div className="text-xs text-amber-800">
+        <div className="text-xs text-amber-800 dark:text-amber-200">
           Created by {authorName}, {formattedDate}
         </div>
       {!hideCheckbox && (
@@ -170,14 +170,14 @@ export const TaskCard = ({
             onCheckedChange={handleToggleComplete}
             className="cursor-pointer"
           />
-          <label htmlFor={`checkbox-${id}`} className="ml-2 text-sm">
+          <label htmlFor={`checkbox-${id}`} className="ml-2 text-sm dark:text-amber-200">
             Done
           </label>
         </div>
       )}
       </div>
         {startTime && endTime && (
-        <p className="text-sm mt-2">Complete between {startTime} and {endTime}</p>
+        <p className="text-sm mt-2 dark:text-amber-200">Complete between {startTime} and {endTime}</p>
       )}
       </div>
             </DialogContent>
