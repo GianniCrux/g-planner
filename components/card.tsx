@@ -1,24 +1,24 @@
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-  } from "@/components/ui/card"
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 import { Button } from "./ui/button";
 
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select"
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useApiMutation } from "@/hooks/use-api-mutation";
@@ -26,204 +26,190 @@ import { useOrganization } from "@clerk/clerk-react";
 import { toast } from "sonner";
 import { OrganizationMembershipResource } from '@clerk/types';
 
-
 interface Task {
-  _id: string;
-  name: string;
-  description: string;
-  type?: string;
-  assignedTo: string;
-  assignedToName: string;
-  date: string;
-  startTime?: string;
-  endTime?: string;
+_id: string;
+name: string;
+description: string;
+type?: string;
+assignedTo: string;
+assignedToName: string;
+date: string;
+startTime?: string;
+endTime?: string;
 }
 
 interface CardCreatorProps {
-  onClose: () => void;
+onClose: () => void;
 }
 
 export const CardCreator = ({ onClose }: CardCreatorProps) => {
 
-  const { organization } = useOrganization();
+const { organization } = useOrganization();
+const [memberships, setMemberships] = useState<OrganizationMembershipResource[]>([]);
+const { mutate } = useApiMutation(api.task.create);
+const [formData, setFormData] = useState<Omit<Task, "_id">>({
+  name: "",
+  description: "",
+  type: "",
+  assignedTo: "",
+  assignedToName: "",
+  date: "",
+  startTime: "",
+  endTime: "",
+});
 
-  const [memberships, setMemberships] = useState<OrganizationMembershipResource[]>([]);
-
-  const { mutate } = useApiMutation(api.task.create);
-
-  const [formData, setFormData] = useState<Omit<Task, "_id">>({
-    name: "",
-    description: "",
-    type: "",
-    assignedTo: "",
-    assignedToName: "",
-    date: "",
-    startTime: "",
-    endTime: "",
-  });
-
-
-  
-  useEffect(() => {
-    const fetchMembers = async () => {
-        if (organization) {
-            const response = await organization.getMemberships();
-            setMemberships(response.data); // Extract the data property
-        }
-    };
-
-    fetchMembers();
-  }, [organization]);
-
-
-
-  const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
-    const { id, value } = event.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [id]: value,
-    }));
-  };
-
-
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (!organization) {
-      return
+useEffect(() => {
+  const fetchMembers = async () => {
+    if (organization) {
+      const response = await organization.getMemberships();
+      setMemberships(response.data); // Extract the data property
     }
+  };
+  fetchMembers();
+}, [organization]);
 
-    const selectedMembership = memberships.find(
-      (membership) => membership.publicUserData.userId === formData.assignedTo
-    );
+const handleChange = (
+  event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+) => {
+  const { id, value } = event.target;
+  setFormData((prevData) => ({
+    ...prevData,
+    [id]: value,
+  }));
+};
 
-    const assignedToName = selectedMembership
+const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
+  if (!organization) {
+    return;
+  }
+
+  const selectedMembership = memberships.find(
+    (membership) => membership.publicUserData.userId === formData.assignedTo
+  );
+
+  const assignedToName = selectedMembership
     ? `${selectedMembership.publicUserData.firstName || ''} ${selectedMembership.publicUserData.lastName || ''}`
     : '';
 
-    mutate ({
-      orgId: organization.id,
-      title: formData.name,
-      description: formData.description,
-      assignedTo: formData.assignedTo,
-      assignedToName,
-      date: formData.date,
-      type: formData.type,
-      startTime: formData.startTime,
-      endTime: formData.endTime,
-    }).then((id) => {
-      toast.success("Tasks created");
-      onClose();
-    })
-    .catch(() => toast.error("Failed to create Task"));
-  };
+  mutate({
+    orgId: organization.id,
+    title: formData.name,
+    description: formData.description,
+    assignedTo: formData.assignedTo,
+    assignedToName,
+    date: formData.date,
+    type: formData.type,
+    startTime: formData.startTime,
+    endTime: formData.endTime,
+  }).then(() => {
+    toast.success("Tasks created");
+    onClose();
+  })
+  .catch(() => toast.error("Failed to create Task"));
+};
 
-    return (
-        <div className="flex justify-center items-center h-full bg-amber-400">
-        <Card className="w-[300px] bg-amber-400 border-none">
-          <CardHeader>
-            <CardTitle className="text-xl">Create Tasks</CardTitle>
-            <CardDescription className="text-sm">Write here your new task, it will be added to your schedule</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-2">
-            <form onSubmit={handleSubmit}>
-              <div className="space-y-2">
-                <div className="flex flex-col">
-                  <Label htmlFor="name">Name</Label>
-                  <Input 
-                    className="bg-amber-200"
-                    id="name" 
-                    placeholder="Name of the client" 
-                    value={formData.name}
-                    onChange={handleChange}
-                    />
-                </div>
-                <div className="flex flex-col">
-                  <Label htmlFor="description">Description</Label>
-                  <Textarea 
-                  className="bg-amber-200"
-                  id="description" 
-                  placeholder="Description of the order" 
-                  rows={3} 
-                  value={formData.description}
-                  onChange={handleChange}
-                  />
-                </div>
-                <div className="flex flex-col">
-                  <Label htmlFor="type">Type of order</Label>
-                  <Input 
-                  className="bg-amber-200"
-                  id="type" 
-                  placeholder="Category" 
-                  value={formData.type}
-                  onChange={handleChange}
-                  />
-                </div>
-                <div className="flex flex-col">
-               <Label htmlFor="assignedTo">
-                Assigned to
-              </Label>
-              <Select 
-              value={formData.assignedTo}
-              onValueChange={(value) => setFormData(prevData => ({...prevData, assignedTo: value}))}
-              >
-              <SelectTrigger className="bg-amber-200">
-               <SelectValue placeholder="Select Member" />
-              </SelectTrigger>
-              <SelectContent className="bg-amber-200">
-              {memberships && memberships.map((membership) => (
-              <SelectItem key={membership.id} value={membership.publicUserData.userId ?? ''}>
-            {membership.publicUserData.firstName} {membership.publicUserData.lastName}
-              </SelectItem>
-               ))}
-              </SelectContent>
-              </Select>
-              </div>
-                <div className="flex flex-col">
-                  <Label htmlFor="date">Date</Label>
-                  <Input
-                    className="bg-amber-200"
-                    id="date"
-                    type="date"
-                    value={formData.date}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="flex space-x-2">
-                <div className="flex-1 w-24"> 
-                  <Label htmlFor="startTime">Start Time (Optional)</Label>
-                  <Input
-                    className="bg-amber-200 h-8"
-                    id="startTime"
-                    type="time"
-                    value={formData.startTime}
-                    onChange={handleChange}
-                  />
-                </div>
-
-                <div className="flex-1 w-24"> 
-                  <Label htmlFor="endTime">End Time (Optional)</Label>
-                  <Input
-                    className="bg-amber-200 h-8"
-                    id="endTime"
-                    type="time"
-                    value={formData.endTime}
-                    onChange={handleChange}
-                  />
-                </div>
-              </div>
-              </div>
-              <div className="flex pt-2 space-x-2 justify-between">
-              <Button variant="outline" className="bg-amber-200 hover:bg-amber-600 border-none" onClick={onClose}>Cancel</Button>
-            <Button type="submit" className="bg-amber-200 hover:bg-amber-600 text-black border-none">Create task</Button>
+return (
+  <div className="flex justify-center items-center h-full bg-amber-400 dark:bg-amber-800">
+    <Card className="w-[300px] bg-amber-400 border-none dark:bg-amber-800">
+      <CardHeader>
+        <CardTitle className="text-xl text-black dark:text-amber-300">Create Tasks</CardTitle>
+        <CardDescription className="text-sm text-black dark:text-amber-200">
+          Write here your new task, it will be added to your schedule
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-2">
+        <form onSubmit={handleSubmit}>
+          <div className="space-y-2">
+            <div className="flex flex-col">
+              <Label htmlFor="name">Name</Label>
+              <Input 
+                className="bg-amber-200 dark:bg-amber-600"
+                id="name" 
+                placeholder="Name of the client" 
+                value={formData.name}
+                onChange={handleChange}
+              />
             </div>
-            </form>
-          </CardContent>
-        </Card>
-        
-        </div>
-        
-      )
-    }
+            <div className="flex flex-col">
+              <Label htmlFor="description">Description</Label>
+              <Textarea 
+                className="bg-amber-200 dark:bg-amber-600"
+                id="description" 
+                placeholder="Description of the order" 
+                rows={3} 
+                value={formData.description}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="flex flex-col">
+              <Label htmlFor="type">Type of order</Label>
+              <Input 
+                className="bg-amber-200 dark:bg-amber-600"
+                id="type" 
+                placeholder="Category" 
+                value={formData.type}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="flex flex-col">
+              <Label htmlFor="assignedTo">Assigned to</Label>
+              <Select 
+                value={formData.assignedTo}
+                onValueChange={(value) => setFormData(prevData => ({ ...prevData, assignedTo: value }))}
+              >
+                <SelectTrigger className="bg-amber-200 dark:bg-amber-600">
+                  <SelectValue placeholder="Select Member" />
+                </SelectTrigger>
+                <SelectContent className="bg-amber-200 dark:bg-amber-600">
+                  {memberships && memberships.map((membership) => (
+                    <SelectItem key={membership.id} value={membership.publicUserData.userId ?? ''}>
+                      {membership.publicUserData.firstName} {membership.publicUserData.lastName}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="flex flex-col">
+              <Label htmlFor="date">Date</Label>
+              <Input
+                className="bg-amber-200 dark:bg-amber-600"
+                id="date"
+                type="date"
+                value={formData.date}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="flex space-x-2">
+              <div className="flex-1 w-24"> 
+                <Label htmlFor="startTime">Start Time (Optional)</Label>
+                <Input
+                  className="bg-amber-200 dark:bg-amber-600 h-8"
+                  id="startTime"
+                  type="time"
+                  value={formData.startTime}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="flex-1 w-24"> 
+                <Label htmlFor="endTime">End Time (Optional)</Label>
+                <Input
+                  className="bg-amber-200 dark:bg-amber-600 h-8"
+                  id="endTime"
+                  type="time"
+                  value={formData.endTime}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="flex pt-2 space-x-2 justify-between">
+            <Button variant="outline" className="bg-amber-200 hover:bg-amber-600 border-none dark:bg-amber-600 dark:hover:bg-amber-600" onClick={onClose}>Cancel</Button>
+            <Button type="submit" className="bg-amber-200 hover:bg-amber-600 text-black border-none dark:bg-amber-600 dark:text-amber-400 dark:hover:bg-amber-600">Create task</Button>
+          </div>
+        </form>
+      </CardContent>
+    </Card>
+  </div>
+)
+}
