@@ -15,7 +15,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Id } from '@/convex/_generated/dataModel';
-import { Book } from 'lucide-react';
+import { Book, Plus, ArrowLeft } from 'lucide-react';
 
 interface Customer {
   _id: Id<'customers'>;
@@ -38,6 +38,7 @@ export const AddressBook: React.FC = () => {
   const updateCustomer = useMutation(api.customer.update);
 
   const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null);
+  const [isAddingNew, setIsAddingNew] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     name: '',
     phoneNumber: '',
@@ -68,6 +69,7 @@ export const AddressBook: React.FC = () => {
       }
       setFormData({ name: '', phoneNumber: '', address: '' });
       setSelectedCustomer(null);
+      setIsAddingNew(false);
     } catch (error) {
       toast.error('Failed to save customer');
     }
@@ -80,81 +82,107 @@ export const AddressBook: React.FC = () => {
       phoneNumber: customer.phoneNumber,
       address: customer.address,
     });
+    setIsAddingNew(false);
+  };
+
+  const handleAddNew = () => {
+    setSelectedCustomer(null);
+    setFormData({ name: '', phoneNumber: '', address: '' });
+    setIsAddingNew(true);
+  };
+
+  const handleBack = () => {
+    setSelectedCustomer(null);
+    setIsAddingNew(false);
   };
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="ghost" size="sm" className="h-10 w-10 p-0 rounded-full bg-amber-200 dark:bg-amber-700">
+        <Button variant="ghost" size="sm" className="h-10 w-10 p-0 rounded-full bg-amber-200 dark:bg-amber-700 hover:bg-amber-200 dark:hover:bg-amber-700">
           <Book className="h-5 w-5" />
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[800px] bg-amber-400 dark:bg-amber-600">
+      <DialogContent className="sm:max-w-[800px] bg-amber-300 dark:bg-amber-600">
         <DialogHeader>
           <DialogTitle>Address Book</DialogTitle>
         </DialogHeader>
-        <div className="flex space-x-4 bg-amber-400 dark:bg-amber-600">
-          <div className="w-1/3">
-            <h3 className="mb-2 font-semibold">Customer List</h3>
-            <div className="space-y-2">
-              {customers?.map((customer) => (
-                <div
-                  key={customer._id}
-                  className="p-2 dark:hover:bg-amber-700 hover:bg-amber-400 cursor-pointer rounded"
-                  onClick={() => handleCustomerSelect(customer)}
-                >
-                  {customer.name}
-                </div>
-              ))}
+        <div className="flex space-x-4 bg-amber-300 dark:bg-amber-600">
+          {!isAddingNew && !selectedCustomer && (
+            <div className="w-full">
+              <div className="flex justify-between mb-4">
+                <h3 className="font-semibold">Customer List</h3>
+                <Button onClick={handleAddNew} size="sm" className='bg-amber-300 dark:bg-amber-500 text-black hover:bg-amber-500 dark:hover:bg-amber-700'>
+                  <Plus className="mr-2 h-4 w-4" /> Add New
+                </Button>
+              </div>
+              <div className="space-y-2">
+                {customers?.map((customer) => (
+                  <div
+                    key={customer._id}
+                    className="p-2 dark:hover:bg-amber-800 hover:bg-amber-500 cursor-pointer rounded"
+                    onClick={() => handleCustomerSelect(customer)}
+                  >
+                    {customer.name}
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-          <div className="w-2/3">
-            <h3 className="mb-2 font-semibold">{selectedCustomer ? 'Edit Customer' : 'Add New Customer'}</h3>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <Label htmlFor="name">Name</Label>
-                <Input
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  required
-                  className='bg-amber-200 dark:bg-amber-500'
-                />
+          )}
+          {(isAddingNew || selectedCustomer) && (
+            <div className="w-full">
+              <div className="flex items-center mb-4">
+                <Button onClick={handleBack} variant="ghost" size="sm" className="mr-2 bg-amber-300 dark:bg-amber-500 text-black hover:bg-amber-500 dark:hover:bg-amber-700">
+                  <ArrowLeft className="h-4 w-4" />
+                </Button>
+                <h3 className="font-semibold">{selectedCustomer ? 'Edit Customer' : 'Add New Customer'}</h3>
               </div>
-              <div>
-                <Label htmlFor="phoneNumber">Phone Number</Label>
-                <Input
-                  id="phoneNumber"
-                  name="phoneNumber"
-                  value={formData.phoneNumber}
-                  onChange={handleInputChange}
-                  required
-                  className='bg-amber-200 dark:bg-amber-500'
-                />
-              </div>
-              <div>
-                <Label htmlFor="address">Address</Label>
-                <Textarea
-                  id="address"
-                  name="address"
-                  value={formData.address}
-                  onChange={handleInputChange}
-                  required
-                  className='bg-amber-200 dark:bg-amber-500'
-                />
-              </div>
-              <Button type="submit" className='bg-amber-300 dark:bg-amber-500 text-black hover:bg-amber-400 dark:hover:bg-amber-700'>
-                {selectedCustomer ? 'Update Customer' : 'Add Customer'}
-              </Button>
-            </form>
-            {selectedCustomer && selectedCustomer.lastOrderId && (
-              <div className="mt-4">
-                <h3 className="font-semibold">Last Order</h3>
-                <p>Order ID: {selectedCustomer.lastOrderId}</p>
-              </div>
-            )}
-          </div>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <Label htmlFor="name">Name</Label>
+                  <Input
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    required
+                    className='bg-amber-200 dark:bg-amber-500'
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="phoneNumber">Phone Number</Label>
+                  <Input
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    value={formData.phoneNumber}
+                    onChange={handleInputChange}
+                    required
+                    className='bg-amber-200 dark:bg-amber-500'
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="address">Address</Label>
+                  <Textarea
+                    id="address"
+                    name="address"
+                    value={formData.address}
+                    onChange={handleInputChange}
+                    required
+                    className='bg-amber-200 dark:bg-amber-500'
+                  />
+                </div>
+                <Button type="submit" className='bg-amber-300 dark:bg-amber-500 text-black hover:bg-amber-500 dark:hover:bg-amber-700'>
+                  {selectedCustomer ? 'Update Customer' : 'Add Customer'}
+                </Button>
+              </form>
+              {selectedCustomer && selectedCustomer.lastOrderId && (
+                <div className="mt-4">
+                  <h3 className="font-semibold">Last Order</h3>
+                  <p>Order ID: {selectedCustomer.lastOrderId}</p>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </DialogContent>
     </Dialog>
