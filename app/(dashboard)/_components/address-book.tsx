@@ -85,7 +85,7 @@ export const AddressBook: React.FC = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="ghost" size="sm" className="h-10 w-10 p-0">
+        <Button variant="ghost" size="sm" className="h-10 w-10 p-0 rounded-full bg-amber-200 dark:bg-amber-700">
           <Book className="h-5 w-5" />
         </Button>
       </DialogTrigger>
@@ -100,7 +100,7 @@ export const AddressBook: React.FC = () => {
               {customers?.map((customer) => (
                 <div
                   key={customer._id}
-                  className="p-2 hover:bg-amber-100 cursor-pointer rounded"
+                  className="p-2 dark:hover:bg-amber-700 hover:bg-amber-400 cursor-pointer rounded"
                   onClick={() => handleCustomerSelect(customer)}
                 >
                   {customer.name}
@@ -144,7 +144,7 @@ export const AddressBook: React.FC = () => {
                   className='bg-amber-200 dark:bg-amber-500'
                 />
               </div>
-              <Button type="submit">
+              <Button type="submit" className='bg-amber-300 dark:bg-amber-500 text-black hover:bg-amber-400 dark:hover:bg-amber-700'>
                 {selectedCustomer ? 'Update Customer' : 'Add Customer'}
               </Button>
             </form>
