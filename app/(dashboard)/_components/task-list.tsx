@@ -91,7 +91,7 @@ export const TaskList = ({
               <h2 className="text-xl sm:text-md pt-3 dark:text-amber-200">{query.personal ? "Personal tasks" : "Team tasks"}</h2>
             <div className="flex space-x-1">
             {isCardView && (
-              <Button onClick={toggleDialog} className="bg-amber-300 text-black hover:bg-amber-600/20 dark:bg-amber-700 dark:text-amber-100 dark:hover:bg-amber-800">
+              <Button onClick={toggleDialog} className="bg-amber-300 text-black hover:bg-amber-600/20 dark:bg-amber-700 dark:text-black dark:hover:bg-amber-800">
                 <Plus className="h-w w-4" /> Add task
               </Button>
             )}

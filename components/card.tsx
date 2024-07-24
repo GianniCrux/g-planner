@@ -124,7 +124,7 @@ return (
             <div className="flex flex-col">
               <Label htmlFor="name">Name</Label>
               <Input 
-                className="bg-amber-200 dark:bg-amber-600"
+                className="bg-amber-200 dark:bg-amber-600 border-none"
                 id="name" 
                 placeholder="Name of the client" 
                 value={formData.name}
@@ -134,7 +134,7 @@ return (
             <div className="flex flex-col">
               <Label htmlFor="description">Description</Label>
               <Textarea 
-                className="bg-amber-200 dark:bg-amber-600"
+                className="bg-amber-200 dark:bg-amber-600 border-none"
                 id="description" 
                 placeholder="Description of the order" 
                 rows={3} 
@@ -145,7 +145,7 @@ return (
             <div className="flex flex-col">
               <Label htmlFor="type">Type of order</Label>
               <Input 
-                className="bg-amber-200 dark:bg-amber-600"
+                className="bg-amber-200 dark:bg-amber-600 border-none"
                 id="type" 
                 placeholder="Category" 
                 value={formData.type}
@@ -158,10 +158,10 @@ return (
                 value={formData.assignedTo}
                 onValueChange={(value) => setFormData(prevData => ({ ...prevData, assignedTo: value }))}
               >
-                <SelectTrigger className="bg-amber-200 dark:bg-amber-600">
+                <SelectTrigger className="bg-amber-200 dark:bg-amber-600 border-none">
                   <SelectValue placeholder="Select Member" />
                 </SelectTrigger>
-                <SelectContent className="bg-amber-200 dark:bg-amber-600">
+                <SelectContent className="!bg-amber-200 dark:!bg-amber-600 hover:!bg-amber-400 dark:hover:!bg-amber-800 border-none">
                   {memberships && memberships.map((membership) => (
                     <SelectItem key={membership.id} value={membership.publicUserData.userId ?? ''}>
                       {membership.publicUserData.firstName} {membership.publicUserData.lastName}
@@ -173,7 +173,7 @@ return (
             <div className="flex flex-col">
               <Label htmlFor="date">Date</Label>
               <Input
-                className="bg-amber-200 dark:bg-amber-600"
+                className="bg-amber-200 dark:bg-amber-600 border-none"
                 id="date"
                 type="date"
                 value={formData.date}
@@ -184,7 +184,7 @@ return (
               <div className="flex-1 w-24"> 
                 <Label htmlFor="startTime">Start Time (Optional)</Label>
                 <Input
-                  className="bg-amber-200 dark:bg-amber-600 h-8"
+                  className="bg-amber-200 dark:bg-amber-600 h-8 border-none"
                   id="startTime"
                   type="time"
                   value={formData.startTime}
@@ -194,7 +194,7 @@ return (
               <div className="flex-1 w-24"> 
                 <Label htmlFor="endTime">End Time (Optional)</Label>
                 <Input
-                  className="bg-amber-200 dark:bg-amber-600 h-8"
+                  className="bg-amber-200 dark:bg-amber-600 h-8 border-none"
                   id="endTime"
                   type="time"
                   value={formData.endTime}
