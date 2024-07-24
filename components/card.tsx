@@ -68,6 +68,7 @@ const [formData, setFormData] = useState<Omit<Task, "_id">>({
   endTime: "",
 });
 const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null);
+const [isNewCustomer, setIsNewCustomer] = useState(false);
 
 useEffect(() => {
   const fetchMembers = async () => {
@@ -90,24 +91,21 @@ const handleChange = (
 };
 
 const handleCustomerSelect = (customerId: string) => {
-  if (customerId === "") {
+  if (customerId === "new") {
     setSelectedCustomer(null);
-    setFormData(prevData => ({
-      ...prevData,
-      name: "",
-      description: "",
-    }));
-    return;
-  }
-
-  const customer = customers?.find(c => c._id === customerId);
-  if (customer) {
-    setSelectedCustomer(customer);
-    setFormData(prevData => ({
-      ...prevData,
-      name: customer.name,
-      description: `Phone: ${customer.phoneNumber}\nAddress: ${customer.address}\n${prevData.description}`,
-    }));
+    setFormData(prevData => ({ ...prevData, name: "", description: "" }));
+    setIsNewCustomer(true);
+  } else {
+    const customer = customers?.find(c => c._id === customerId);
+    if (customer) {
+      setSelectedCustomer(customer);
+      setFormData(prevData => ({
+        ...prevData,
+        name: customer.name,
+        description: `Phone: ${customer.phoneNumber}\nAddress: ${customer.address}\n${prevData.description}`,
+      }));
+      setIsNewCustomer(false);
+    }
   }
 }
 
@@ -155,31 +153,33 @@ return (
       <CardContent className="space-y-2">
         <form onSubmit={handleSubmit}>
           <div className="space-y-2">
-            <div className="flex flex-col">
-              <Label htmlFor="name">Name</Label>
-              <Select
-                  value={selectedCustomer?._id ?? ''}
-                  onValueChange={handleCustomerSelect}
-                >
-                  <SelectTrigger className="bg-amber-200 dark:bg-amber-600">
-                    <SelectValue placeholder="Select Customer or type new name" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-amber-200 dark:bg-amber-600">
-                    <SelectItem value="new">Type new name</SelectItem>
-                    {customers?.map((customer) => (
-                      <SelectItem key={customer._id} value={customer._id}>
-                        {customer.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <Input 
-                  className="bg-amber-200 dark:bg-amber-600 mt-2"
-                  id="name" 
-                  placeholder="Name of the client" 
-                  value={formData.name}
-                  onChange={handleChange}
-                />
+          <div className="flex flex-col">
+                <Label htmlFor="name">Name</Label>
+                <Select
+                    value={selectedCustomer?._id ?? (isNewCustomer ? 'new' : '')}
+                    onValueChange={handleCustomerSelect}
+                  >
+                    <SelectTrigger className="bg-amber-200 dark:bg-amber-600">
+                      <SelectValue placeholder="Select Customer or type new name" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-amber-200 dark:bg-amber-600">
+                      <SelectItem value="new">Type new name</SelectItem>
+                      {customers?.map((customer) => (
+                        <SelectItem key={customer._id} value={customer._id}>
+                          {customer.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                {isNewCustomer && (
+                  <Input 
+                    className="bg-amber-200 dark:bg-amber-600 mt-2"
+                    id="name" 
+                    placeholder="Name of the client" 
+                    value={formData.name}
+                    onChange={handleChange}
+                  />
+                )}
               </div>
             <div className="flex flex-col">
               <Label htmlFor="description">Description</Label>
