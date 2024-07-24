@@ -19,6 +19,11 @@ body,
   }
 }
 
+
+.placeholder-black::placeholder {
+  color: black;
+}
+
 :root {
   background-color: rgb(252 211 77);
 }.dark{

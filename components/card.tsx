@@ -175,7 +175,7 @@ return (
                     value={selectedCustomer?._id ?? (isNewCustomer ? 'new' : '')}
                     onValueChange={handleCustomerSelect}
                   >
-                    <SelectTrigger className="bg-amber-200 dark:bg-amber-600">
+                    <SelectTrigger className="bg-amber-200 dark:bg-amber-600 border-none">
                       <SelectValue placeholder="Select Customer or type new name" />
                     </SelectTrigger>
                     <SelectContent className="bg-amber-200 dark:bg-amber-600">
@@ -192,7 +192,7 @@ return (
             <div className="flex flex-col">
               <Label htmlFor="description">Description</Label>
               <Textarea 
-                className="bg-amber-200 dark:bg-amber-600 border-none"
+                className="bg-amber-200 dark:bg-amber-600 border-none !placeholder-black"
                 id="description" 
                 placeholder="Description of the order" 
                 rows={3} 
@@ -203,7 +203,7 @@ return (
             <div className="flex flex-col">
               <Label htmlFor="type">Type of order</Label>
               <Input 
-                className="bg-amber-200 dark:bg-amber-600 border-none"
+                className="bg-amber-200 dark:bg-amber-600 border-none !placeholder-black"
                 id="type" 
                 placeholder="Category" 
                 value={formData.type}

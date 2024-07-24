@@ -120,7 +120,7 @@ export const TaskList = ({
             </div>
             {showDialog && (
             <Dialog open={showDialog} onOpenChange={toggleDialog}>
-            <DialogContent className="bg-amber-400 dark:bg-amber-800">
+            <DialogContent className="bg-amber-400 dark:bg-amber-800 border-none">
               <CardCreator onClose={toggleDialog} />
             </DialogContent>
           </Dialog>
