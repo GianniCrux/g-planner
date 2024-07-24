@@ -25,6 +25,7 @@ import { useApiMutation } from "@/hooks/use-api-mutation";
 import { useOrganization } from "@clerk/clerk-react";
 import { toast } from "sonner";
 import { OrganizationMembershipResource } from '@clerk/types';
+import { Book } from "lucide-react";
 
 interface Task {
 _id: string;
@@ -69,6 +70,7 @@ const [formData, setFormData] = useState<Omit<Task, "_id">>({
 });
 const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null);
 const [isNewCustomer, setIsNewCustomer] = useState(false);
+const [showDropdown, setShowDropdown] = useState(false);
 
 useEffect(() => {
   const fetchMembers = async () => {
@@ -155,7 +157,21 @@ return (
           <div className="space-y-2">
           <div className="flex flex-col">
                 <Label htmlFor="name">Name</Label>
-                <Select
+                {isNewCustomer ? (
+                  <div className="flex items-center space-x-2">
+                    <Button variant="ghost" className="p-1" onClick={() => setIsNewCustomer(false)}>
+                      <Book className="h-5 w-5" />
+                    </Button>
+                    <Input 
+                      className="bg-amber-200 dark:bg-amber-600"
+                      id="name" 
+                      placeholder="Name of the client" 
+                      value={formData.name}
+                      onChange={handleChange}
+                    />
+                  </div>
+                ) : (
+                  <Select
                     value={selectedCustomer?._id ?? (isNewCustomer ? 'new' : '')}
                     onValueChange={handleCustomerSelect}
                   >
@@ -171,14 +187,6 @@ return (
                       ))}
                     </SelectContent>
                   </Select>
-                {isNewCustomer && (
-                  <Input 
-                    className="bg-amber-200 dark:bg-amber-600 mt-2"
-                    id="name" 
-                    placeholder="Name of the client" 
-                    value={formData.name}
-                    onChange={handleChange}
-                  />
                 )}
               </div>
             <div className="flex flex-col">
