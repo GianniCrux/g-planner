@@ -118,7 +118,7 @@ export const AddressBook: React.FC = () => {
                 </Button>
               </div>
               <Hint
-          label="Edit Contact Information"
+          label="✏️ Edit Contact Information"
           side="left"
           align="center"
           sideOffset={10}
