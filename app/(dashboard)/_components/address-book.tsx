@@ -16,6 +16,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Id } from '@/convex/_generated/dataModel';
 import { Book, Plus, ArrowLeft } from 'lucide-react';
+import { Hint } from '@/components/hint';
 
 interface Customer {
   _id: Id<'customers'>;
@@ -116,6 +117,12 @@ export const AddressBook: React.FC = () => {
                   <Plus className="mr-2 h-4 w-4" /> Add New
                 </Button>
               </div>
+              <Hint
+          label="Edit Contact Information"
+          side="left"
+          align="center"
+          sideOffset={10}
+        >
               <div className="space-y-2">
                 {customers?.map((customer) => (
                   <div
@@ -127,6 +134,7 @@ export const AddressBook: React.FC = () => {
                   </div>
                 ))}
               </div>
+              </Hint>
             </div>
           )}
           {(isAddingNew || selectedCustomer) && (
