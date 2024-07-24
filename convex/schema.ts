@@ -15,11 +15,25 @@ export default defineSchema({
         startTime: v.optional(v.string()),
         endTime: v.optional(v.string()),
         isCompleted: v.optional(v.boolean()),
+        customerId: v.optional(v.id("customers")),
     })
         .index("by_org", ["orgId"]) //defining the index (by_org) for faster query and define the field to be "orgId"
 
         .searchIndex("search_title", {
             searchField: "title",
+            filterFields: ["orgId"]
+        }),
+
+    customers: defineTable({
+        orgId: v.string(),
+        name: v.string(),
+        phoneNumber: v.string(),
+        address: v.string(),
+        lastOrderId: v.optional(v.id("tasks")),
+    })
+        .index("by_org", ["orgId"])
+        .searchIndex("search_name", {
+            searchField: "name",
             filterFields: ["orgId"]
         }),
 });

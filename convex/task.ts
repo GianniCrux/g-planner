@@ -50,6 +50,7 @@ export const create = mutation({//passing the arguments which we expect a task m
         type: v.optional(v.string()),
         startTime: v.optional(v.string()),
         endTime: v.optional(v.string()),
+        customerId: v.optional(v.id("customers")),
     },
     handler: async (ctx, args) => {//has access to the context and the orguments from above
         const identity = await ctx.auth.getUserIdentity();
@@ -70,7 +71,13 @@ export const create = mutation({//passing the arguments which we expect a task m
             type: args.type,
             startTime: args.startTime,
             endTime: args.endTime,
-         })
+            customerId: args.customerId,
+         });
+
+         //update the customer's last order if a customer is associated
+         if (args.customerId) {
+            await ctx.db.patch(args.customerId, {lastOrderId: tasks});
+         }
             
 
         return tasks;
@@ -104,6 +111,7 @@ export const update = mutation({
         type: v.optional(v.string()),
         startTime: v.optional(v.string()),
         endTime: v.optional(v.string()),
+        customerId: v.optional(v.id("customers")),
     },
     handler: async (ctx, args) => {
         const identity = await ctx.auth.getUserIdentity();
@@ -120,7 +128,8 @@ export const update = mutation({
             date: args.date,
             type: args.type,
             startTime: args.startTime,
-            endTime: args.endTime
+            endTime: args.endTime,
+            customerId: args.customerId,
         });
       
           return task;
