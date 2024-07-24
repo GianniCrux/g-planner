@@ -136,7 +136,7 @@ export const ClientOrgSidebar = () => {
           )}
           <Button
             className={cn(
-              "bg-transparent top-0  transition-all duration-300 ",
+              "bg-transparent top-0  transition-all duration-300 border-2 border-amber-100 dark:border-amber-400 hover:bg-transparent shadow-sm",
               {
                 "-right-10 rotate-180": !isSidebarCollapsed,
                 "right": isSidebarCollapsed,
