@@ -38,6 +38,15 @@ startTime?: string;
 endTime?: string;
 }
 
+
+interface Customer {
+  _id: string;
+  name: string;
+  phoneNumber: string;
+  address: string;
+}
+
+
 interface CardCreatorProps {
 onClose: () => void;
 }
@@ -47,6 +56,7 @@ export const CardCreator = ({ onClose }: CardCreatorProps) => {
 const { organization } = useOrganization();
 const [memberships, setMemberships] = useState<OrganizationMembershipResource[]>([]);
 const { mutate } = useApiMutation(api.task.create);
+const customers = useQuery(api.customer.get, { orgId: organization?.id ?? ''});
 const [formData, setFormData] = useState<Omit<Task, "_id">>({
   name: "",
   description: "",
@@ -57,6 +67,7 @@ const [formData, setFormData] = useState<Omit<Task, "_id">>({
   startTime: "",
   endTime: "",
 });
+const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null);
 
 useEffect(() => {
   const fetchMembers = async () => {
@@ -77,6 +88,29 @@ const handleChange = (
     [id]: value,
   }));
 };
+
+const handleCustomerSelect = (customerId: string) => {
+  if (customerId === "") {
+    setSelectedCustomer(null);
+    setFormData(prevData => ({
+      ...prevData,
+      name: "",
+      description: "",
+    }));
+    return;
+  }
+
+  const customer = customers?.find(c => c._id === customerId);
+  if (customer) {
+    setSelectedCustomer(customer);
+    setFormData(prevData => ({
+      ...prevData,
+      name: customer.name,
+      description: `Phone: ${customer.phoneNumber}\nAddress: ${customer.address}\n${prevData.description}`,
+    }));
+  }
+}
+
 
 const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
   event.preventDefault();
@@ -123,14 +157,30 @@ return (
           <div className="space-y-2">
             <div className="flex flex-col">
               <Label htmlFor="name">Name</Label>
-              <Input 
-                className="bg-amber-200 dark:bg-amber-600 border-none"
-                id="name" 
-                placeholder="Name of the client" 
-                value={formData.name}
-                onChange={handleChange}
-              />
-            </div>
+              <Select
+                  value={selectedCustomer?._id ?? ''}
+                  onValueChange={handleCustomerSelect}
+                >
+                  <SelectTrigger className="bg-amber-200 dark:bg-amber-600">
+                    <SelectValue placeholder="Select Customer or type new name" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-amber-200 dark:bg-amber-600">
+                    <SelectItem value="new">Type new name</SelectItem>
+                    {customers?.map((customer) => (
+                      <SelectItem key={customer._id} value={customer._id}>
+                        {customer.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <Input 
+                  className="bg-amber-200 dark:bg-amber-600 mt-2"
+                  id="name" 
+                  placeholder="Name of the client" 
+                  value={formData.name}
+                  onChange={handleChange}
+                />
+              </div>
             <div className="flex flex-col">
               <Label htmlFor="description">Description</Label>
               <Textarea 
