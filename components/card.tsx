@@ -163,7 +163,7 @@ return (
                       <Book className="h-5 w-5" />
                     </Button>
                     <Input 
-                      className="bg-amber-200 dark:bg-amber-600"
+                      className="bg-amber-200 dark:bg-amber-600 border-none !placeholder-black"
                       id="name" 
                       placeholder="Name of the client" 
                       value={formData.name}
@@ -178,10 +178,17 @@ return (
                     <SelectTrigger className="bg-amber-200 dark:bg-amber-600 border-none">
                       <SelectValue placeholder="Select Customer or type new name" />
                     </SelectTrigger>
-                    <SelectContent className="bg-amber-200 dark:bg-amber-600">
-                      <SelectItem value="new">Type new name</SelectItem>
+                    <SelectContent className="bg-amber-200 dark:bg-amber-600 border-none">
+                      <SelectItem 
+                        value="new"
+                        className="bg-amber-200 hover:bg-amber-400 dark:bg-amber-600 dark:hover:bg-amber-700"
+                      >Type new name</SelectItem>
                       {customers?.map((customer) => (
-                        <SelectItem key={customer._id} value={customer._id}>
+                        <SelectItem 
+                          key={customer._id} 
+                          value={customer._id}
+                          className="bg-amber-200 hover:bg-amber-400 dark:bg-amber-600 dark:hover:bg-amber-700"
+                        >
                           {customer.name}
                         </SelectItem>
                       ))}
@@ -219,9 +226,13 @@ return (
                 <SelectTrigger className="bg-amber-200 dark:bg-amber-600 border-none">
                   <SelectValue placeholder="Select Member" />
                 </SelectTrigger>
-                <SelectContent className="!bg-amber-200 dark:!bg-amber-600 hover:!bg-amber-400 dark:hover:!bg-amber-800 border-none">
+                <SelectContent className="bg-amber-200 dark:bg-amber-600  border-none">
                   {memberships && memberships.map((membership) => (
-                    <SelectItem key={membership.id} value={membership.publicUserData.userId ?? ''}>
+                    <SelectItem 
+                      key={membership.id} 
+                      value={membership.publicUserData.userId ?? ''}
+                      className="bg-amber-200 hover:bg-amber-400 dark:bg-amber-600 dark:hover:bg-amber-700"
+                    >
                       {membership.publicUserData.firstName} {membership.publicUserData.lastName}
                     </SelectItem>
                   ))}
