@@ -141,7 +141,7 @@ export const Actions = ({
         )}
         <Button 
           onClick={() => setIsEditing(true)}
-          className="p-3 cursor-pointer bg-transparent text-sm w-full justify-start font-normal hover:bg-amber-600 dark:hover:bg-amber-800y text-black"
+          className="p-3 cursor-pointer bg-transparent text-sm w-full justify-start font-normal hover:bg-amber-600 dark:hover:bg-amber-800 text-black"
         >
           <Edit2Icon className="h-4 w-4 mr-2" /> Edit Task
         </Button>
