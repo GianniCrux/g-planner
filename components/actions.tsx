@@ -94,7 +94,7 @@ export const Actions = ({
             <DropdownMenuContent
                 side={side}
                 sideOffset={sideOffset}
-                className="w-60 bg-amber-300"
+                className="w-60 bg-amber-300 dark:bg-amber-600"
             >
                 <Button
                     onClick={() => 
@@ -102,7 +102,7 @@ export const Actions = ({
                             .then(() => toast.success("Text copied to clipboard"))
                             .catch(() => toast.error("Failed to copy the text"))
                     }
-                    className="p-3 cursor-pointer bg-transparent text-sm w-full justify-start font-normal hover:bg-amber-600 text-black"
+                    className="p-3 cursor-pointer bg-transparent text-sm w-full justify-start font-normal hover:bg-amber-600 dark:hover:bg-amber-800 text-black"
                 >
                     <Link2 
                         className="h-4 w-4 mr-2"
@@ -115,7 +115,7 @@ export const Actions = ({
                         disabled={pending}
                         onConfirm={handleDeleteTask}
                     >
-                        <Button className="bg-transparent text-sm w-full justify-start font-normal hover:bg-amber-600 text-black">
+                        <Button className="bg-transparent text-sm w-full justify-start font-normal hover:bg-amber-600 dark:hover:bg-amber-800 text-black">
                         <Trash2 
                             className="h-4 w-4 mr-2"
                         />
@@ -141,7 +141,7 @@ export const Actions = ({
         )}
         <Button 
           onClick={() => setIsEditing(true)}
-          className="p-3 cursor-pointer bg-transparent text-sm w-full justify-start font-normal hover:bg-amber-600 text-black"
+          className="p-3 cursor-pointer bg-transparent text-sm w-full justify-start font-normal hover:bg-amber-600 dark:hover:bg-amber-800y text-black"
         >
           <Edit2Icon className="h-4 w-4 mr-2" /> Edit Task
         </Button>
