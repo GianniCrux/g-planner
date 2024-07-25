@@ -84,7 +84,7 @@ export const EditTaskModal = ({
     };
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
-          <DialogContent className="bg-amber-300">
+          <DialogContent className="bg-amber-300 dark:bg-amber-600 border-none">
             <DialogHeader>
               <DialogTitle>Edit Task</DialogTitle>
             </DialogHeader>
@@ -101,7 +101,7 @@ export const EditTaskModal = ({
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Task Title"
-                className="bg-amber-200"
+                className="bg-amber-200 dark:bg-amber-500 border-none"
               />
               <Textarea
                 disabled={pending}
@@ -109,22 +109,23 @@ export const EditTaskModal = ({
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Task Description"
-                className="bg-amber-200"
+                className="bg-amber-200 dark:bg-amber-500 border-none"
               />
                   <Select
                   disabled={pending}
                  value={assignedTo}
                 onValueChange={(value) => setAssignedTo(value)}
     >
-        <SelectTrigger className="bg-amber-200">
+        <SelectTrigger className="bg-amber-200 dark:bg-amber-500 border-none">
             <SelectValue placeholder="Select Member" />
         </SelectTrigger>
-        <SelectContent className="bg-amber-200">
+        <SelectContent className="bg-amber-200 dark:bg-amber-500 ">
             {memberships &&
                 memberships.map((membership) => (
                     <SelectItem
                         key={membership.id}
                         value={membership.publicUserData.userId ?? ''}
+                        className="bg-amber-200 hover:bg-amber-400 dark:bg-amber-500 dark:hover:bg-amber-700"
                     >
                         {membership.publicUserData.firstName}{' '}
                         {membership.publicUserData.lastName}
@@ -141,7 +142,7 @@ export const EditTaskModal = ({
                 value={startTime}
                 onChange={(e) => setStartTime(e.target.value)}
                 placeholder="Modify time"
-                className="bg-amber-200"
+                className="bg-amber-200 dark:bg-amber-500 border-none"
               />
               </div>
               <div className="flex-1 w-24">
@@ -152,17 +153,17 @@ export const EditTaskModal = ({
                 value={endTime}
                 onChange={(e) => setEndTime(e.target.value)}
                 placeholder="Modify time"
-                className="bg-amber-200"
+                className="bg-amber-200 dark:bg-amber-500 border-none"
               />
               </div>
               </div>
               <DialogFooter>
                 <DialogClose asChild>
-                  <Button type="button" variant="outline" className="bg-amber-500 hover:bg-amber-700">
+                  <Button type="button" variant="outline" className="bg-amber-500 hover:bg-amber-700 dark:bg-amber-500 dark:hover:bg-amber-700 border-none">
                     Cancel
                   </Button>
                 </DialogClose>
-                <Button disabled={pending} type="submit" className="bg-amber-500 hover:bg-amber-700 text-black">
+                <Button disabled={pending} type="submit" className="bg-amber-500 hover:bg-amber-700 text-black dark:bg-amber-500 dark:hover:bg-amber-700 border-none">
                   Save Changes
                 </Button>
               </DialogFooter>
