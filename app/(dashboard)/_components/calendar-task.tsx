@@ -91,7 +91,7 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
   return (
     <div className="relative bg-transparent text-xl shadow-lg overflow-hidden p-8 md:p-16 dark:bg-amber-900">
   <div className="absolute inset-0 opacity-70">
-    <div className="absolute inset-0 bg-gradient-to-r from-amber-500 via-amber-300 to-amber-500"></div>
+    <div className="absolute inset-0 bg-gradient-to-r from-amber-500 via-amber-300 to-amber-500 dark:from-amber-800 dark:via-amber-700 dark:to-amber-800"></div>
   </div>
       <div className='relative z-10'>
       <span className="top-1 relative">
@@ -124,7 +124,7 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
             components={{
               toolbar: ({ label, onNavigate, view }) => (
                 <div className="rbc-toolbar flex justify-between items-center">
-                  <span className="rbc-toolbar-label text-amber-600 text-xl">{label}</span>
+                  <span className="rbc-toolbar-label text-amber-600 text-xl dark:text-amber-300">{label}</span>
                   <div className="rbc-btn-group pt-2">
                     <Button 
                       className="!bg-amber-300 text-black hover:!bg-amber-500 dark:!bg-amber-700 dark:hover:!bg-amber-900 dark:text-black dark:hover:text-black !border-none"
