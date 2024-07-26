@@ -2,5 +2,5 @@
 cd /d %~dp0
 
 git add .
-git commit -m "Changed dark styling in calendar view"
+git commit -m ""
 git push origin main

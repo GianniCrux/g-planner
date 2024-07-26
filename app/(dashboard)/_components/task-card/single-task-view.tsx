@@ -41,7 +41,7 @@ export const SingleTaskView = ({ task }: SingleTaskViewProps) => {
   };
     
     return (
-        <div className={cn("min-h-[calc(95vh-64px)] sm:min-h-[calc(95vh-56px)] max-h-screen[95vh] bg-yellow-200 dark:bg-amber-700 rounded-lg shadow-md p-6 mb-8", {"opacity-40": task.isCompleted}
+        <div className={cn("min-h-[calc(95vh-64px)] sm:min-h-[calc(95vh-56px)] max-h-screen[95vh] bg-yellow-200 dark:bg-amber-800 rounded-lg shadow-md p-6 mb-8", {"opacity-40": task.isCompleted}
         )}>
       <div>
       <Actions 
