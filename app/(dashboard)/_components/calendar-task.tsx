@@ -158,10 +158,9 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
               const isCurrentMonth = date.getMonth() === currentMonth.month(); 
           
               return {
-                style: { //TODO: Change colors for dark mode
-                  backgroundColor: isCurrentMonth ? '#ffb300' : '#ffee58',
-                  color: isCurrentMonth ? '#000' : '#555',
-                }
+                className: isCurrentMonth 
+                  ? 'bg-amber-300 dark:bg-amber-700 text-black dark:text-amber-100' 
+                  : 'bg-amber-200 dark:bg-amber-500 text-gray-900 dark:text-amber-200'
               };
             }}
           />
