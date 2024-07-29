@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useQuery, useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import { useOrganization } from '@clerk/clerk-react';
@@ -32,6 +32,8 @@ interface FormData {
   address: string;
 }
 
+const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+
 export const AddressBook: React.FC = () => {
   const { organization } = useOrganization();
   const customers = useQuery(api.customer.get, { orgId: organization?.id ?? '' });
@@ -45,6 +47,22 @@ export const AddressBook: React.FC = () => {
     phoneNumber: '',
     address: '',
   });
+  const [selectedLetter, setSelectedLetter] = useState<string | null>(null);
+
+  const sortedCustomers = useMemo(() => {
+    return customers?.sort((a, b) => a.name.localeCompare(b.name)) || [];
+  }, [customers]);
+
+  const groupedCustomers = useMemo(() => {
+    return sortedCustomers.reduce((acc, customer) => {
+      const firstLetter = customer.name[0].toUpperCase();
+      if (!acc[firstLetter]) {
+        acc[firstLetter] = [];
+      }
+      acc[firstLetter].push(customer);
+      return acc;
+    }, {} as Record<string, Customer[]>);
+  }, [sortedCustomers]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -95,6 +113,11 @@ export const AddressBook: React.FC = () => {
   const handleBack = () => {
     setSelectedCustomer(null);
     setIsAddingNew(false);
+    setSelectedLetter(null);
+  };
+
+  const handleLetterSelect = (letter: string) => {
+    setSelectedLetter(letter);
   };
 
   return (
@@ -110,31 +133,55 @@ export const AddressBook: React.FC = () => {
         </DialogHeader>
         <div className="flex space-x-4 bg-amber-300 dark:bg-amber-600">
           {!isAddingNew && !selectedCustomer && (
-            <div className="w-full">
-              <div className="flex justify-between mb-4">
-                <h3 className="font-semibold">Customer List</h3>
-                <Button onClick={handleAddNew} size="sm" className='bg-amber-300 dark:bg-amber-500 text-black hover:bg-amber-500 dark:hover:bg-amber-700'>
-                  <Plus className="mr-2 h-4 w-4" /> Add New
-                </Button>
+            <div className="w-full flex">
+              <div className="flex-grow pr-4">
+                <div className="flex justify-between mb-4">
+                  <h3 className="font-semibold">Customer List</h3>
+                  <Button onClick={handleAddNew} size="sm" className='bg-amber-300 dark:bg-amber-500 text-black hover:bg-amber-500 dark:hover:bg-amber-700'>
+                    <Plus className="mr-2 h-4 w-4" /> Add New
+                  </Button>
+                </div>
+                <div className="h-[400px] overflow-y-auto pr-2">
+                  {Object.entries(groupedCustomers).map(([letter, customers]) => (
+                    selectedLetter === null || selectedLetter === letter ? (
+                      <div key={letter} id={letter} className="mb-4">
+                        <h4 className="font-semibold mb-2">{letter}</h4>
+                        <Hint
+                          label="✏️ Edit Contact Information"
+                          side="left"
+                          align="center"
+                          sideOffset={10}
+                        >
+                          <div className="space-y-2">
+                            {customers.map((customer) => (
+                              <div
+                                key={customer._id}
+                                className="p-2 dark:hover:bg-amber-800 hover:bg-amber-500 cursor-pointer rounded"
+                                onClick={() => handleCustomerSelect(customer)}
+                              >
+                                {customer.name}
+                              </div>
+                            ))}
+                          </div>
+                        </Hint>
+                      </div>
+                    ) : null
+                  ))}
+                </div>
               </div>
-              <Hint
-          label="✏️ Edit Contact Information"
-          side="left"
-          align="center"
-          sideOffset={10}
-        >
-              <div className="space-y-2">
-                {customers?.map((customer) => (
-                  <div
-                    key={customer._id}
-                    className="p-2 dark:hover:bg-amber-800 hover:bg-amber-500 cursor-pointer rounded"
-                    onClick={() => handleCustomerSelect(customer)}
+              <div className="w-8 flex flex-col">
+                {alphabet.map((letter) => (
+                  <button
+                    key={letter}
+                    className={`flex-1 text-xs font-semibold ${
+                      selectedLetter === letter ? 'bg-amber-500 dark:bg-amber-800' : ''
+                    } hover:bg-amber-400 dark:hover:bg-amber-700`}
+                    onClick={() => handleLetterSelect(letter)}
                   >
-                    {customer.name}
-                  </div>
+                    {letter}
+                  </button>
                 ))}
               </div>
-              </Hint>
             </div>
           )}
           {(isAddingNew || selectedCustomer) && (
