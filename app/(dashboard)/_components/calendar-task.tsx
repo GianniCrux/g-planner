@@ -160,7 +160,7 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
 
               return {
                 className: isToday 
-                  ? '!bg-amber-100 text-white' 
+                  ? '!bg-amber-100 dark:!bg-amber-500 text-white' 
                   : isCurrentMonth 
                     ? 'bg-amber-300 dark:bg-amber-700 text-black dark:text-amber-100' 
                     : '!bg-amber-200 dark:bg-amber-500 text-gray-900 dark:text-amber-200'
