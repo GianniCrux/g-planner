@@ -129,7 +129,7 @@ export const TaskList = ({
           {isCalendarView ? (
             <CalendarTask tasks={data} />
           ) : isCardView ? (
-            data.map((task) =>  <SingleTaskView key={task._id} task={{...task, isCompleted: task.isCompleted}} />)
+            data.map((task) =>  <SingleTaskView key={task._id} task={{...task, isCompleted: task.isCompleted, priority: task.priority}} />)
           ) : (
             <>
               <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 gap-5 mt-8 pb-10">
@@ -172,6 +172,7 @@ export const TaskList = ({
                     startTime={task.startTime}
                     endTime={task.endTime}
                     isCompleted={task.isCompleted}
+                    priority={task.priority}
                   />
                 ))}
               </div>
