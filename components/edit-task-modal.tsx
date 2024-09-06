@@ -105,7 +105,6 @@ export const EditTaskModal = ({
               />
               <Textarea
                 disabled={pending}
-                required
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Task Description"
@@ -137,7 +136,6 @@ export const EditTaskModal = ({
             <div className="flex-1 w-24"> 
               <Input 
                 disabled={pending}
-                required
                 type="time"
                 value={startTime}
                 onChange={(e) => setStartTime(e.target.value)}
@@ -148,7 +146,6 @@ export const EditTaskModal = ({
               <div className="flex-1 w-24">
               <Input 
                 disabled={pending}
-                required
                 type="time"
                 value={endTime}
                 onChange={(e) => setEndTime(e.target.value)}
