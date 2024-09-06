@@ -40,6 +40,7 @@ export const EditTaskModal = ({
     date,
     startTime: initialStartTime,
     endTime: initialEndTime,
+    priority: initialPriority,
 }: EditTaskModalProps) => {
     const { mutate, pending } = useApiMutation(api.task.update);
     const { organization } = useOrganization();
@@ -50,6 +51,7 @@ export const EditTaskModal = ({
     const [startTime, setStartTime] = useState(initialStartTime);
     const [endTime, setEndTime] = useState(initialEndTime);
     const [assignedTo, setAssignedTo] = useState(initialAssignedTo);
+    const [priority, setPriority] = useState(initialPriority);
 
 
     useEffect(() => {
@@ -74,7 +76,7 @@ export const EditTaskModal = ({
             ? `${selectedMembership.publicUserData.firstName || ''} ${selectedMembership.publicUserData.lastName || ''}`
             : '';
 
-            await mutate({ id, title, description, assignedTo, assignedToName, type, date, startTime, endTime}); 
+            await mutate({ id, title, description, assignedTo, assignedToName, type, date, startTime, endTime, priority}); 
             toast.success("Task updated!");
             onClose();
         } catch (error: any) {  // Explicitly type error as any
@@ -154,7 +156,30 @@ export const EditTaskModal = ({
               />
               </div>
               </div>
-              <DialogFooter>
+
+              <Select
+    value={priority}
+    onValueChange={(value) => setPriority(value)}
+  >
+    <SelectTrigger className="bg-amber-200 dark:bg-amber-500 border-none">
+      <SelectValue placeholder="Select Priority" />
+    </SelectTrigger>
+    <SelectContent className="bg-amber-200 dark:bg-amber-500 ">
+      <SelectItem value="high" className="bg-amber-200 hover:bg-amber-400 dark:bg-amber-700">
+        High
+      </SelectItem>
+      <SelectItem value="medium" className="bg-amber-200 hover:bg-amber-400 dark:bg-amber-700">
+        Medium
+      </SelectItem>
+      <SelectItem value="low" className="bg-amber-200 hover:bg-amber-400 dark:bg-amber-700">
+        Low
+      </SelectItem>
+      <SelectItem value="no-priority" className="bg-amber-200 hover:bg-amber-400 dark:bg-amber-700">
+        No Priority
+      </SelectItem>
+    </SelectContent>
+  </Select>
+                <DialogFooter>
                 <DialogClose asChild>
                   <Button type="button" variant="outline" className="bg-amber-500 hover:bg-amber-700 dark:bg-amber-500 dark:hover:bg-amber-700 border-none">
                     Cancel
