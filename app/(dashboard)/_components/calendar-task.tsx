@@ -113,13 +113,29 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
             startAccessor="start"
             endAccessor="end"
             style={{ height: '70vh', width: '100%' }} 
-            eventPropGetter={(event, start, end, isSelected) => ({
-              style: {
-                fontSize: '12px',
-                backgroundColor: 'black',
-                color: 'tan',
+            eventPropGetter={(event, start, end, isSelected) => {
+              
+              const getPriorityColor = (priority?: string) => {
+              switch (priority) {
+                case "high":
+                  return "#f87171"; // Red for high priority
+                case "medium":
+                  return "#fbbf24"; // Amber for medium priority
+                case "low":
+                  return "#34d399"; // Green for low priority
+                default:
+                  return "#fef3c7"; // Yellow for no priority
               }
-            })}
+            };
+
+            return {
+              style: {
+                backgroundColor: getPriorityColor(event.priority),
+                color: 'black',
+                fontSize: '12px',
+              }
+            };
+            }}
             view={currentView}
             components={{
               toolbar: ({ label, onNavigate, view }) => (
