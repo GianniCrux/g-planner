@@ -95,6 +95,11 @@ export const SingleTaskView = ({ task }: SingleTaskViewProps) => {
           <span className="bg-amber-800 text-white text-xs px-2 py-1 rounded">
             Genre: {task.type}
           </span>
+          <div>
+              <span className={`text-white text-xs px-2 py-1 rounded ${getPriorityColor(task.priority)}`}>
+                Priority: {task.priority || "None"}
+              </span>
+            </div>
         </div>
       <div className="mt-4">
         <span className="text-gray-500 dark:text-amber-300 mr-2">Created by:</span>
