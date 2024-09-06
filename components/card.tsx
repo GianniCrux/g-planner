@@ -37,6 +37,7 @@ assignedToName: string;
 date: string;
 startTime?: string;
 endTime?: string;
+priority?: string;
 }
 
 
@@ -67,6 +68,7 @@ const [formData, setFormData] = useState<Omit<Task, "_id">>({
   date: "",
   startTime: "",
   endTime: "",
+  priority: "no-priority",
 });
 const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null);
 const [isNewCustomer, setIsNewCustomer] = useState(false);
@@ -136,6 +138,7 @@ const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     type: formData.type,
     startTime: formData.startTime,
     endTime: formData.endTime,
+    priority: formData.priority,
   }).then(() => {
     toast.success("Tasks created");
     onClose();
@@ -250,7 +253,7 @@ return (
               />
             </div>
             <div className="flex space-x-2">
-              <div className="flex-1 w-24"> 
+              <div className="flex-1 w-20"> 
                 <Label htmlFor="startTime">Start Time (Optional)</Label>
                 <Input
                   className="bg-amber-200 dark:bg-amber-600 h-8 border-none"
@@ -260,7 +263,7 @@ return (
                   onChange={handleChange}
                 />
               </div>
-              <div className="flex-1 w-24"> 
+              <div className="flex-1 w-20"> 
                 <Label htmlFor="endTime">End Time (Optional)</Label>
                 <Input
                   className="bg-amber-200 dark:bg-amber-600 h-8 border-none"
@@ -270,6 +273,31 @@ return (
                   onChange={handleChange}
                 />
               </div>
+              <div className="flex-1 w-20">
+              <Label htmlFor="priority">Priority</Label>
+                <Select
+                  value={formData.priority}
+                  onValueChange={(value) => setFormData((prevData) => ({ ...prevData, priority: value }))}
+                >
+                  <SelectTrigger className="bg-amber-200 dark:bg-amber-600 border-none">
+                    <SelectValue placeholder="Select Priority" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-amber-200 dark:bg-amber-600  border-none">
+                    <SelectItem value="high" className="bg-amber-200 hover:bg-amber-400 dark:bg-amber-600 dark:hover:bg-amber-700">
+                      High Priority
+                    </SelectItem>
+                    <SelectItem value="medium" className="bg-amber-200 hover:bg-amber-400 dark:bg-amber-600 dark:hover:bg-amber-700">
+                      Medium Priority
+                    </SelectItem>
+                    <SelectItem value="low" className="bg-amber-200 hover:bg-amber-400 dark:bg-amber-600 dark:hover:bg-amber-700">
+                      Low Priority
+                    </SelectItem>
+                    <SelectItem value="none" className="bg-amber-200 hover:bg-amber-400 dark:bg-amber-600 dark:hover:bg-amber-700">
+                      No Priority
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+                </div>
             </div>
           </div>
           <div className="flex pt-2 space-x-2 justify-between">
