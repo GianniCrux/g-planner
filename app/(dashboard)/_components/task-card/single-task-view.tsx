@@ -23,11 +23,25 @@ interface SingleTaskViewProps {
       startTime?: string;
       endTime?: string;
       isCompleted?: boolean;
+      priority?: string;
     };
   }
   
 
 export const SingleTaskView = ({ task }: SingleTaskViewProps) => {
+
+  const getPriorityColor = (priority?: string) => {
+    switch (priority) {
+      case "high":
+        return "bg-red-500 dark:bg-red-700";
+      case "medium":
+        return "bg-amber-500 dark:bg-amber-700";
+      case "low":
+        return "bg-green-500 dark:bg-green-700";
+      default:
+        return "bg-yellow-100 dark:bg-yellow-300";
+    }
+  };
 
   const toggleCompletion = useApiMutation(api.task.toggleTaskCompletion);
 
@@ -41,7 +55,9 @@ export const SingleTaskView = ({ task }: SingleTaskViewProps) => {
   };
     
     return (
-        <div className={cn("min-h-[calc(95vh-64px)] sm:min-h-[calc(95vh-56px)] max-h-screen[95vh] bg-yellow-200 dark:bg-amber-800 rounded-lg shadow-md p-6 mb-8", {"opacity-40": task.isCompleted}
+        <div className={cn("min-h-[calc(95vh-64px)] sm:min-h-[calc(95vh-56px)] max-h-screen[95vh] bg-yellow-200 dark:bg-amber-800 rounded-lg shadow-md p-6 mb-8",
+          getPriorityColor(task.priority), 
+          {"opacity-40": task.isCompleted}
         )}>
       <div>
       <Actions 
