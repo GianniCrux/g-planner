@@ -139,7 +139,7 @@ export const TaskList = ({
               className="px-4 py-2 rounded-md bg-amber-500 hover:bg-amber-800 dark:bg-amber-700 dark:hover:bg-amber-800"
             >
               {isCalendarView ? (
-                <Plus className="h-4 w-4" />
+                <List className="h-4 w-4" />
               ) : (
                 <Calendar className="h-4 w-4" />
               )}
