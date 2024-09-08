@@ -168,7 +168,7 @@ export const TaskCard = ({
         {isDialogOpen && (
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogContent 
-              className="bg-yellow-200 dark:bg-amber-800 rounded-lg shadow-md p-6 "
+              className={`bg-yellow-200 dark:bg-amber-800 rounded-lg shadow-md p-6 ${getPriorityColor(priority)}`}
               style={{
                 minHeight: "300px",
               }}
