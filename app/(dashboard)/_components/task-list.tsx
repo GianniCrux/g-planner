@@ -122,9 +122,9 @@ export const TaskList = ({
 
             <Select onValueChange={handleColumnsChange}>
               <SelectTrigger className="w-32 bg-amber-500 border-none">
-                <SelectValue placeholder="Select view" />
+                <SelectValue placeholder="Select view" className="bg-amber-500" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-amber-500  dark:bg-amber-700">
                 <SelectItem value="1">Single View</SelectItem>
                 <SelectItem value="2">2 Cards</SelectItem>
                 <SelectItem value="3">3 Cards</SelectItem>
