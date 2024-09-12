@@ -135,8 +135,8 @@ export const TaskCard = ({
                   </Actions>
                 </div>
                 <div onClick={toggleDialog}>
-                  <div className="font-semibold text-2xl mb-2 dark:text-amber-300">{title}</div>
-                  <div className="text-md text-black dark:text-amber-200 line-clamp-3 font-semibold">
+                  <div className="font-semibold text-2xl mb-2 dark:text-black">{title}</div>
+                  <div className="text-md text-black dark:text-black line-clamp-3 font-semibold">
                     {description}
                   </div>
                   {startTime && endTime && (
@@ -146,7 +146,7 @@ export const TaskCard = ({
                   )}
                 </div>
                 <div className="mt-auto pt-2 flex justify-between items-center">
-                  <div className="text-xs text-amber-800 dark:text-amber-200" onClick={toggleDialog}>
+                  <div className="text-xs text-amber-800 dark:text-black" onClick={toggleDialog}>
                     Created by {authorName}, {formattedDate}
                   </div>
                   {!hideCheckbox && (
@@ -180,7 +180,7 @@ export const TaskCard = ({
             </div>
       <div className="flex justify-between items-center mb-4">
 
-        <h2 className="text-2xl font-bold dark:text-amber-300">{title}</h2>
+        <h2 className="text-2xl font-bold dark:text-black">{title}</h2>
         <div className="flex items-center">
           <span className="bg-amber-800 dark:bg-amber-900 text-white dark:text-black text-xs px-2 py-1 rounded mr-2">
             Per: {assignedToName}
@@ -190,11 +190,11 @@ export const TaskCard = ({
           </span>
         </div>
       </div>
-        <p className="mb-2 text-md dark:text-amber-200">{description}</p>
+        <p className="mb-2 text-md dark:text-black">{description}</p>
         <div className="mt-auto">
-        <span className="text-sm dark:text-amber-200">Date: {date}</span>
+        <span className="text-sm dark:text-black">Date: {date}</span>
         <div className="mt-auto pt-2 flex justify-between items-center">
-        <div className="text-xs text-amber-800 dark:text-amber-200">
+        <div className="text-xs text-amber-800 dark:text-black">
           Created by {authorName}, {formattedDate}
         </div>
       {!hideCheckbox && (
@@ -205,14 +205,14 @@ export const TaskCard = ({
             onCheckedChange={handleToggleComplete}
             className="cursor-pointer"
           />
-          <label htmlFor={`checkbox-${id}`} className="ml-2 text-sm dark:text-amber-200">
+          <label htmlFor={`checkbox-${id}`} className="ml-2 text-sm dark:text-black">
             Done
           </label>
         </div>
       )}
       </div>
         {startTime && endTime && (
-        <p className="text-sm mt-2 dark:text-amber-200">Complete between {startTime} and {endTime}</p>
+        <p className="text-sm mt-2 dark:text-black">Complete between {startTime} and {endTime}</p>
       )}
       </div>
             </DialogContent>
