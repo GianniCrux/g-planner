@@ -87,6 +87,19 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
     });
   };
 
+  const getPriorityColor = (priority?: string) => {
+    switch (priority) {
+      case "high":
+        return "#f87171"; // Red for high priority
+      case "medium":
+        return "#fbbf24"; // Amber for medium priority
+      case "low":
+        return "#34d399"; // Green for low priority
+      default:
+        return "#fef3c7"; // Yellow for no priority
+    }
+  };
+
 
   return (
     <div className="relative bg-transparent text-xl shadow-lg overflow-hidden p-8 md:p-16 dark:bg-amber-900">
@@ -114,19 +127,6 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
             endAccessor="end"
             style={{ height: '70vh', width: '100%' }} 
             eventPropGetter={(event, start, end, isSelected) => {
-              
-              const getPriorityColor = (priority?: string) => {
-              switch (priority) {
-                case "high":
-                  return "#f87171"; // Red for high priority
-                case "medium":
-                  return "#fbbf24"; // Amber for medium priority
-                case "low":
-                  return "#34d399"; // Green for low priority
-                default:
-                  return "#fef3c7"; // Yellow for no priority
-              }
-            };
 
             return {
               style: {
@@ -189,7 +189,15 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
           </div>
           {showDialog && selectedDate && ( 
             <Dialog open={showDialog} onOpenChange={handleCloseDialog}>
-              <DialogContent className="bg-amber-400 max-h-[600px] overflow-auto">
+              <DialogContent 
+                className="bg-amber-400 max-h-[600px] overflow-auto"
+                style={{
+                  backgroundColor: tasksForSelectedDate.length > 0
+                  ? getPriorityColor(tasksForSelectedDate[0]?.priority)
+                  : "#fef3c7"
+                }}
+              >
+
                 {tasksForSelectedDate.map((task) => (
                   <TaskCard key={task._id} {...task} hideCheckbox={true} />
                 ))}
@@ -198,7 +206,7 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
                 )}
             <DialogFooter>
               <DialogClose asChild>
-                <Button type="button" variant="secondary" onClick={handleCloseDialog}>
+                <Button type="button" variant="secondary" onClick={handleCloseDialog} className={`bg-${getPriorityColor}`}>
                   Close
                 </Button>
               </DialogClose>
