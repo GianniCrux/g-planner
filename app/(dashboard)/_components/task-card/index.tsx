@@ -174,7 +174,7 @@ export const TaskCard = ({
               }}
             >
             <div className="absolute top-2 right-10">
-              <span className={`text-white text-xs px-2 py-1 rounded ${getPriorityColor(priority)}`}>
+              <span className={`text-black text-xs font-semibold px-2 py-1 rounded ${getPriorityColor(priority)}`}>
                 Priority: {priority || "None"}
               </span>
             </div>
