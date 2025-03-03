@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { Calendar, CalendarDaysIcon, EyeIcon } from "lucide-react";
+import { Calendar, CalendarDaysIcon, CalendarFold, EyeIcon } from "lucide-react";
 import { Calendar as BigCalendar, momentLocalizer} from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { Dialog, DialogClose, DialogContent, DialogFooter} from '@/components/ui/dialog';
 import { TaskCard, TaskCardProps } from './task-card';
+import { Hint } from '@/components/hint';
 
 
 const localizer = momentLocalizer(moment);
@@ -112,7 +113,14 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
             onClick={handleViewChange}
             className='bg-transparent text-black hover:bg-transparent'
           >
-            {currentView === 'month' ? <EyeIcon /> : currentView === 'week' ? <CalendarDaysIcon /> : <Calendar />}
+            <Hint
+              label={currentView === 'month' ? 'Month View' : currentView === 'week' ? 'Week View' : 'Day View'}
+              side='right'
+              align='center'
+              sideOffset={10}
+            >
+              {currentView === 'month' ? <CalendarFold /> : currentView === 'week' ? <CalendarDaysIcon /> : <Calendar />}
+            </Hint>
           </Button>  
 
           </span>
