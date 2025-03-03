@@ -114,19 +114,21 @@ export const TaskList = ({
               <Plus className="h-w w-4" /> Add Task
             </Button>
 
+            {!isCalendarView && (
+                          <Select onValueChange={handleColumnsChange}>
+                          <SelectTrigger className="w-32 bg-amber-500 dark:bg-amber-700 border-none">
+                            <SelectValue placeholder="Select view" className="bg-amber-500 dark:bg-amber-700" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-amber-500  dark:bg-amber-700">
+                            <SelectItem value="1" className="dark:hover:bg-amber-900">Single View</SelectItem>
+                            <SelectItem value="2" className="dark:hover:bg-amber-900">2 Cards</SelectItem>
+                            <SelectItem value="3" className="dark:hover:bg-amber-900">3 Cards</SelectItem>
+                            <SelectItem value="4" className="dark:hover:bg-amber-900">4 Cards</SelectItem>
+                            <SelectItem value="5" className="dark:hover:bg-amber-900">5 Cards</SelectItem>
+                          </SelectContent>
+                        </Select>
+            )}
 
-            <Select onValueChange={handleColumnsChange}>
-              <SelectTrigger className="w-32 bg-amber-500 dark:bg-amber-700 border-none">
-                <SelectValue placeholder="Select view" className="bg-amber-500 dark:bg-amber-700" />
-              </SelectTrigger>
-              <SelectContent className="bg-amber-500  dark:bg-amber-700">
-                <SelectItem value="1" className="dark:hover:bg-amber-900">Single View</SelectItem>
-                <SelectItem value="2" className="dark:hover:bg-amber-900">2 Cards</SelectItem>
-                <SelectItem value="3" className="dark:hover:bg-amber-900">3 Cards</SelectItem>
-                <SelectItem value="4" className="dark:hover:bg-amber-900">4 Cards</SelectItem>
-                <SelectItem value="5" className="dark:hover:bg-amber-900">5 Cards</SelectItem>
-              </SelectContent>
-            </Select>
   
             <Button
               onClick={handleViewChange}
