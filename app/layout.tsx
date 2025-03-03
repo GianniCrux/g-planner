@@ -13,6 +13,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Gplanner",
   description: "A streamlined note-taking and scheduling app",
+  icons: {
+    icon: "/plannerLogo.ico",
+  },
 };
 
 export default function RootLayout({
