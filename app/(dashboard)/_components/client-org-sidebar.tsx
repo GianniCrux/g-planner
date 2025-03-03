@@ -60,7 +60,7 @@ export const ClientOrgSidebar = () => {
   }, [isSidebarCollapsed]);
 
   return (
-    <div className="relative">
+    <div className="relative h-screen">
       {/* Mobile view */}
       <div className="sm:hidden">
         <Button
@@ -114,7 +114,7 @@ export const ClientOrgSidebar = () => {
       </div>
 
       {/* Medium and larger screens */}
-      <div className="hidden sm:flex">
+      <div className="hidden sm:flex shadow-lg">
         <div
           className={cn(
             "relative bg-amber-300 transition-all duration-300 ease-in-out dark:bg-amber-600",
@@ -136,10 +136,10 @@ export const ClientOrgSidebar = () => {
           )}
           <Button
             className={cn(
-              "bg-transparent top-0 transition-all duration-300 dark:border-amber-400 shadow-lg hover:shadow-2xl hover:bg-amber-100 dark:hover:bg-amber-700",
+              "bg-transparent top-0 transition-all duration-300 dark:border-amber-400 hover:bg-amber-100 dark:hover:bg-amber-700",
               {
                 "-right-10 rotate-180": !isSidebarCollapsed,
-                "right": isSidebarCollapsed,
+                "right shadow-lg": isSidebarCollapsed,
               }
             )}
             onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
