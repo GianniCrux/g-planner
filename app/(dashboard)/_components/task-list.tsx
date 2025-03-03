@@ -1,16 +1,12 @@
 "use client";
-
-
-
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import { CardCreator } from "@/components/card";
 import { EmptySearch } from "./empty-search";
 import { EmptyPersonal } from "./empty-personal";
 import { EmptyTask } from "./empty-task";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import { Calendar, GalleryHorizontal, GalleryVertical, List, Plus } from "lucide-react";
+import { Calendar, List, Plus } from "lucide-react";
 import { TaskCard } from "./task-card";
 import { useState } from "react";
 
@@ -20,7 +16,6 @@ import {
 } from "@/components/ui/dialog";
 import { Loading } from "@/components/auth/loading";
 import { CalendarTask } from "./calendar-task";
-import { SingleTaskView } from "./task-card/single-task-view";
 import { useUser } from "@clerk/clerk-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
@@ -107,7 +102,7 @@ export const TaskList = ({
     return (
       <div className="flex flex-col">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl sm:text-md pt-3 dark:text-amber-200">
+          <h2 className="text-xl sm:text-md pt-4 dark:text-amber-200">
             {query.personal ? "Personal tasks" : "Team tasks"}
           </h2>
   
