@@ -39,7 +39,7 @@ export const TaskList = ({
     const [showDialog, setShowDialog] = useState(false);
     const [isCalendarView, setIsCalendarView] = useState(false);
     const [columns, setColumns] = useState(1);
-    const [selectedCards, setSelectedCards] = useState('0');
+    const [selectedCards, setSelectedCards] = useState('1');
 
 
 
