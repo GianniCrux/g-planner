@@ -8,7 +8,7 @@ import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Calendar, List, Plus } from "lucide-react";
 import { TaskCard } from "./task-card";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { 
     Dialog, 
@@ -39,6 +39,7 @@ export const TaskList = ({
     const [showDialog, setShowDialog] = useState(false);
     const [isCalendarView, setIsCalendarView] = useState(false);
     const [columns, setColumns] = useState(1);
+    const [selectedCards, setSelectedCards] = useState('0');
 
 
 
@@ -50,22 +51,35 @@ export const TaskList = ({
         setIsCalendarView((prevState) => !prevState);
     }
 
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setSelectedCards("3");
+      } else if (window.innerWidth < 1024) {
+        setSelectedCards((prev) => (prev === "4" || prev === "5" ? "3" : prev));
+      }
+    };
+
+    useEffect(() => {
+      handleResize();
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }, []);
     
     const handleColumnsChange = (value: string) => {
-      setColumns(parseInt(value, 10));
+      setSelectedCards(value);
     };
 
     const getGridClass = () => {
-      switch (columns) {
-        case 1:
+      switch (selectedCards) {
+        case '1':
           return "grid-cols-1";
-        case 2:
+        case '2':
           return "grid-cols-2";
-        case 3:
+        case '3':
           return "grid-cols-3";
-        case 4:
+        case '4':
           return "grid-cols-4";
-        case 5:
+        case '5':
           return "grid-cols-5";
         default:
           return "grid-cols-4"; 
@@ -115,7 +129,7 @@ export const TaskList = ({
             </Button>
 
             {!isCalendarView && (
-                          <Select onValueChange={handleColumnsChange}>
+                          <Select onValueChange={handleColumnsChange} value={selectedCards}>
                           <SelectTrigger className="w-32 bg-amber-500 dark:bg-amber-700 border-none">
                             <SelectValue placeholder="Select view" className="bg-amber-500 dark:bg-amber-700" />
                           </SelectTrigger>
@@ -123,8 +137,8 @@ export const TaskList = ({
                             <SelectItem value="1" className="dark:hover:bg-amber-900">Single View</SelectItem>
                             <SelectItem value="2" className="dark:hover:bg-amber-900">2 Cards</SelectItem>
                             <SelectItem value="3" className="dark:hover:bg-amber-900">3 Cards</SelectItem>
-                            <SelectItem value="4" className="dark:hover:bg-amber-900">4 Cards</SelectItem>
-                            <SelectItem value="5" className="dark:hover:bg-amber-900">5 Cards</SelectItem>
+                            <SelectItem value="4" className="dark:hover:bg-amber-900 lg:block hidden">4 Cards</SelectItem>
+                            <SelectItem value="5" className="dark:hover:bg-amber-900 lg:block hidden">5 Cards</SelectItem>
                           </SelectContent>
                         </Select>
             )}
