@@ -2,14 +2,13 @@
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { SidebarIcon, XIcon, ArrowLeftIcon } from "lucide-react";
-import { OrgSidebar } from "./org-sidebar"; // Import OrgSidebarProps
+import { OrgSidebar } from "./org-sidebar";
 import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Poppins } from "next/font/google";
 import { InviteButton } from "./invite-button";
 import { useOrganization } from "@clerk/nextjs";
-
 
 const font = Poppins({
   subsets: ["latin"],
@@ -18,11 +17,9 @@ const font = Poppins({
 
 export const ClientOrgSidebar = () => {
   const { organization } = useOrganization();
-
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
-
   const [isContentVisible, setIsContentVisible] = useState(false);
 
   const toggleSidebar = () => {
@@ -34,10 +31,7 @@ export const ClientOrgSidebar = () => {
   };
 
   const handleClickOutside = (event: MouseEvent) => {
-    if (
-      sidebarRef.current &&
-      !sidebarRef.current.contains(event.target as Node)
-    ) {
+    if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
       closeSidebar();
     }
   };
@@ -49,7 +43,6 @@ export const ClientOrgSidebar = () => {
     };
   });
 
-
   useEffect(() => {
     if (!isSidebarCollapsed) {
       const timeoutId = setTimeout(() => setIsContentVisible(true), 150);
@@ -60,64 +53,46 @@ export const ClientOrgSidebar = () => {
   }, [isSidebarCollapsed]);
 
   return (
-    <div className="relative h-screen">
+    <div className="relative h-full">
       {/* Mobile view */}
-      <div className="sm:hidden">
-        <Button
-          className="bg-amber-500 hover:bg-amber-700 dark:bg-amber-600 dark:hover:bg-amber-800"
-          onClick={toggleSidebar}
-        >
-          <SidebarIcon className="text-black dark:text-amber-100" />
+      <div className="sm:hidden p-2">
+        <Button variant="outline" onClick={toggleSidebar}>
+          <SidebarIcon className="h-5 w-5" />
         </Button>
         {isSidebarOpen && (
-          <div className="fixed inset-0 z-50 bg-amber-600 bg-opacity-50 flex dark:bg-amber-600 dark:bg-opacity-70">
+          <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex">
             <div
               ref={sidebarRef}
-              className="h-full bg-amber-300 w-64 max-w-[80vw] dark:bg-amber-600"
+              className="h-full w-64 max-w-[80vw] bg-white dark:bg-gray-800"
             >
               <div className="flex justify-end p-4">
-                <Button
-                  onClick={closeSidebar}
-                  className="bg-amber-300 hover:bg-amber-300 dark:bg-amber-800 dark:hover:bg-amber-900"
-                >
-                  <XIcon className="text-black dark:text-amber-100" />
+                <Button variant="outline" onClick={closeSidebar}>
+                  <XIcon className="h-4 w-4" />
                 </Button>
               </div>
               <OrgSidebar>
-                <div className="px-4 pb-4">
-                <Link href="/">
-                <div className="flex items-center gap-x-2">
-                    <Image 
-                        src="/plannerLogo.svg"
-                        alt="Logo"
-                        height={60}
-                        width={60}
-                    />
-                    <span className={cn(
-                        "text-2xl",
-                        font.className,
-                    )}>
-                        GPlanner
-                    </span>
-                </div>
-            </Link>
+                <div>
+                  <Link href="/">
+                    <div className="flex items-center gap-x-2">
+                      <Image src="/plannerLogo.svg" alt="Logo" height={60} width={60} />
+                      <span className={cn("text-2xl", font.className)}>GPlanner</span>
+                    </div>
+                  </Link>
                 </div>
               </OrgSidebar>
               <div className="pl-4">
-              {organization && (
-              <InviteButton />
-              )}
+                {organization && <InviteButton />}
               </div>
             </div>
           </div>
         )}
       </div>
 
-      {/* Medium and larger screens */}
-      <div className="hidden sm:flex shadow-lg">
+      {/* Larger screens */}
+      <div className="hidden sm:flex shadow-lg h-full pl-2">
         <div
           className={cn(
-            "relative bg-amber-300 transition-all duration-300 ease-in-out dark:bg-amber-600",
+            "relative bg-white dark:bg-gray-800 transition-all duration-300 ease-in-out",
             {
               "w-64": !isSidebarCollapsed,
               "w-0": isSidebarCollapsed,
@@ -125,26 +100,28 @@ export const ClientOrgSidebar = () => {
           )}
         >
           {!isSidebarCollapsed && (
-            <div 
-              className={cn(
-                "transition-opacity duration-300",
-                { "opacity-0": !isContentVisible, "opacity-100": isContentVisible }
-              )}
-            > 
+            <div
+              className={cn("transition-opacity duration-300 pl-2", {
+                "opacity-0": !isContentVisible,
+                "opacity-100": isContentVisible,
+              })}
+            >
               <OrgSidebar />
             </div>
           )}
           <Button
+            variant="ghost"
             className={cn(
-              "bg-transparent top-0 transition-all duration-300 dark:border-amber-400 hover:bg-amber-100 dark:hover:bg-amber-700",
-              {
-                "-right-10 rotate-180": !isSidebarCollapsed,
-                "right shadow-lg": isSidebarCollapsed,
-              }
+              "absolute top-2 -right-5 p-1 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 rounded-full shadow",
+              "transition-all duration-300 hover:bg-gray-200 dark:hover:bg-gray-600"
             )}
             onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
           >
-            <ArrowLeftIcon className="text-black dark:text-amber-100" />
+            <ArrowLeftIcon
+              className={cn("h-4 w-4 text-gray-600 dark:text-gray-300", {
+                "rotate-180": !isSidebarCollapsed,
+              })}
+            />
           </Button>
         </div>
       </div>
