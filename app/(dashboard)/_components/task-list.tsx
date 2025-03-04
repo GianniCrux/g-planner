@@ -1,6 +1,7 @@
 "use client";
-import { Button } from "@/components/ui/button";
+
 import { CardCreator } from "@/components/card";
+import { Button } from "@/components/ui/button";
 import { EmptySearch } from "./empty-search";
 import { EmptyPersonal } from "./empty-personal";
 import { EmptyTask } from "./empty-task";
@@ -9,162 +10,148 @@ import { api } from "@/convex/_generated/api";
 import { Calendar, List, Plus } from "lucide-react";
 import { TaskCard } from "./task-card";
 import { useEffect, useState } from "react";
-
-import { 
-    Dialog, 
-    DialogContent,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Loading } from "@/components/auth/loading";
 import { CalendarTask } from "./calendar-task";
 import { useUser } from "@clerk/clerk-react";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface TaskListProps {
-    orgId: string;
-    query: {
-        search?: string;
-        personal?: string;
-        [key: string]: string | undefined;
-    };
-};
+  orgId: string;
+  query: {
+    search?: string;
+    personal?: string;
+    [key: string]: string | undefined;
+  };
+}
 
+export const TaskList = ({ orgId, query }: TaskListProps) => {
+  const data = useQuery(api.tasks.get, { orgId });
+  const { user } = useUser();
 
-export const TaskList = ({
-    orgId,
-    query,
-}: TaskListProps) => {
-    const data = useQuery(api.tasks.get, { orgId });
-    const { user } = useUser();
+  const [showDialog, setShowDialog] = useState(false);
+  const [isCalendarView, setIsCalendarView] = useState(false);
+  const [selectedCards, setSelectedCards] = useState("1");
 
-    const [showDialog, setShowDialog] = useState(false);
-    const [isCalendarView, setIsCalendarView] = useState(false);
-    const [columns, setColumns] = useState(1);
-    const [selectedCards, setSelectedCards] = useState('1');
+  const toggleDialog = () => {
+    setShowDialog((prevState) => !prevState);
+  };
 
+  const handleViewChange = () => {
+    setIsCalendarView((prevState) => !prevState);
+  };
 
-
-    const toggleDialog = () => {
-        setShowDialog((prevState) => !prevState);
-    };
-
-    const handleViewChange = () => {
-        setIsCalendarView((prevState) => !prevState);
+  const handleResize = () => {
+    if (window.innerWidth < 768) {
+      setSelectedCards("3");
+    } else if (window.innerWidth < 1024) {
+      setSelectedCards((prev) =>
+        prev === "4" || prev === "5" ? "3" : prev
+      );
     }
+  };
 
-    const handleResize = () => {
-      if (window.innerWidth < 768) {
-        setSelectedCards("3");
-      } else if (window.innerWidth < 1024) {
-        setSelectedCards((prev) => (prev === "4" || prev === "5" ? "3" : prev));
-      }
-    };
+  useEffect(() => {
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
-    useEffect(() => {
-      handleResize();
-      window.addEventListener("resize", handleResize);
-      return () => window.removeEventListener("resize", handleResize);
-    }, []);
-    
-    const handleColumnsChange = (value: string) => {
-      setSelectedCards(value);
-    };
+  const handleColumnsChange = (value: string) => {
+    setSelectedCards(value);
+  };
 
-    const getGridClass = () => {
-      switch (selectedCards) {
-        case '1':
-          return "grid-cols-1";
-        case '2':
-          return "grid-cols-2";
-        case '3':
-          return "grid-cols-3";
-        case '4':
-          return "grid-cols-4";
-        case '5':
-          return "grid-cols-5";
-        default:
-          return "grid-cols-4"; 
-      }
-    };
-
-    if (data === undefined) { //data can never be undefined regardless there's an error or it's empty
-        return (
-            <div>
-                <Loading />
-            </div>
-        )
+  const getGridClass = () => {
+    switch (selectedCards) {
+      case "1":
+        return "grid-cols-1";
+      case "2":
+        return "grid-cols-2";
+      case "3":
+        return "grid-cols-3";
+      case "4":
+        return "grid-cols-4";
+      case "5":
+        return "grid-cols-5";
+      default:
+        return "grid-cols-4";
     }
+  };
 
-    if (!data?.length && query.search) { //if we don't have data length but we have query.search it means that data is empty cause the user searched for something that doesn exists
-        return (
-            <EmptySearch />
-        );
-    };
-
-    if (!data?.length && query.personal) {
-        return (
-            <EmptyPersonal />
-        );
-    } 
-
-    if (!data?.length) {
-        return (
-            <EmptyTask />
-        )
-    }
-
-
+  if (data === undefined) {
     return (
-      <div className="flex flex-col">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl sm:text-md pt-4 dark:text-amber-200">
-            {query.personal ? "Personal tasks" : "Team tasks"}
-          </h2>
-  
-          <div className="flex space-x-1">
+      <div>
+        <Loading />
+      </div>
+    );
+  }
+
+  if (!data?.length && query.search) {
+    return <EmptySearch />;
+  }
+
+  if (!data?.length && query.personal) {
+    return <EmptyPersonal />;
+  }
+
+  if (!data?.length) {
+    return <EmptyTask />;
+  }
+
+  return (
+    <div className="flex flex-col">
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-xl sm:text-md pt-4 text-gray-800 dark:text-gray-100">
+          {query.personal ? "Personal tasks" : "Team tasks"}
+        </h2>
+
+        <div className="flex space-x-1">
           <Button
-              onClick={toggleDialog}
-              className="bg-amber-300 text-black hover:bg-amber-600/20 dark:bg-amber-700 dark:text-black dark:hover:bg-amber-800"
-            >
-              <Plus className="h-w w-4" /> Add Task
-            </Button>
+            onClick={toggleDialog}
+            className="bg-amber-500 text-white hover:bg-amber-600 transition-colors"
+          >
+            <Plus className="h-4 w-4" /> Add Task
+          </Button>
 
-            {!isCalendarView && (
-                          <Select onValueChange={handleColumnsChange} value={selectedCards}>
-                          <SelectTrigger className="w-32 bg-amber-500 dark:bg-amber-700 border-none">
-                            <SelectValue placeholder="Select view" className="bg-amber-500 dark:bg-amber-700" />
-                          </SelectTrigger>
-                          <SelectContent className="bg-amber-500  dark:bg-amber-700">
-                            <SelectItem value="1" className="dark:hover:bg-amber-900">Single View</SelectItem>
-                            <SelectItem value="2" className="dark:hover:bg-amber-900">2 Cards</SelectItem>
-                            <SelectItem value="3" className="dark:hover:bg-amber-900">3 Cards</SelectItem>
-                            <SelectItem value="4" className="dark:hover:bg-amber-900 lg:block hidden">4 Cards</SelectItem>
-                            <SelectItem value="5" className="dark:hover:bg-amber-900 lg:block hidden">5 Cards</SelectItem>
-                          </SelectContent>
-                        </Select>
-            )}
+          {!isCalendarView && (
+            <Select onValueChange={handleColumnsChange} value={selectedCards}> 
+              <SelectTrigger className="w-32 bg-amber-500 hover:bg-amber-600 border border-gray-300 text-black dark:text-gray-100">
+                <SelectValue placeholder="Select view" />
+              </SelectTrigger>
+              <SelectContent className="bg-white dark:bg-gray-700 border border-gray-300 text-white dark:text-gray-100">
+                <SelectItem value="1">Single View</SelectItem>
+                <SelectItem value="2">2 Cards</SelectItem>
+                <SelectItem value="3">3 Cards</SelectItem>
+                <SelectItem value="4" className="hidden lg:block">
+                  4 Cards
+                </SelectItem> 
+                <SelectItem value="5" className="hidden lg:block">
+                  5 Cards
+                </SelectItem>
+              </SelectContent>
+            </Select>
+          )}
 
-  
-            <Button
-              onClick={handleViewChange}
-              variant={isCalendarView ? "secondary" : "ghost"}
-              className="px-4 py-2 rounded-md bg-amber-500 hover:bg-amber-800 dark:bg-amber-700 dark:hover:bg-amber-800"
-            >
-              {isCalendarView ? (
-                <List className="h-4 w-4" />
-              ) : (
-                <Calendar className="h-4 w-4" />
-              )}
-              <span className="hidden lg:inline">
-                {isCalendarView ? "Task List View" : "Calendar View"}
-              </span>
-            </Button>
-
-          </div>
+          <Button
+            onClick={handleViewChange}
+            variant={isCalendarView ? "secondary" : "ghost"}
+            className="px-4 py-2 rounded-md bg-amber-500 hover:bg-amber-600 transition-colors"
+          >
+            {isCalendarView ? <List className="h-4 w-4" /> : <Calendar className="h-4 w-4" />}
+            <span className="hidden lg:inline text-black dark:text-gray-100">
+              {isCalendarView ? "Task List View" : "Calendar View"}
+            </span>
+          </Button>
         </div>
-  
+      </div>
 
-
-        {isCalendarView ? (
+      {isCalendarView ? (
         <CalendarTask tasks={data} />
       ) : (
         <div className={`grid gap-5 mt-8 pb-10 ${getGridClass()}`}>
@@ -203,8 +190,8 @@ export const TaskList = ({
 
       {showDialog && (
         <Dialog open={showDialog} onOpenChange={toggleDialog}>
-          <DialogContent className="bg-amber-300 dark:bg-amber-800 border-none">
-            <CardCreator onClose={toggleDialog}/>
+          <DialogContent className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md p-4">
+            <CardCreator onClose={toggleDialog} />
           </DialogContent>
         </Dialog>
       )}
