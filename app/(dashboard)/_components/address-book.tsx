@@ -64,7 +64,9 @@ export const AddressBook: React.FC = () => {
     }, {} as Record<string, Customer[]>);
   }, [sortedCustomers]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -123,29 +125,41 @@ export const AddressBook: React.FC = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="ghost" size="sm" className="h-10 w-10 p-0 rounded-full bg-amber-200 dark:bg-amber-700 hover:bg-amber-200 dark:hover:bg-amber-700">
+        <Button
+          variant="ghost"
+          size="sm"
+          className="h-10 w-10 p-0 rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600"
+        >
           <Book className="h-5 w-5" />
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[800px] bg-amber-300 dark:bg-amber-600">
+      <DialogContent className="sm:max-w-[800px] bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md p-4">
         <DialogHeader>
           <DialogTitle>Address Book</DialogTitle>
         </DialogHeader>
-        <div className="flex space-x-4 bg-amber-300 dark:bg-amber-600">
+        <div className="flex space-x-4 bg-white dark:bg-gray-800">
           {!isAddingNew && !selectedCustomer && (
             <div className="w-full flex">
               <div className="flex-grow pr-4">
                 <div className="flex justify-between mb-4">
-                  <h3 className="font-semibold">Customer List</h3>
-                  <Button onClick={handleAddNew} size="sm" className='bg-amber-300 dark:bg-amber-500 text-black hover:bg-amber-500 dark:hover:bg-amber-700'>
+                  <h3 className="font-semibold text-gray-800 dark:text-gray-100">
+                    Customer List
+                  </h3>
+                  <Button
+                    onClick={handleAddNew}
+                    size="sm"
+                    className="bg-gray-100 dark:bg-gray-700 text-gray-800 hover:bg-gray-200 dark:hover:bg-gray-600"
+                  >
                     <Plus className="mr-2 h-4 w-4" /> Add New
                   </Button>
                 </div>
                 <div className="h-[400px] overflow-y-auto pr-2">
-                  {Object.entries(groupedCustomers).map(([letter, customers]) => (
+                  {Object.entries(groupedCustomers).map(([letter, customers]) =>
                     selectedLetter === null || selectedLetter === letter ? (
                       <div key={letter} id={letter} className="mb-4">
-                        <h4 className="font-semibold mb-2">{letter}</h4>
+                        <h4 className="font-semibold mb-2 text-gray-800 dark:text-gray-100">
+                          {letter}
+                        </h4>
                         <Hint
                           label="✏️ Edit Contact Information"
                           side="left"
@@ -156,7 +170,7 @@ export const AddressBook: React.FC = () => {
                             {customers.map((customer) => (
                               <div
                                 key={customer._id}
-                                className="p-2 dark:hover:bg-amber-800 hover:bg-amber-500 cursor-pointer rounded"
+                                className="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer rounded text-gray-800 dark:text-gray-100"
                                 onClick={() => handleCustomerSelect(customer)}
                               >
                                 {customer.name}
@@ -166,7 +180,7 @@ export const AddressBook: React.FC = () => {
                         </Hint>
                       </div>
                     ) : null
-                  ))}
+                  )}
                 </div>
               </div>
               <div className="w-8 flex flex-col">
@@ -174,8 +188,10 @@ export const AddressBook: React.FC = () => {
                   <button
                     key={letter}
                     className={`flex-1 text-xs font-semibold ${
-                      selectedLetter === letter ? 'bg-amber-500 dark:bg-amber-800' : ''
-                    } hover:bg-amber-400 dark:hover:bg-amber-700`}
+                      selectedLetter === letter
+                        ? 'bg-gray-300 dark:bg-gray-600'
+                        : ''
+                    } hover:bg-gray-200 dark:hover:bg-gray-500`}
                     onClick={() => handleLetterSelect(letter)}
                   >
                     {letter}
@@ -187,10 +203,17 @@ export const AddressBook: React.FC = () => {
           {(isAddingNew || selectedCustomer) && (
             <div className="w-full">
               <div className="flex items-center mb-4">
-                <Button onClick={handleBack} variant="ghost" size="sm" className="mr-2 bg-amber-300 dark:bg-amber-500 text-black hover:bg-amber-500 dark:hover:bg-amber-700">
+                <Button
+                  onClick={handleBack}
+                  variant="ghost"
+                  size="sm"
+                  className="mr-2 bg-gray-100 dark:bg-gray-700 text-gray-800 hover:bg-gray-200 dark:hover:bg-gray-600"
+                >
                   <ArrowLeft className="h-4 w-4" />
                 </Button>
-                <h3 className="font-semibold">{selectedCustomer ? 'Edit Customer' : 'Add New Customer'}</h3>
+                <h3 className="font-semibold text-gray-800 dark:text-gray-100">
+                  {selectedCustomer ? 'Edit Customer' : 'Add New Customer'}
+                </h3>
               </div>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
@@ -201,7 +224,7 @@ export const AddressBook: React.FC = () => {
                     value={formData.name}
                     onChange={handleInputChange}
                     required
-                    className='bg-amber-200 dark:bg-amber-500'
+                    className="bg-gray-100 dark:bg-gray-700 border-none"
                   />
                 </div>
                 <div>
@@ -212,7 +235,7 @@ export const AddressBook: React.FC = () => {
                     value={formData.phoneNumber}
                     onChange={handleInputChange}
                     required
-                    className='bg-amber-200 dark:bg-amber-500'
+                    className="bg-gray-100 dark:bg-gray-700 border-none"
                   />
                 </div>
                 <div>
@@ -223,17 +246,22 @@ export const AddressBook: React.FC = () => {
                     value={formData.address}
                     onChange={handleInputChange}
                     required
-                    className='bg-amber-200 dark:bg-amber-500'
+                    className="bg-gray-100 dark:bg-gray-700 border-none"
                   />
                 </div>
-                <Button type="submit" className='bg-amber-300 dark:bg-amber-500 text-black hover:bg-amber-500 dark:hover:bg-amber-700'>
+                <Button
+                  type="submit"
+                  className="bg-gray-100 dark:bg-gray-700 text-gray-800 hover:bg-gray-200 dark:hover:bg-gray-600"
+                >
                   {selectedCustomer ? 'Update Customer' : 'Add Customer'}
                 </Button>
               </form>
               {selectedCustomer && selectedCustomer.lastOrderId && (
                 <div className="mt-4">
-                  <h3 className="font-semibold">Last Order</h3>
-                  <p>Order ID: {selectedCustomer.lastOrderId}</p>
+                  <h3 className="font-semibold text-gray-800 dark:text-gray-100">Last Order</h3>
+                  <p className="text-gray-700 dark:text-gray-300">
+                    Order ID: {selectedCustomer.lastOrderId}
+                  </p>
                 </div>
               )}
             </div>
