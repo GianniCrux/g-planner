@@ -13,32 +13,23 @@ import { CalendarIcon, ListIcon } from "lucide-react";
 
 interface DashboardPageProps {
   searchParams: {
-    search?: string; 
+    search?: string;
     personal?: string;
-  }
+  };
 }
 
-
-const DashboardPage = ({
-  searchParams,
-}: DashboardPageProps) => {
+const DashboardPage = ({ searchParams }: DashboardPageProps) => {
   const { organization } = useOrganization();
   const [isCalendarView, setIsCalendarView] = useState(false);
 
   const handleViewChange = () => {
     setIsCalendarView((prevState) => !prevState);
-  }
+  };
 
   return (
-  <div className="h-[calc(100%-80px)] flex flex-col p-6">
-    {!organization ? (
-    <EmptyOrg />
-    ) : (
-      <>
-    <TaskList orgId={organization.id} query={searchParams}    />
-    </>
-    )}
-  </div>
+    <div className="h-[calc(100%-80px)] flex flex-col p-6 bg-white dark:bg-gray-900">
+      {!organization ? <EmptyOrg /> : <TaskList orgId={organization.id} query={searchParams} />}
+    </div>
   );
 };
 
