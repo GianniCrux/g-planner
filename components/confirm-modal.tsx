@@ -1,61 +1,61 @@
-"use client"; 
+"use client";
 
 import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-interface ConfirmModalProps { 
-    children: React.ReactNode;
-    onConfirm: () => void;
-    disabled?: boolean;
-    header: string;
-    description?: string;
+interface ConfirmModalProps {
+  children: React.ReactNode;
+  onConfirm: () => void;
+  disabled?: boolean;
+  header: string;
+  description?: string;
 }
 
 export const ConfirmModal = ({
-    children,
-    onConfirm,
-    disabled,
-    header,
-    description,
+  children,
+  onConfirm,
+  disabled,
+  header,
+  description,
 }: ConfirmModalProps) => {
-    const handleConfirm = () => {
-        onConfirm();
-    }
+  const handleConfirm = () => {
+    onConfirm();
+  };
 
-    return (
-        <AlertDialog>
-            <AlertDialogTrigger asChild>
-                {children}
-            </AlertDialogTrigger>
-            <AlertDialogContent className="bg-yellow-300 dark:bg-amber-600">
-                <AlertDialogHeader>
-                    <AlertDialogTitle>
-                        {header}
-                    </AlertDialogTitle>
-                    <AlertDialogDescription className="text-black">
-                        {description}
-                    </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                    <AlertDialogCancel className="bg-amber-400 hover:bg-amber-600 dark:bg-amber-600 dark:hover:bg-amber-800 border-none">Cancel</AlertDialogCancel>
-                    <AlertDialogAction
-                        disabled={disabled}
-                        onClick={handleConfirm}
-                        className="bg-amber-400 text-black hover:bg-amber-600 dark:bg-amber-600 dark:hover:bg-amber-800 border-none"
-                    >
-                        Confirm
-                    </AlertDialogAction>
-                </AlertDialogFooter>
-            </AlertDialogContent>
-        </AlertDialog>
-    )
-}
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
+      <AlertDialogContent className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md p-4">
+        <AlertDialogHeader>
+          <AlertDialogTitle className="text-gray-800 dark:text-gray-100">
+            {header}
+          </AlertDialogTitle>
+          <AlertDialogDescription className="text-gray-700 dark:text-gray-300">
+            {description}
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel className="bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 border-none transition-colors">
+            Cancel
+          </AlertDialogCancel>
+          <AlertDialogAction
+            disabled={disabled}
+            onClick={handleConfirm}
+            className="bg-amber-500 text-white hover:bg-amber-600 dark:bg-amber-600 dark:hover:bg-amber-500 border-none transition-colors"
+          >
+            Confirm
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
+};
