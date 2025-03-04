@@ -3,10 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 
-
 import { UserIcon } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-
 
 import { Poppins } from "next/font/google";
 import { cn } from "@/lib/utils";
@@ -15,7 +13,6 @@ import { Button } from "@/components/ui/button";
 import { LayoutDashboard } from "lucide-react";
 import { CalendarTask } from "./calendar-task";
 import React from "react";
-
 
 const font = Poppins({
     subsets: ["latin"],
@@ -26,29 +23,12 @@ export interface OrgSidebarProps {
     children?: React.ReactNode;
 }
 
-
-export const OrgSidebar = ({children}: OrgSidebarProps) => {
-    const searchParams = useSearchParams(); 
+export const OrgSidebar = ({ children }: OrgSidebarProps) => {
+    const searchParams = useSearchParams();
     const personal = searchParams.get("personal");
 
     return (
-        <div className="flex-col w-[206px] pl-4 pt-2">
-            {/* <Link href="/">
-                <div className="flex items-center gap-x-2">
-                    <Image 
-                        src="/plannerLogo.svg"
-                        alt="Logo"
-                        height={60}
-                        width={60}
-                    />
-                    <span className={cn(
-                        "font-semibold text-2xl",
-                        font.className,
-                    )}>
-                        GPlanner
-                    </span>
-                </div>
-            </Link> */}
+        <div className="flex-col w-[206px] pt-2 bg-white dark:bg-gray-800">
             {children}
             <OrganizationSwitcher
                 hidePersonal
@@ -63,29 +43,33 @@ export const OrgSidebar = ({children}: OrgSidebarProps) => {
                         organizationSwitcherTrigger: {
                             padding: "6px",
                             width: "100%",
-                            borderRadius: "1px solid #FFD54F",
+                            borderRadius: "1px solidrgb(255, 255, 255)",
                             justifyContent: "space-between",
-                            backgroundColor: "#FFD54F",
+                            backgroundColor: "#B0BEC5",
                             color: "black",
+                            '&:hover': {
+                                backgroundColor: "#90A4AE",
+                                color: "black",
+                            },
                         },
                         organizationSwitcherDropdown: {
                             backgroundColor: "black",
                         },
                         organizationSwitcherItem: {
-                            backgroundColor: "black"
-                        }
-                    }
+                            backgroundColor: "black",
+                        },
+                    },
                 }}
             />
-            <div className="space-y-1 w-full bg-amber-300 dark:bg-amber-600">
+            <div className="space-y-1 w-full bg-white dark:bg-gray-800">
                 <Button
                     variant={personal ? "ghost" : "secondary"}
                     asChild
                     size="lg"
-                    className="font-normal justify-start px-2 w-full dark:text-amber-200 dark:bg-amber-700"
+                    className="font-normal justify-start px-2 w-full dark:text-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-500 dark:hover:text-whit shadow-xl hover:shadow-2xl"
                 >
                     <Link href="/">
-                        <LayoutDashboard  className="h-4 w-4 mr-2" />
+                        <LayoutDashboard className="h-4 w-4 mr-2" />
                         Team tasks
                     </Link>
                 </Button>
@@ -93,18 +77,19 @@ export const OrgSidebar = ({children}: OrgSidebarProps) => {
                     variant={personal ? "secondary" : "ghost"}
                     asChild
                     size="lg"
-                    className="font-normal justify-start px-2 w-full dark:text-amber-200 dark:bg-amber-700"
+                    className="font-normal justify-start px-2 w-full dark:text-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-500 dark:hover:text-white shadow-xl hover:shadow-2xl"
                 >
-                    <Link href={{
-                        pathname: "/",
-                        query: { personal: true }
-                    }}>
-                        <UserIcon  className="h-4 w-4 mr-2" />
+                    <Link
+                        href={{
+                            pathname: "/",
+                            query: { personal: true },
+                        }}
+                    >
+                        <UserIcon className="h-4 w-4 mr-2" />
                         Personal tasks
                     </Link>
                 </Button>
             </div>
         </div>
-
     );
 };
