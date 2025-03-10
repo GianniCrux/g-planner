@@ -3,7 +3,7 @@ import Image from "next/image"
 
 export const Loading = () => {
     return (
-        <div className="h-full w-full flex flex-col justify-center items-center">
+        <div className="min-h-screen w-full flex flex-col justify-center items-center">
             <Image 
                 src="/plannerLogo.svg"
                 alt="logo"
