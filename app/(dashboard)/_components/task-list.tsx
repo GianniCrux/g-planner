@@ -121,10 +121,10 @@ export const TaskList = ({ orgId, query }: TaskListProps) => {
 
           {!isCalendarView && (
             <Select onValueChange={handleColumnsChange} value={selectedCards}> 
-              <SelectTrigger className="w-32 bg-amber-500 hover:bg-amber-600 border border-gray-300 text-black dark:text-gray-100">
+              <SelectTrigger className="w-32 bg-amber-500 dark:bg-amber-600 border border-gray-300 text-white dark:text-gray-100">
                 <SelectValue placeholder="Select view" />
               </SelectTrigger>
-              <SelectContent className="bg-white dark:bg-gray-700 border border-gray-300 text-white dark:text-gray-100">
+              <SelectContent className="bg-white dark:bg-gray-700 border border-gray-300 text-black dark:text-gray-100">
                 <SelectItem value="1">Single View</SelectItem>
                 <SelectItem value="2">2 Cards</SelectItem>
                 <SelectItem value="3">3 Cards</SelectItem>
@@ -143,8 +143,8 @@ export const TaskList = ({ orgId, query }: TaskListProps) => {
             variant={isCalendarView ? "secondary" : "ghost"}
             className="px-4 py-2 rounded-md bg-amber-500 hover:bg-amber-600 transition-colors"
           >
-            {isCalendarView ? <List className="h-4 w-4" /> : <Calendar className="h-4 w-4" />}
-            <span className="hidden lg:inline text-black dark:text-gray-100">
+            {isCalendarView ? <List className="h-4 w-4" /> : <Calendar className="h-4 w-4 text-white mr-1" />}
+            <span className="hidden lg:inline text-white dark:text-gray-100">
               {isCalendarView ? "Task List View" : "Calendar View"}
             </span>
           </Button>
