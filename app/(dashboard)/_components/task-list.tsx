@@ -21,6 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useProject } from "../contexts/ProjectContext";
 
 interface TaskListProps {
   orgId: string;
@@ -32,6 +33,7 @@ interface TaskListProps {
 }
 
 export const TaskList = ({ orgId, query }: TaskListProps) => {
+  const { selectedProject } = useProject();
   const data = useQuery(api.tasks.get, { orgId });
   const { user } = useUser();
 
@@ -104,6 +106,24 @@ export const TaskList = ({ orgId, query }: TaskListProps) => {
     return <EmptyTask />;
   }
 
+  const filteredTasks = selectedProject
+    ? data.filter((task) => task.projectId === selectedProject)
+    : data.filter((task) => {
+        if (query.personal === "true" && user) {
+          return task.assignedTo === user.id;
+        }
+        if (query.search) {
+          const searchTerm = query.search.toLowerCase();
+          return (
+            task.title.toLowerCase().includes(searchTerm) ||
+            task.description.toLowerCase().includes(searchTerm) ||
+            (task.assignedToName &&
+              task.assignedToName.toLowerCase().includes(searchTerm))
+          );
+        }
+        return true;
+      });
+
   return (
     <div className="flex flex-col">
       <div className="flex justify-between items-center mb-4">
@@ -120,7 +140,7 @@ export const TaskList = ({ orgId, query }: TaskListProps) => {
           </Button>
 
           {!isCalendarView && (
-            <Select onValueChange={handleColumnsChange} value={selectedCards}> 
+            <Select onValueChange={handleColumnsChange} value={selectedCards}>
               <SelectTrigger className="w-32 bg-amber-500 dark:bg-amber-600 border border-gray-300 text-white dark:text-gray-100">
                 <SelectValue placeholder="Select view" />
               </SelectTrigger>
@@ -130,7 +150,7 @@ export const TaskList = ({ orgId, query }: TaskListProps) => {
                 <SelectItem value="3">3 Cards</SelectItem>
                 <SelectItem value="4" className="hidden lg:block">
                   4 Cards
-                </SelectItem> 
+                </SelectItem>
                 <SelectItem value="5" className="hidden lg:block">
                   5 Cards
                 </SelectItem>
@@ -155,36 +175,25 @@ export const TaskList = ({ orgId, query }: TaskListProps) => {
         <CalendarTask tasks={data} />
       ) : (
         <div className={`grid gap-5 mt-8 pb-10 ${getGridClass()}`}>
-          {data
-            ?.filter((task) => {
-              if (query.personal === "true" && user) {
-                return task.assignedTo === user.id;
-              }
-              return query.search
-                ? task.title.toLowerCase().includes(query.search.toLowerCase()) ||
-                  task.description.toLowerCase().includes(query.search.toLowerCase()) ||
-                  task.assignedToName?.toLowerCase().includes(query.search.toLowerCase())
-                : true;
-            })
-            .map((task) => (
-              <TaskCard
-                key={task._id}
-                id={task._id}
-                title={task.title}
-                description={task.description}
-                assignedTo={task.assignedTo}
-                assignedToName={task.assignedToName}
-                createdAt={task._creationTime}
-                orgId={task.orgId}
-                authorName={task.authorName}
-                date={task.date}
-                type={task.type}
-                startTime={task.startTime}
-                endTime={task.endTime}
-                isCompleted={task.isCompleted}
-                priority={task.priority}
-              />
-            ))}
+          {filteredTasks.map((task) => (
+            <TaskCard
+              key={task._id}
+              id={task._id}
+              title={task.title}
+              description={task.description}
+              assignedTo={task.assignedTo}
+              assignedToName={task.assignedToName}
+              createdAt={task._creationTime}
+              orgId={task.orgId}
+              authorName={task.authorName}
+              date={task.date}
+              type={task.type}
+              startTime={task.startTime}
+              endTime={task.endTime}
+              isCompleted={task.isCompleted}
+              priority={task.priority}
+            />
+          ))}
         </div>
       )}
 
