@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { UserButton, useOrganization } from "@clerk/nextjs";
 import { SearchInput } from "./search-input";
 import { InviteButton } from "./invite-button";
@@ -10,6 +11,8 @@ import { Poppins } from "next/font/google";
 import DarkModeToggle from "./dark-mode-toggle";
 import AddressBook from "./address-book";
 
+
+
 const font = Poppins({
   subsets: ["latin"],
   weight: ["600"],
@@ -17,6 +20,7 @@ const font = Poppins({
 
 export const Navbar = () => {
   const { organization } = useOrganization();
+
 
   return (
     <div className="flex items-center gap-x-4 p-5 relative bg-white dark:bg-gray-900 shadow-md">
@@ -33,14 +37,17 @@ export const Navbar = () => {
           </span>
         </div>
       </Link>
+
       <div className="lg:flex-1">
         <SearchInput />
       </div>
+
       {organization && (
-        <div className="hidden sm:block">
+        <div className="flex items-center gap-x-4">
           <InviteButton />
         </div>
       )}
+
       <AddressBook />
       <DarkModeToggle />
       <UserButton />
