@@ -2,10 +2,17 @@ import { v } from "convex/values";
 import { defineSchema, defineTable } from "convex/server";
 
 export default defineSchema({
+      projects: defineTable({
+        orgId: v.string(),
+        name: v.string(),
+        description: v.optional(v.string()),
+        createdAt: v.string(),
+      }).index("by_org", ["orgId"]),
     tasks: defineTable({
         title: v.string(),
         description: v.string(),
         orgId: v.string(),
+        projectId: v.optional(v.string()),
         assignedTo: v.optional(v.string()),
         assignedToName: v.optional(v.string()),
         authorId: v.string(),
