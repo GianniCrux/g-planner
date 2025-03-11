@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Calendar, CalendarDaysIcon, CalendarFold } from "lucide-react";
@@ -8,6 +9,9 @@ import { Dialog, DialogClose, DialogContent, DialogFooter } from "@/components/u
 import { TaskCard, TaskCardProps } from "./task-card";
 import { Hint } from "@/components/hint";
 import { cn } from "@/lib/utils";
+import { Checkbox } from "@/components/ui/checkbox";
+import { useProject } from "../contexts/ProjectContext";
+
 
 const localizer = momentLocalizer(moment);
 
@@ -30,40 +34,50 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
   const [tasksForSelectedDate, setTasksForSelectedDate] = useState<CalendarEvent[]>([]);
   const [currentView, setCurrentView] = useState<"month" | "week" | "day" | "work_week" | "agenda">("month");
   const [currentMonth, setCurrentMonth] = useState(moment());
+  const [showAllProjects, setShowAllProjects] = useState(false);
+
+  
+  const { selectedProject } = useProject();
 
   useEffect(() => {
-    const calendarEvents: CalendarEvent[] = tasks
-      .filter((task) => !task.isCompleted)
-      .map((task) => {
-        const baseDate = new Date(task.date);
-        let startDate, endDate;
 
-        if (task.startTime && task.endTime) {
-          const [startHour, startMinute] = task.startTime.split(":").map(Number);
-          const [endHour, endMinute] = task.endTime.split(":").map(Number);
+    const filteredTasks = (!showAllProjects && selectedProject)
+      ? tasks.filter((task) => task.projectId === selectedProject && !task.isCompleted)
+      : tasks.filter((task) => !task.isCompleted);
 
-          baseDate.setHours(startHour, startMinute, 0);
-          startDate = new Date(baseDate);
+    const calendarEvents: CalendarEvent[] = filteredTasks.map((task) => {
+      const baseDate = new Date(task.date);
+      let startDate, endDate;
 
-          baseDate.setHours(endHour, endMinute, 0);
-          endDate = new Date(baseDate);
-        } else {
-          // If no start/end time, treat as all-day
-          startDate = new Date(task.date);
-          endDate = new Date(task.date);
-        }
+      if (task.startTime && task.endTime) {
+        const [startHour, startMinute] = task.startTime.split(":").map(Number);
+        const [endHour, endMinute] = task.endTime.split(":").map(Number);
 
-        return {
-          ...task,
-          start: startDate,
-          end: endDate,
-          startTime: task.startTime,
-          endTime: task.endTime,
-        };
-      });
+
+        const startD = new Date(baseDate);
+        startD.setHours(startHour, startMinute, 0);
+        startDate = startD;
+
+        const endD = new Date(baseDate);
+        endD.setHours(endHour, endMinute, 0);
+        endDate = endD;
+      } else {
+
+        startDate = new Date(task.date);
+        endDate = new Date(task.date);
+      }
+
+      return {
+        ...task,
+        start: startDate,
+        end: endDate,
+        startTime: task.startTime,
+        endTime: task.endTime,
+      };
+    });
 
     setEvents(calendarEvents);
-  }, [tasks]);
+  }, [tasks, showAllProjects, selectedProject]);
 
   const handleSelectSlot = ({ start }: { start: Date; end: Date }) => {
     setSelectedDate(start);
@@ -89,23 +103,33 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
     });
   };
 
-
   const getPriorityColor = (priority?: string) => {
     switch (priority) {
       case "high":
-        return "#f87171"; 
+        return "#f87171";
       case "medium":
-        return "#fbbf24"; 
+        return "#fbbf24";
       case "low":
         return "#34d399";
       default:
-        return "#e5e7eb"; 
+        return "#e5e7eb";
     }
   };
 
   return (
     <div className="relative p-4 md:p-8 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 shadow-lg rounded-md">
-     
+      <div className="flex items-center mb-4">
+        <Checkbox
+          id="showAllProjects"
+          checked={showAllProjects}
+          onCheckedChange={(checked) => setShowAllProjects(checked as boolean)}
+          className="mr-2"
+        />
+        <label htmlFor="showAllProjects" className="text-sm">
+          Show tasks from any project
+        </label>
+      </div>
+      
       <div className="flex items-center justify-between mb-4">
         <span>
           <Button
@@ -153,18 +177,15 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
         startAccessor="start"
         endAccessor="end"
         style={{ height: "70vh", width: "100%" }}
-        eventPropGetter={(event) => {
-          return {
-            style: {
-              backgroundColor: getPriorityColor(event.priority),
-              color: "#1f2937", 
-              fontSize: "12px",
-            },
-          };
-        }}
+        eventPropGetter={(event) => ({
+          style: {
+            backgroundColor: getPriorityColor(event.priority),
+            color: "#1f2937",
+            fontSize: "12px",
+          },
+        })}
         view={currentView}
         components={{
-
           toolbar: ({ label, onNavigate }) => (
             <div className="rbc-toolbar flex justify-between items-center mb-2">
               <span className="rbc-toolbar-label text-base font-semibold">
@@ -208,7 +229,6 @@ export const CalendarTask = ({ tasks }: CalendarTaskProps) => {
         }}
       />
 
-     
       <div className="my-6 border-t border-gray-200 dark:border-gray-700" />
 
       {showDialog && selectedDate && (
