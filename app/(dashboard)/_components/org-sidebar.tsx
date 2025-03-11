@@ -8,11 +8,13 @@ import { useSearchParams } from "next/navigation";
 
 import { Poppins } from "next/font/google";
 import { cn } from "@/lib/utils";
-import { OrganizationSwitcher } from "@clerk/clerk-react";
+import { OrganizationSwitcher, useOrganization } from "@clerk/clerk-react";
 import { Button } from "@/components/ui/button";
 import { LayoutDashboard } from "lucide-react";
 import { CalendarTask } from "./calendar-task";
-import React from "react";
+import React, { useState } from "react";
+import ProjectSwitcher from "./project-switcher";
+
 
 const font = Poppins({
     subsets: ["latin"],
@@ -26,6 +28,9 @@ export interface OrgSidebarProps {
 export const OrgSidebar = ({ children }: OrgSidebarProps) => {
     const searchParams = useSearchParams();
     const personal = searchParams.get("personal");
+    const { organization } = useOrganization();
+    const [selectedProject, setSelectedProject] = useState<string | null>(null);
+  
 
     return (
         <div className="flex-col w-[206px] pt-2 bg-white dark:bg-gray-800">
@@ -90,6 +95,18 @@ export const OrgSidebar = ({ children }: OrgSidebarProps) => {
                     </Link>
                 </Button>
             </div>
+            {organization && (
+        <div className="items-center gap-x-4">
+
+          <ProjectSwitcher
+            orgId={organization.id}
+            isCollapsed={false}
+          />
+
+
+        </div>
+      )}
+
         </div>
     );
 };
