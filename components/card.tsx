@@ -27,6 +27,7 @@ import { useOrganization } from "@clerk/clerk-react";
 import { toast } from "sonner";
 import { OrganizationMembershipResource } from "@clerk/types";
 import { Book, ArrowLeft, ArrowRight, Check } from "lucide-react";
+import { useProject } from "@/app/(dashboard)/contexts/ProjectContext";
 
 interface Task {
   _id: string;
@@ -56,6 +57,7 @@ export const CardCreator = ({ onClose }: CardCreatorProps) => {
   const { organization } = useOrganization();
   const [memberships, setMemberships] = useState<OrganizationMembershipResource[]>([]);
   const { mutate } = useApiMutation(api.task.create);
+  const { selectedProject } = useProject();
   const customers = useQuery(api.customer.get, { orgId: organization?.id ?? "" });
   const [currentStep, setCurrentStep] = useState(1);
   const [direction, setDirection] = useState<"left" | "right">("right");
@@ -161,6 +163,7 @@ export const CardCreator = ({ onClose }: CardCreatorProps) => {
       endTime: formData.endTime,
       priority: formData.priority,
       customerId: selectedCustomer?._id,
+      projectId: selectedProject,
     })
       .then(() => {
         toast.success("Task created");
