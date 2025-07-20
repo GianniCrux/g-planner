@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { ConvexClientProvider } from "@/providers/convex-client-provider";
 import { Suspense } from "react";
 import { Loading } from "@/components/auth/loading";
+import { Analytics } from "@vercel/analytics/next"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,6 +30,7 @@ export default function RootLayout({
           <ConvexClientProvider>
             <Toaster richColors />
             {children}
+            <Analytics />
           </ConvexClientProvider>
         </Suspense>
       </body>
